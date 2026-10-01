@@ -5,6 +5,27 @@
 \usepackage{notes}
 \usepackage{shortcuts}
 
+%----------------------------------------------------------------------------------------
+% Packages and definitions required by the integrated papers (Chapters 3--5)
+%----------------------------------------------------------------------------------------
+\usepackage{amssymb}    % Papers 2, 4 (symbols)
+\usepackage{array}      % Paper 3 supplementary tables (>{\raggedright}p{..} columns)
+\usepackage{multirow}   % Papers 2, 3, 6 (multi-row table cells)
+\usepackage{booktabs}   % Papers 3, 6 (\toprule, \midrule, \bottomrule)
+\usepackage{longtable}  % Paper 1, Table 1 (99 rows over several pages)
+\usepackage{pdflscape}  % Paper 1, Table 1 (landscape pages)
+\usepackage{subcaption} % Paper 6 (subfigure environment)
+\usepackage{placeins}   % \FloatBarrier at the end of each paper (keeps floats within their paper)
+\usepackage{caption}    % consistent table caption styling
+\captionsetup[table]{font=small,labelfont=bf,skip=6pt}
+% Paper 6 uses the column types and table width of the Elsevier cas-common.sty (definitions copied from it)
+\newcolumntype{L}{@{\extracolsep{\fill}}l}
+\newcolumntype{C}{@{\extracolsep{\fill}}c}
+\newlength{\tblwidth}\AtBeginDocument{\setlength{\tblwidth}{\textwidth}}
+% The papers' own sections become \subsection within each chapter; number one more level so that the
+% papers' internal cross-references (e.g. "Section~\ref{...}") resolve to a numbered unit.
+\setcounter{secnumdepth}{3}
+
 \mainlinespacing{1.241} % line spacing in mainmatter, comment to default (1)
 
 \begin{document}
@@ -37,6 +58,12 @@ Optional. Max 1 page.
 \include{chapters/chapter1}
 
 \include{chapters/chapter2}
+
+\include{chapters/chapter3}
+
+\include{chapters/chapter4}
+
+\include{chapters/chapter5}
 
 
 %----------------------------------------------------------------------------------------
