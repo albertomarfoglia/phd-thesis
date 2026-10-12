@@ -4,23 +4,16 @@
 % abstract, graphical abstract, highlights and keyword environments; body converted mechanically, see the
 % integration report).
 % ============================================================================
-\section{Towards Real-World Clinical Data Standardization: A Modular FHIR-driven Transformation Pipeline to Enhance Semantic Interoperability in Healthcare}
-\label{sec:paper2}
+\papersection{Towards Real-World Clinical Data Standardization: A Modular FHIR-driven Transformation Pipeline to Enhance Semantic Interoperability in Healthcare}{sec:paper2}
 
 \noindent This section contains the article~\cite{marfoglia_towards_2025}.
 
-\paragraph{Authors.}
-Alberto Marfoglia\textsuperscript{a}, Filippo Nardini\textsuperscript{b}, Valerio Antonio Arcobelli\textsuperscript{c}, Serena Moscato\textsuperscript{c}, Sabato Mellone\textsuperscript{c}, Antonella Carbonaro\textsuperscript{a,*}
+\begin{paperheader}
+\textbf{Authors:} Alberto Marfoglia, Filippo Nardini, Valerio Antonio Arcobelli, Serena Moscato, Sabato Mellone, Antonella Carbonaro.\par
+Computers in Biology and Medicine 187 (2025), article 109745. DOI: \url{https://doi.org/10.1016/j.compbiomed.2025.109745}.
+\end{paperheader}
 
-{\raggedright
-\noindent\textsuperscript{a}Dept. of Computer Science and Engineering -- DISI, University of Bologna, Via dell'Universit\`a 50, 47521 Cesena, Italy\\
-\textsuperscript{b}Dept. of Electrical, Electronic and Information Engineering ``Guglielmo Marconi'' -- DEI, University of Bologna, Viale del Risorgimento 2, 40136 Bologna, Italy\\
-\textsuperscript{c}Dept. of Industrial Engineering -- DIN, University of Bologna, Viale del Risorgimento 2, 40136 Bologna, Italy\\
-\textsuperscript{*}Corresponding author. E-mail address: antonella.carbonaro@unibo.it (A. Carbonaro).\\
-Computers in Biology and Medicine 187 (2025) 109745. Available online 3 February 2025. 0010-4825/\textcopyright{} 2025 The Authors. Published by Elsevier Ltd. This is an open access article under the CC BY license (\url{http://creativecommons.org/licenses/by/4.0/}).
-\par}
-
-\subsection*{Abstract}
+\begin{paperabstract}
 
 \textbf{Background}: Given the exponential increase in clinical data, which accounts for around 30\% of global data volume, effective information management has become crucial to ensuring robust interoperability. This trend is further expedited by implementing consumer-oriented Internet of Things platforms, contributing to the growth of the \$8.3 trillion healthcare industry. These advancements, combined with challenges such as heterogeneous data formats and a lack of incentives, necessitate the development of pragmatic infrastructures and tools that harness contemporary clinical standards like Fast Healthcare Interoperability Resources (FHIR).
 \newline
@@ -30,6 +23,7 @@ Computers in Biology and Medicine 187 (2025) 109745. Available online 3 February
 The successful conversion states the pipeline's effectiveness, additionally showcasing its capabilities for enhancing semantic interoperability and facilitating the reuse of real-world data.
 \newline
 \textbf{Conclusion}: Our approach emerges as a modular data conversion framework that addresses the limitations of existing solutions, making significant contributions to the creation of standardized, interoperable, and high-quality clinical datasets that serve as a foundation for further work.
+\end{paperabstract}
 
 \subsection*{Graphical abstract}
 
@@ -73,17 +67,17 @@ The successful conversion states the pipeline's effectiveness, additionally show
 % \label{tab:statement-of-significance}
 % \end{table}
 
-\begin{table}[ht]
+\begin{table}[htbp]
 \centering
 \resizebox{\textwidth}{!}{ % Adjusts table to fit page width
-\begin{tabular}{|l|p{0.9\textwidth}|} % Adjusted column widths for proper wrapping
-\hline
+\begin{tabular}{lp{0.9\textwidth}} % Adjusted column widths for proper wrapping
+\toprule
 \textbf{Problem or Issue} & Heterogeneous and proprietary clinical data formats hinder interoperability, complicating data reuse and undermining data semantics. \\
-\hline
+\midrule
 \textbf{What is Already Known} & Existing solutions provide conversion pipelines but lack comprehensive, portable, and reusable mapping strategies \\
-\hline
+\midrule
 \textbf{What this Paper Adds} & Presents a modular conversion pipeline utilizing templating and the FHIR Mapping Language, enhancing interoperability by providing a standardized approach for translating clinical data into the FHIR model. Addresses limitations of existing solutions, facilitating semantic preservation, platform independence, and code reusability. \\
-\hline
+\bottomrule
 \end{tabular}
 }
 \caption{Statement of significance}
@@ -140,32 +134,32 @@ In Section \ref{sec:paper2_results}, we present the results of the data conversi
 Section \ref{sec:paper2_discussion} discusses the implications of our findings and potential avenues for future research. It also explores directions for further investigation.
 Finally, Section \ref{sec:paper2_conclusion} summarizes the key contributions and provides concluding remarks.
 
-
-\begin{table}[p]
+\begin{table}[htbp]
     \centering
-    \resizebox{\textwidth}{!}{ % Adjusts table to fit page width
-    \begin{tabular}{|c|p{4cm}|p{4.5cm}|p{4.5cm}|} % Adjust column widths as needed
-        \hline
-        \textbf{Ref.} & \textbf{Goal} & \textbf{Challenges} & \textbf{Our Approach} \\
-        \hline
-        \cite{bennett2023mimic} & Convert the MIMIC-IV database into the FHIR data model for a real-world FHIR store & Lack of data sanitization, Internal mapping logic & Elimination of internal mapping logic, standardized and shareable mapping process \\
-        \hline
-        \cite{montazeri2023developing} & Develop a minimum Data Set for CPOE in the cardiovascular field, integrated with the EHR system & No digital tools for mapping, Individual manual verification required for each resource & Modular, automated mapping system eliminating manual verification \\
-        \hline
-        \cite{sinaci2023data} & Enable the FAIR-ification of health data using user-friendly GUIs & Dependence on internal mapping language, Enforcing of FHIR Profiles & Language-agnostic, templated approach for defining mappings \\
-        \hline
-        \cite{williams2023standardized} & Develop an FHIR-based data harmonization pipeline for AI-friendly clinical data representation & Mapping process dependent on Python and explicit source database attributes, limiting code reuse & Portable, reusable framework using standardized mapping language \\
-        \hline
-        \cite{ladas2022openehr} & Convert COVID-19-related patient data (GECCO) from the openEHR model to FHIR profiles & Implementation based on Java classes and regular expressions, limiting reusability & Reusable, standardized mapping language avoiding reliance on specific implementations \\
-        \hline
-        \cite{soares2023omop} & Transform EHR data stored in OMOP CDM into FHIR resources & Dependence on the OMOP CDM as the input model, limiting adoption & Flexible framework supporting multiple input models for broader applicability \\
-        \hline
-        \cite{simon2024metadata} & Automate the conversion of clinical data into standardized formats using an MDR & Reliance on custom scripts, requiring additional effort for generalization and maintenance & Standardized mapping language minimizing reliance on custom scripts \\
-        \hline
-    \end{tabular}
-    }
+    \footnotesize
+    \setlength{\tabcolsep}{3pt}
+    \renewcommand{\arraystretch}{1.05}
     \caption{Summary of Related Work: The table outlines the goals and challenges of prior works in the field, highlighting their limitations and how our approach overcomes these gaps to offer novel contributions.}
     \label{tab:paper2_summary}
+    \begin{tabularx}{\textwidth}{>{\centering\arraybackslash}p{0.15\textwidth} >{\raggedright\arraybackslash}p{0.25\textwidth} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+        \toprule
+        \textbf{Ref.} & \textbf{Goal} & \textbf{Challenges} & \textbf{Our Approach} \\
+        \midrule
+        \cite{bennett2023mimic} & Convert the MIMIC-IV database into the FHIR data model for a real-world FHIR store & Lack of data sanitization, Internal mapping logic & Elimination of internal mapping logic, standardized and shareable mapping process \\
+        \midrule
+        \cite{montazeri2023developing} & Develop a minimum Data Set for CPOE in the cardiovascular field, integrated with the EHR system & No digital tools for mapping, Individual manual verification required for each resource & Modular, automated mapping system eliminating manual verification \\
+        \midrule
+        \cite{sinaci2023data} & Enable the FAIR-ification of health data using user-friendly GUIs & Dependence on internal mapping language, Enforcing of FHIR Profiles & Language-agnostic, templated approach for defining mappings \\
+        \midrule
+        \cite{williams2023standardized} & Develop an FHIR-based data harmonization pipeline for AI-friendly clinical data representation & Mapping process dependent on Python and explicit source database attributes, limiting code reuse & Portable, reusable framework using standardized mapping language \\
+        \midrule
+        \cite{ladas2022openehr} & Convert COVID-19-related patient data (GECCO) from the openEHR model to FHIR profiles & Implementation based on Java classes and regular expressions, limiting reusability & Reusable, standardized mapping language avoiding reliance on specific implementations \\
+        \midrule
+        \cite{soares2023omop} & Transform EHR data stored in OMOP CDM into FHIR resources & Dependence on the OMOP CDM as the input model, limiting adoption & Flexible framework supporting multiple input models for broader applicability \\
+        \midrule
+        \cite{simon2024metadata} & Automate the conversion of clinical data into standardized formats using an MDR & Reliance on custom scripts, requiring additional effort for generalization and maintenance & Standardized mapping language minimizing reliance on custom scripts \\
+        \bottomrule
+    \end{tabularx}
 \end{table}
 
 
@@ -315,40 +309,43 @@ To ensure high data quality in the resulting dataset, we adopted the Kahn framew
 The framework distinguishes between two evaluation contexts: verification, which assesses how well the data aligns with local knowledge and expectations, and validation, which uses external knowledge and benchmarks to evaluate quality. Our study focuses on the verification context, using the precise definitions of data quality of the Kahn framework in all categories to evaluate how effectively our methodology addresses these standards.
 
 
-\begin{table*}[ht]
+\begin{table}[htbp]
+\centering
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{|l|l|l|}
-\hline
-\textbf{Query} & \textbf{MOTU Table(s)} & \textbf{FHIR Resources} \\\hline
-Q1: How many patients who came for an initial supply return for a second hospitalization? & HospitalStay & Encounter \\\hline
-Q2: How many patients transition from the initial supply of a mechanical knee to a second supply of an electronic knee? & Knee & \begin{tabular}[c]{@{}l@{}}Patient \\ DeviceRequest \\ DeviceDefinition\end{tabular} \\\hline
-\begin{tabular}[c]{@{}l@{}}Q3: How many patients use anxiolytics/antidepressants (ATC Code: N06A and N05A) related to the risk of falls?\end{tabular} & Drug & \begin{tabular}[c]{@{}l@{}}Patient \\ Medication \\ MedicationRequest\end{tabular} \\\hline
-Q4: Hospital stays from patients over 65 years old? & \begin{tabular}[c]{@{}l@{}}Knee \\ Patient\end{tabular} & \begin{tabular}[c]{@{}l@{}}Patient \\ DeviceRequest\end{tabular} \\\hline
-Q5: How many falls per type of prosthesis (AMK, FK, etc.) & \begin{tabular}[c]{@{}l@{}}HospitalStay \\ Fall \\ Knee\end{tabular} & \begin{tabular}[c]{@{}l@{}}DeviceDefinition \\ DeviceRequest \\ Encounter \\ AdverseEvent\\\end{tabular}\\\hline
+\begin{tabular}{lll}
+\toprule
+\textbf{Query} & \textbf{MOTU Table(s)} & \textbf{FHIR Resources} \\\midrule
+Q1: How many patients who came for an initial supply return for a second hospitalization? & HospitalStay & Encounter \\\midrule
+Q2: How many patients transition from the initial supply of a mechanical knee to a second supply of an electronic knee? & Knee & \begin{tabular}[c]{@{}l@{}}Patient \\ DeviceRequest \\ DeviceDefinition\end{tabular} \\\midrule
+\begin{tabular}[c]{@{}l@{}}Q3: How many patients use anxiolytics/antidepressants (ATC Code: N06A and N05A) related to the risk of falls?\end{tabular} & Drug & \begin{tabular}[c]{@{}l@{}}Patient \\ Medication \\ MedicationRequest\end{tabular} \\\midrule
+Q4: Hospital stays from patients over 65 years old? & \begin{tabular}[c]{@{}l@{}}Knee \\ Patient\end{tabular} & \begin{tabular}[c]{@{}l@{}}Patient \\ DeviceRequest\end{tabular} \\\midrule
+Q5: How many falls per type of prosthesis (AMK, FK, etc.) & \begin{tabular}[c]{@{}l@{}}HospitalStay \\ Fall \\ Knee\end{tabular} & \begin{tabular}[c]{@{}l@{}}DeviceDefinition \\ DeviceRequest \\ Encounter \\ AdverseEvent\\\end{tabular}\\\bottomrule
 \end{tabular}%
 }
 \caption{Demonstration queries used to validate the mapping results. It shows the MOTU tables and the corresponding FHIR resources involved in each query.}
 \label{tab:paper2_validation-queries}
-\end{table*}
+\end{table}
 
-\begin{table*}[ht]
+\begin{table}[htbp]
+\centering
+\renewcommand{\arraystretch}{2.2}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{|l|p{5cm}|p{9cm}|} % Adjust column widths
-\hline
+\begin{tabular}{lp{5cm}p{9cm}} % Adjust column widths
+\toprule
 
-\multicolumn{1}{|c|}{\textbf{DQA}} & \multicolumn{1}{c|}{\textbf{Description}}                           & \multicolumn{1}{c|}{\textbf{Implementation}}                                                                                                                                                                                                                                                  \\ \hline
-Value Conformance                  & Data values conform to allowed formats and values                   & \multirow{3}{=}{Adopting an FHIR Server with strict validation features ensures that data values conform to the correct formats, relational constraints are respected, and required values are always present, thus guaranteeing completeness and data integrity.}                             \\ \cline{1-2}
-Relational Conformance             & Data values conform to relational constraints and no duplicate keys &                                                                                                                                                                                                                                                                                               \\ \cline{1-2}
-Completeness                       & Absence of data under a predefined threshold                        &                                                                                                                                                                                                                                                                                               \\ \hline
-Computational Conformance          & Computed values conform to programming specification                & Computed values, like the number of medications, are not stored, as they can be derived dynamically using FHIRPath queries.                                                                                                                                                                   \\ \hline
-Uniqueness Plausibility            & There aren’t two or more resources that identify the same subject   & By adopting FHIR transactions for incremental updates, the risk of creating duplicate resources for the same patient is eliminated.                                                                                                                                                           \\ \hline
-Atemporal Plausibility             & Data measures are coherent to a local knowledge                     & \multirow{2}{=}{During the pre-processing phase, Python scripts with custom rules are used to validate input data, ensuring that data adheres to expected properties and is consistent with local knowledge.} \\ \cline{1-2}
-Temporal Plausibility              & Data measures are coherent with expected temporal properties        &                                                                                                                \\ \hline
+\multicolumn{1}{c}{\textbf{DQA}} & \multicolumn{1}{c}{\textbf{Description}}                           & \multicolumn{1}{c}{\textbf{Implementation}}                                                                                                                                                                                                                                                  \\ \midrule
+Value Conformance                  & Data values conform to allowed formats and values                   & \multirow{3}{=}{Adopting an FHIR Server with strict validation features ensures that data values conform to the correct formats, relational constraints are respected, and required values are always present, thus guaranteeing completeness and data integrity.}                             \\ \cmidrule(lr){1-2}
+Relational Conformance             & Data values conform to relational constraints and no duplicate keys &                                                                                                                                                                                                                                                                                               \\ \cmidrule(lr){1-2}
+Completeness                       & Absence of data under a predefined threshold                        &                                                                                                                                                                                                                                                                                               \\ \midrule
+Computational Conformance          & Computed values conform to programming specification                & Computed values, like the number of medications, are not stored, as they can be derived dynamically using FHIRPath queries.                                                                                                                                                                   \\ \midrule
+Uniqueness Plausibility            & There aren’t two or more resources that identify the same subject   & By adopting FHIR transactions for incremental updates, the risk of creating duplicate resources for the same patient is eliminated.                                                                                                                                                           \\ \midrule
+Atemporal Plausibility             & Data measures are coherent to a local knowledge                     & \multirow{2}{=}{During the pre-processing phase, Python scripts with custom rules are used to validate input data, ensuring that data adheres to expected properties and is consistent with local knowledge.} \\ \cmidrule(lr){1-2}
+Temporal Plausibility              & Data measures are coherent with expected temporal properties        &                                                                                                                \\ \bottomrule
 \end{tabular}%
 }
 \caption{Implementation strategies for the Kahn framework data quality assessments (DQA).}
 \label{tab:paper2_kahn-indicators}
-\end{table*}
+\end{table}
 
 % \begin{table}[ht]
 % \begin{tabular}{|l|p{3cm}|p{6cm}|}
@@ -377,7 +374,7 @@ The implemented pipeline successfully converted the MOTU dataset into FHIR-compl
 
 \begin{itemize}
     \item \textbf{Configuration Setup (Step 0)}: Upon deployment, the pipeline was configured by uploading Structure Definitions and Structure Maps obtained in collaboration with MOTU dataset experts~\cite{arcobelli_motu_2023}. 
-    \item \textbf{Data Preprocessing (Step 1)}: Raw data from the MOTU dataset~\cite{arcobelli_motu_2024} underwent a thorough preprocessing step by using data sanitization services. This step ensured data quality, consistency, and compatibility with subsequent pipeline stages. 
+    \item \textbf{Data Preprocessing (Step 1)}:\\ Raw data from the MOTU dataset~\cite{arcobelli_motu_2024} underwent a thorough preprocessing step by using data sanitization services. This step ensured data quality, consistency, and compatibility with subsequent pipeline stages. 
     \item \textbf{Data Transformation (Step 2)}: The CSV data was transformed into JSON objects to streamline processing by Matchbox. This step included renaming, typing, and filtering source data fields. 
     \item \textbf{Mapping (Step 3)}: Matchbox transformed each JSON object into an FHIR Transaction. Moreover, Matchbox performed a syntactic validation to ensure the correctness of input and output data schemas. 
     \item \textbf{Bundles Upload (Step 4)}: Generated Bundles were dispatched individually to the HAPI FHIR server to validate and store the enclosed resources. Placeholder IDs, temporary and randomly generated UUIDs, were used to link resources within the Bundle, facilitating the determination of corresponding concepts and preventing duplications. 
@@ -401,60 +398,32 @@ The experiment was conducted on a system with an Intel Core i9-14900KF processor
 
 \subsubsection{Implemented Mappings}
 
-% \begin{table*}[t]
-% \resizebox{\textwidth}{!}{%
-% \begin{tabular}{|l|l|c|l|}
-% \hline
-% \textbf{MOTU} & \textbf{FHIR} & \textbf{Total resources} & \textbf{Usage} \\
-% \hline
-%  & Encounter & 1960 & Models the Information about the hospitalization of a patient \\
-% \hline{1-3}
-%  & QuestionnaireResponse & 23520 & Models the responses to standard questionnaires (Barthel, Morse, etc.) \\
-%  & Account & 1960 &  \\
-%  & Coverage & 1960 & \multirow{-2}{*}{Outline the entity in charge of payment} \\
-%  & Observation & 11697 & Describes the measurements and the analysis results performed during the hospitalization \\
-%  & Procedure & 1960 & Defines an intervention of amputation (body part, cause, date) \\
-%  & Condition & 181 & Models any patient’s disorders, such as diabetes. \\
-%  & DeviceRequest & 1835 & Model a request for knee prosthesis \\
-%  & Careplan & 1960 &  \\
-% \multirow{-10}{*}{HospitalStay} & Goal & 1960 & \multirow{-2}{*}{Describe the rehabilitation and the achieved goals} \\
-% Knee & DeviceDefinition & 40 & Defines the properties of a certain model of knee prosthesis \\
-%  & Medication & 370 &  \\
-% \multirow{-2}{*}{Drug} & MedicationStatement & 3032 & \multirow{-2}{*}{Describe a drug and its prescriptions} \\
-%  & AdverseEvent & 147 & Models a fall event associated with the hospitalization. \\
-% \multirow{-2}{*}{Fall} & DocumentReference & 147 & Captures all the textual notes linked to the fall event \\
-% Patient & Patient & 1005 & Models the patient's details \\\hline
-% \end{tabular}%
-% }
-% \caption{Shows high-level mappings between MOTU tables and FHIR resources. These mappings establish a central reference point - Encounter, DeviceDefinition, Medication, AdverseEvent, and Patient - since it is referenced by all other resources derived from the same MOTU table's mapping process. }
-% \label{tab:motu-references}
-% \end{table*}
-
-\begin{table*}[ht]
+\begin{table}[htbp]
+\centering
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{|l|l|c|l|}
-\hline
-\textbf{MOTU} & \multicolumn{1}{c|}{\textbf{FHIR}} & \multicolumn{1}{c|}{\textbf{Total resources}} & \multicolumn{1}{c|}{\textbf{Usage}} \\ \hline
-\multirow{10}{*}{HospitalStay} & Encounter & 1962 & Models the Information about the hospitalization of a patient \\ \cline{2-4} 
- & QuestionnaireResponse & 23544 & Models the responses to standard questionnaires (Barthel, Morse, etc.) \\ \cline{2-4} 
- & Account & 1962 & \multirow{2}{*}{Outline the entity in charge of payment} \\ \cline{2-3}
- & Coverage & 1962 &  \\ \cline{2-4} 
- & Observation & 11709 & Describes the measurements and the analysis results performed during the hospitalization \\ \cline{2-4} 
- & Procedure & 1962 & Defines an intervention of amputation (body part, cause, date) \\ \cline{2-4} 
- & Condition & 181 & Models any patient’s disorders, such as diabetes. \\ \cline{2-4} 
- & DeviceRequest & 1835 & Model a request for knee prosthesis \\ \cline{2-4} 
- & Careplan & 1962 & \multirow{2}{*}{Describe the rehabilitation and the achieved goals} \\ \cline{2-3}
- & Goal & 1962 &  \\ \hline
-Knee & DeviceDefinition & 40 & Defines the properties of a certain model of knee prosthesis \\ \hline
-\multirow{2}{*}{Drug} & Medication & 370 & \multirow{2}{*}{Describe a drug and its prescriptions} \\ \cline{2-3}
- & MedicationStatement & 3032 &  \\ \hline
-Fall & AdverseEvent & 146 & Models a fall event associated with the hospitalization. \\ \hline
-Patient & Patient & 1006 & Models the patient’s details \\ \hline
+\begin{tabular}{llcl}
+\toprule
+\textbf{MOTU} & \multicolumn{1}{c}{\textbf{FHIR}} & \multicolumn{1}{c}{\textbf{Total resources}} & \multicolumn{1}{c}{\textbf{Usage}} \\ \midrule
+\multirow{10}{*}{HospitalStay} & Encounter & 1962 & Models the Information about the hospitalization of a patient \\ \cmidrule(lr){2-4} 
+ & QuestionnaireResponse & 23544 & Models the responses to standard questionnaires (Barthel, Morse, etc.) \\ \cmidrule(lr){2-4} 
+ & Account & 1962 & \multirow{2}{*}{Outline the entity in charge of payment} \\ \cmidrule(lr){2-3}
+ & Coverage & 1962 &  \\ \cmidrule(lr){2-4} 
+ & Observation & 11709 & Describes the measurements and the analysis results performed during the hospitalization \\ \cmidrule(lr){2-4} 
+ & Procedure & 1962 & Defines an intervention of amputation (body part, cause, date) \\ \cmidrule(lr){2-4} 
+ & Condition & 181 & Models any patient’s disorders, such as diabetes. \\ \cmidrule(lr){2-4} 
+ & DeviceRequest & 1835 & Model a request for knee prosthesis \\ \cmidrule(lr){2-4} 
+ & Careplan & 1962 & \multirow{2}{*}{Describe the rehabilitation and the achieved goals} \\ \cmidrule(lr){2-3}
+ & Goal & 1962 &  \\ \midrule
+Knee & DeviceDefinition & 40 & Defines the properties of a certain model of knee prosthesis \\ \midrule
+\multirow{2}{*}{Drug} & Medication & 370 & \multirow{2}{*}{Describe a drug and its prescriptions} \\ \cmidrule(lr){2-3}
+ & MedicationStatement & 3032 &  \\ \midrule
+Fall & AdverseEvent & 146 & Models a fall event associated with the hospitalization. \\ \midrule
+Patient & Patient & 1006 & Models the patient’s details \\ \bottomrule
 \end{tabular}%
 }
 \caption{Shows high-level mappings between MOTU tables and FHIR resources. These mappings establish a central reference point - Encounter, DeviceDefinition, Medication, AdverseEvent, and Patient - since it is referenced by all other resources derived from the same MOTU table’s mapping process.}
 \label{tab:paper2_motu-references}
-\end{table*}
+\end{table}
 
 % CHANGED: 
 % The pipeline conversion process involves 157 fields of MOTU tables, covered by 15 distinct types of FHIR resources (Table \ref{tab:motu-references}).
@@ -485,15 +454,16 @@ Subsequently, utilizing queries provided by domain experts (Table \ref{tab:paper
 % Forse lo metterei in methodologies se diciamo che non sono verifiche, ma piu garanzie date dalla metodologia di lavoro
 
 
-\begin{table}[ht]
-\begin{tabular}{|l|l|c|c|}
-\hline
-\textbf{MOTU Table} & \textbf{FHIR Resource} & \textbf{No. MOTU} & \textbf{No. FHIR} \\ \hline
-HospitalStay & Encounter & 1962 & 1962 \\ \hline
-Knee & DeviceDefinition & 40 & 40 \\ \hline
-Drug & MedicationStatement & 3035 & 3032* \\ \hline
-Fall & AdverseEvent & 146 & 146 \\ \hline
-Patient & Patient & 1006 & 1006 \\ \hline
+\begin{table}[htbp]
+\centering
+\begin{tabular}{llcc}
+\toprule
+\textbf{MOTU Table} & \textbf{FHIR Resource} & \textbf{No. MOTU} & \textbf{No. FHIR} \\ \midrule
+HospitalStay & Encounter & 1962 & 1962 \\ \midrule
+Knee & DeviceDefinition & 40 & 40 \\ \midrule
+Drug & MedicationStatement & 3035 & 3032* \\ \midrule
+Fall & AdverseEvent & 146 & 146 \\ \midrule
+Patient & Patient & 1006 & 1006 \\ \bottomrule
 \end{tabular}%
 \caption{Comparison of distinct item counts in the original dataset and the corresponding FHIR “root” resources derived from mapping. Results are aligned, except for three MedicationStatement entries (*) excluded due to lacking ATC codes.}
 \label{tab:paper2_motu-convertion-results}
@@ -503,16 +473,17 @@ Patient & Patient & 1006 & 1006 \\ \hline
 % \usepackage{graphicx}
 % \usepackage[table,xcdraw]{xcolor}
 % Beamer presentation requires \usepackage{colortbl} instead of \usepackage[table,xcdraw]{xcolor}
-\begin{table}[ht]
+\begin{table}[htbp]
+\centering
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{|l|c|c|}
-\hline
-\textbf{Query} & \textbf{Python count} & \textbf{SPARQL count} \\ \hline
-Q1: How many patients who came for an initial supply return for a second hospitalization? & 85 & 85 \\ \hline
-Q2: How many patients transition from the initial supply of a mechanical knee to a second supply of an electronic knee? & 34 & 34 \\ \hline
-Q3: How many patients use anxiolytics/antidepressants (ATC Code: N06A and N05A) related to the risk of falls? & 67 & 67 \\ \hline
-Q4:  Hospital stays from patients over 65 years old & 674 & 674 \\ \hline
-Q5: How many falls per type of prosthesis (AMK, FK, etc.) & \begin{tabular}[c]{@{}l@{}}AMK - 11  \\ FK - 79  \\ LK - 26  \\ MPK - 28\end{tabular} & \begin{tabular}[c]{@{}l@{}}AMK - 11  \\ FK - 79  \\ LK - 26  \\ MPK - 28\end{tabular} \\ \hline
+\begin{tabular}{lcc}
+\toprule
+\textbf{Query} & \textbf{Python count} & \textbf{SPARQL count} \\ \midrule
+Q1: How many patients who came for an initial supply return for a second hospitalization? & 85 & 85 \\ \midrule
+Q2: How many patients transition from the initial supply of a mechanical knee to a second supply of an electronic knee? & 34 & 34 \\ \midrule
+Q3: How many patients use anxiolytics/antidepressants (ATC Code: N06A and N05A) related to the risk of falls? & 67 & 67 \\ \midrule
+Q4:  Hospital stays from patients over 65 years old & 674 & 674 \\ \midrule
+Q5: How many falls per type of prosthesis (AMK, FK, etc.) & \begin{tabular}[c]{@{}l@{}}AMK - 11  \\ FK - 79  \\ LK - 26  \\ MPK - 28\end{tabular} & \begin{tabular}[c]{@{}l@{}}AMK - 11  \\ FK - 79  \\ LK - 26  \\ MPK - 28\end{tabular} \\ \bottomrule
 \end{tabular}%
 }
 \caption{Summary of results from demonstration queries. The total count for query Q5 is 144, reflecting the exclusion of two rows from the HospitalStay table due to the absence of any reference to the prosthesis model, leading to their omission in the inner join operation.}

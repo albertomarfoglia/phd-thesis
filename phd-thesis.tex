@@ -10,6 +10,7 @@
 %----------------------------------------------------------------------------------------
 \usepackage{amssymb}    % Papers 2, 4 (symbols)
 \usepackage{array}      % Paper 3 supplementary tables (>{\raggedright}p{..} columns)
+\usepackage{tabularx}   % Responsive table layouts
 \usepackage{multirow}   % Papers 2, 3, 6 (multi-row table cells)
 \usepackage{booktabs}   % Papers 3, 6 (\toprule, \midrule, \bottomrule)
 \usepackage{longtable}  % Paper 1, Table 1 (99 rows over several pages)
@@ -17,7 +18,13 @@
 \usepackage{subcaption} % Paper 6 (subfigure environment)
 \usepackage{placeins}   % \FloatBarrier at the end of each paper (keeps floats within their paper)
 \usepackage{caption}    % consistent table caption styling
-\captionsetup[table]{font=small,labelfont=bf,skip=6pt}
+\usepackage{xcolor}     % shaded paper title bands
+% Thesis-wide caption typography, alignment, and spacing for figures and tables.
+\captionsetup{font=small,labelfont=bf,justification=justified,singlelinecheck=false,skip=6pt}
+\setlength{\emergencystretch}{3em}
+\Urlmuskip=0mu plus 2mu
+\def\UrlBreaks{\do\/\do-\do\_\do\?\do\&}
+\raggedbottom
 % Paper 6 uses the column types and table width of the Elsevier cas-common.sty (definitions copied from it)
 \newcolumntype{L}{@{\extracolsep{\fill}}l}
 \newcolumntype{C}{@{\extracolsep{\fill}}c}
@@ -25,6 +32,55 @@
 % The papers' own sections become \subsection within each chapter; number one more level so that the
 % papers' internal cross-references (e.g. "Section~\ref{...}") resolve to a numbered unit.
 \setcounter{secnumdepth}{3}
+
+% Numbered title band for each published paper.
+\makeatletter
+\newcommand{\papersection}[2]{%
+  \par\addvspace{1.25\baselineskip}%
+  \refstepcounter{section}%
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
+  \markright{\thesection\quad #1}%
+  \begingroup
+  \setlength{\fboxsep}{0pt}%
+  \noindent\rule{\textwidth}{1.2pt}\par
+  \noindent\colorbox{gray!15}{%
+    \parbox{\textwidth}{%
+      \vspace{0.8\baselineskip}%
+      \centering\bfseries\Large\thesection\par
+      \vspace{0.2\baselineskip}%
+      \centering\bfseries\Large #1\par
+      \vspace{0.8\baselineskip}%
+    }% 
+  }\par
+  \noindent\rule{\textwidth}{1.2pt}\par
+  \endgroup
+  \label{#2}%
+  \nobreak\vspace{0.5\baselineskip}%
+}
+\makeatother
+
+% Compact metadata block used by every integrated paper.
+\newenvironment{paperheader}{%
+  \begingroup
+  \footnotesize
+  \linespread{1}\selectfont
+  \setlength{\parskip}{1pt}%
+  \setlength{\parindent}{0pt}%
+}{%
+  \par\endgroup
+  \vspace{0.4\baselineskip}%
+}
+\newenvironment{paperabstract}{%
+  \begingroup
+  \small
+  \linespread{1}\selectfont
+  \setlength{\parskip}{2pt}%
+  \setlength{\parindent}{0pt}%
+  \noindent\textbf{Abstract.}\enspace
+}{%
+  \par\endgroup
+  \vspace{0.5\baselineskip}%
+}
 
 \mainlinespacing{1.241} % line spacing in mainmatter, comment to default (1)
 
@@ -34,16 +90,7 @@
 \input{front}
 
 \begin{abstract}	
-Max 2000 characters, strict.
 \end{abstract}
-
-\begin{dedication} % this is optional
-Optional. Max a few lines.
-\end{dedication}
-
-\begin{acknowledgements} % this is optional
-Optional. Max 1 page.
-\end{acknowledgements}
 
 %----------------------------------------------------------------------------------------
 \tableofcontents   
@@ -64,6 +111,8 @@ Optional. Max 1 page.
 \include{chapters/chapter4}
 
 \include{chapters/chapter5}
+
+\include{chapters/chapter6}
 
 
 %----------------------------------------------------------------------------------------
@@ -88,15 +137,10 @@ Optional. Max 1 page.
 % \end{figure}
 
 % \section{Some cool topic}
-
 % \part{Second Part}
-
 % \chapter{Contribution}
-
 % You may also put some code snippet (which is NOT float by default), eg: \cref{lst:random-code}.
-
 % \lstinputlisting[float,language=Java,label={lst:random-code}]{listings/HelloWorld.java}
-
 % \section{Fancy formulas here}
 
 %----------------------------------------------------------------------------------------
@@ -105,9 +149,7 @@ Optional. Max 1 page.
 
 \backmatter
 
-\part*{}
-
-\nocite{*} % comment this to only show the referenced entries from the .bib file
+% \nocite{*} % uncomment to show every entry from the .bib file, including uncited ones
 \bibliographystyle{alpha}
 \bibliography{phd-thesis}
 

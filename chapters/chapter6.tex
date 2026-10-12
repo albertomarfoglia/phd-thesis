@@ -1,0 +1,223 @@
+\chapter{Conclusions}
+\label{chap:conclusions}
+
+This thesis started from the observation that the growing availability of health data and AI methods has not been matched by a corresponding ability to combine them into reliable and reusable AI workflows. It located the difficulty not in standards, semantic technologies, or models considered in isolation, but in the connections between them: the transformation of source data into standardized representations, the explicit representation of their meaning, and the binding of those representations to the models that consume them. The thesis investigated how semantic, data-centric engineering can turn these connections from implicit, code-embedded, or manually maintained arrangements into explicit and machine-actionable specifications, and to what extent such specifications support selected requirements of Trustworthy AI.
+
+The investigation was carried out through six contributions, organized into three methodological stages: \emph{Harmonization and Structuring} (Chapter~\ref{chap:harmonization_structuring}), \emph{Semantic Enrichment} (Chapter~\ref{chap:semantic_enrichment}), and \emph{Inference and Reasoning} (Chapter~\ref{chap:inference_reasoning}). As stated in Chapter~\ref{chap:research_overview}, these contributions are complementary studies, each with its own data and evaluation setting, rather than components of a single end-to-end system. The answers given in this chapter are therefore bounded by the evidence produced within each study, and the limits of that evidence are stated alongside the answers.
+
+The chapter first answers the three sub-questions and the main research question (Section~\ref{sec:conclusions_rq}). It then assesses the implications of the findings for Trustworthy AI through the FUTURE-AI principles (Section~\ref{sec:conclusions_trustworthy}) and outlines directions for future research (Section~\ref{sec:conclusions_future}), before closing with some concluding remarks (Section~\ref{sec:conclusions_remarks}).
+
+%----------------------------------------------------------------------------------------
+\section{Answers to the Research Questions}
+\label{sec:conclusions_rq}
+
+The sub-questions are answered first, since the answer to the main research question builds on them.
+
+\subsection{RQ1: Harmonization and Structuring}
+\label{subsec:conclusions_rq1}
+
+\begin{quote}
+\textbf{RQ1:} How can heterogeneous health data be harmonized into interoperable, traceable, and verifiable standard-based representations for AI workflows?
+\end{quote}
+
+\paragraph{Barriers to harmonization.}
+The systematic review of 99 studies on FHIR, OMOP-CDM, and openEHR (Section~\ref{sec:paper1}) shows that the limitations of health data standards lie less in the standards themselves than in how they are implemented. Three findings are directly relevant to RQ1. First, implementation practices are fragmented: FHIR was frequently adapted through modified implementation guides, and about one third of the OMOP-CDM studies extended the data model to fit local or domain-specific needs. Second, the transformation process is poorly documented: ETL tools were reported inconsistently, and mapping coverage was rarely reported for FHIR and openEHR, which limits reproducibility and prevents comparison across studies. Third, data mapping is an interpretive and expert-dependent activity; the flexibility of standards such as FHIR admits several valid representations of the same concept, and no reference mappings exist against which a transformation can be checked.
+
+\paragraph{Harmonization approach.}
+The FHIR transformation pipeline (Section~\ref{sec:paper2}) responds to the three barriers to different degrees. It addresses the second directly. Mappings are expressed in the FHIR Mapping Language through a templating strategy, so that the transformation logic is a declarative artifact separated from the code that executes it, inspectable and publishable rather than embedded in implementation-specific scripts. Each generated resource is also validated automatically against the corresponding structure definitions, replacing the manual conformance checks reported in comparable studies.
+
+The pipeline addresses the first barrier partially, through the generality of its approach and not by standardizing implementation practice. The modular architecture (\emph{Input}, \emph{Refinement}, \emph{Mapping}, \emph{Validation}, \emph{Export}) places no restriction on the source data model and confines dataset-specific logic to the input, refinement, and mapping modules. Moreover, although FHIR provides the implementation context, the approach is not inherently bound to it: the FHIR Mapping Language expresses mappings between source and target structures described by structure definitions, and neither structure needs to be a FHIR resource. The same declarative mechanism can therefore, in principle, be adapted to other data standards, offering a common way of specifying transformations where current practice relies on standard-specific and project-specific tooling.
+
+The pipeline also addresses the third barrier partially, by capturing expert knowledge and not by removing the need for it. A mapping specification formalizes the interpretive decisions taken by domain experts in a form that can be reviewed, published, and reused across projects. Decisions that would otherwise remain implicit in scripts or in the experience of individuals are thereby preserved, which may reduce duplicated effort and the dependence on repeated expert intervention. Applied to a real-world clinical dataset, the pipeline produced conformant FHIR resources, and consistent counts between source and target, together with queries designed with domain experts, indicated that the information required by the target representation was preserved.
+
+\paragraph{Answer.}
+Heterogeneous health data can be harmonized into such representations by treating the transformation itself as a first-class, declarative artifact: a mapping specification that is separate from its execution, can be published and reviewed, and is accompanied by automated conformance validation. This addresses the reproducibility and transparency deficits of current ETL practice identified in the review.
+
+A reusable transformation mechanism is, however, only one part of the harmonization problem. Once such a mechanism is available and is not tied to a single standard, the choice of the target representation becomes a further architectural decision, to be taken according to the intended downstream use. FHIR was adopted in the pipeline because it is a well-established standard that facilitates data sharing with the scientific community. MEDS, by contrast, is an event-centric representation explicitly designed for reproducible machine-learning workflows, and exemplifies a target aligned with AI-oriented analysis. This is the perspective from which the MEDS-OWL study (Section~\ref{sec:paper3}) takes MEDS as its starting point.
+
+Two qualifications bound this answer. First, the three properties named in RQ1 are supported to different degrees. The representations are interoperable in the structural sense, since every generated resource conforms to FHIR; their exchange and reuse across sites was not tested. They are traceable in that the published mapping specification documents how each target element is derived from the source, independently of the code that executes the transformation. They are verifiable in the sense of structural conformance and source--target consistency, but not in the sense of confirming that each mapping decision is semantically correct. Second, the pipeline does not remove the interpretive nature of mapping identified by the review; it makes the outcome of that interpretation explicit and reviewable, while the mapping itself remains a manual, expert-driven task.
+%It should also be noted that the pipeline was developed before the review was completed, so the review provides retrospective confirmation of the problem the pipeline addresses rather than the requirements from which it was derived.
+
+\subsection{RQ2: Semantic Enrichment}
+\label{subsec:conclusions_rq2}
+
+\begin{quote}
+\textbf{RQ2:} How can semantic representations make the meaning of data and the interface requirements of AI models transparent, and how does making this meaning explicit affect the use of data in predictive tasks?
+\end{quote}
+
+\paragraph{Formal representation of domain data.}
+MEDS-OWL and \texttt{meds2rdf} (Section~\ref{sec:paper3}) show that an event-centric clinical data model designed for machine learning can be given an explicit semantic layer without altering the underlying model. MEDS-OWL deliberately follows the minimality of MEDS and reuses established vocabularies (PROV-O, DCAT, DCTERMS, SKOS) instead of introducing new ones. The representation was shown to be faithful and scalable across four clinical datasets: round-trip evaluation preserved the structure and the core fields of the source data, with deviations confined to free-text values and non-conformant source codes that cannot be expressed as valid RDF; conversion remained feasible at the scale of a large public critical-care database; and the generated graphs could be validated with SHACL.
+
+\paragraph{Formal representation of model requirements.}
+The Manifest concept (Section~\ref{sec:paper4}) extends formal representation from data to the computational resources that consume them: a machine-readable OWL description of a model's inputs, outputs, metadata, and endpoint, independent of the technology in which the model is implemented. A quality assessment of its realization in the Model Interface Manifest Ontology (MIMO), reported in Paper~6, showed strengths in the intrinsic and representational dimensions and a lack of interlinking with external knowledge graphs.
+
+\paragraph{Effect of explicit meaning.}
+The second part of RQ2 was investigated in Paper~3 by varying the granularity of the subject--event relations in the generated graphs, that is, how much of the meaning of each relation is made explicit in the structure of the graph. Among SHAP-pruned graphs containing the same underlying events, Macro-F1 increased monotonically from MEDS-RDF-Base to Partial to Full on all 11 MIMIC-IV prediction tasks. Increasing RGCN depth beyond two layers yielded no measurable benefit, suggesting that the predictive structure of the representation is captured within a local relational neighborhood. %At the same time, the graph-based models did not outperform tabular learning: XGBoost achieved higher mean Macro-F1 on eight of the eleven tasks, with no statistically significant difference on the remaining three.
+
+\paragraph{Answer.}
+The meaning of clinical data can be made transparent through a lightweight ontology aligned with an existing machine-learning data standard, and the interface requirements of models through a dedicated interface ontology; both were implemented and evaluated. Transparency is understood here in a specific sense: the meaning of the data and the requirements of the models are explicit, inspectable, and machine-readable. It does not imply that the internal behavior of the models becomes interpretable, as semantic transparency concerns what enters and leaves a model rather than how it arrives at its output. This distinction is further illustrated by Paper~3, in which SHAP attributions computed on a tabular baseline model were used to identify and remove event types with low predictive contribution before constructing graphs for RGCN training. In this context, SHAP served primarily as a criterion for selecting the events retained in the data representation, rather than as a direct explanation of the RGCN's predictions. Thus, post-hoc explainability complemented semantic transparency by helping reduce data complexity while preserving informative representations, although the resulting interpretability remained limited and indirect.
+
+Regarding the second part of the question, the main finding is that the design of a semantic representation is not a neutral serialization choice: within a fixed graph learner, making more of the meaning explicit through finer relational granularity consistently improved predictive performance. The scope of this finding is the relative effect of granularity within one model family and one clinical database; it is not a claim about graph-based models relative to other learners.
+%It concerns the relative effect of granularity within one model family (RGCN), on one clinical database used for prediction (MIMIC-IV), with granularity operationalized as predicate specialization. It does not show that semantically enriched graphs outperform well-tuned tabular models, which they generally did not, and
+% It reveals a trade-off between semantic expressiveness and statistical efficiency, since finer granularity multiplies the relation-specific parameters to be estimated. 
+Finally, the data-side and model-side representations were developed in separate studies and are not yet aligned: a MIMO Manifest describes FHIR-based inputs, not MEDS-RDF events. RQ2 is therefore answered for each side separately, not for their joint use.
+
+\subsection{RQ3: Inference and Reasoning}
+\label{subsec:conclusions_rq3}
+
+\begin{quote}
+\textbf{RQ3:} How can semantically represented knowledge and AI models be integrated within a virtual replica to support human decision-making?
+\end{quote}
+
+\paragraph{Architecture.}
+CONNECTED (Section~\ref{sec:paper5}) provides the architectural answer: a four-layer framework (\emph{Source}, \emph{Standard}, \emph{Digital Twin}, \emph{Application}) in which heterogeneous sources are converted to FHIR through adapters and merged into a Personal Knowledge Graph that forms the backbone of a patient Digital Twin. The requirements of the framework were derived from the literature, and its expressiveness was illustrated through a fall-risk scenario.%; the paper itself contains no implementation.
+
+\paragraph{Automated matching and execution.}
+Paper~6 (Section~\ref{sec:paper6}) implements this architecture and adds the mechanism through which the integration is achieved. Through the Manifest protocol, a reasoner combines the model's Manifest, the properties and current state of the Digital Twin, and the FHIR and MIMO ontologies together with the Simulation and Integration Model Ontology (SIMO), and infers whether the patient data satisfy the model's input requirements; the model is invoked through a FHIR-compliant API only when they do. Two forms of evidence support the mechanism. Applied to a cohort of patient Digital Twins, Manifest-driven execution of a published stroke-risk classifier reproduced the metrics of the standalone model exactly, showing that the inferred binding introduces no distortion. A benchmarking application integrated three classifiers through the same interface and evaluated them as patient records were added incrementally, showing that new models can be integrated without modifying the platform. %A performance evaluation measured throughput rising from 5.4 to 26.7 requests per second between 1 and 20 concurrent clients, with mean latency increasing from 185~ms to 737~ms.
+
+\paragraph{Answer.}
+Semantically represented knowledge and AI models can be integrated in a virtual replica, here a patient Digital Twin, by representing both in a common knowledge graph and delegating the decision of whether a model can be applied to a given patient to a reasoner, so that model integration becomes a matter of publishing a description rather than writing integration code.
+
+This integration supports human decision-making by acting as an enabling infrastructure. CONNECTED exposes patient-specific data and the models applicable to them through a single high-level interface, while the platform itself handles the integration of data, the binding of data to model inputs, and the invocation of models. Much of the technical complexity of operating a model-based analytical platform is thereby abstracted away, so that attention can be directed to model performance, analytical outcomes, and their implications instead of implementation details and low-level configuration. The benchmarking application demonstrates this in one setting, in which several models were executed, inspected, and compared through the same interface without engaging with their underlying implementation. It is one use of the framework and not its exclusive purpose: the same approach extends, in principle, to other intelligent applications that support human decision-making, such as monitoring and decision-support services built on the Digital Twin.
+
+Making model-based analytical capabilities accessible in this way also bears on trust. Stakeholders who can inspect and compare models without depending on technical intermediaries are better placed to judge how far their outputs can be relied upon. The framework thus provides a condition for warranted trust, the means to scrutinize models, and not trust itself, since scrutiny may equally reveal that a model should not be relied upon. Likewise, reducing technical barriers can facilitate evidence-informed decisions, but it neither replaces human judgment nor guarantees that decisions improve.
+
+Three qualifications bound this answer. First, the matching is narrow. In the current implementation, a model is matched when the patient's data satisfy its declared inputs. This is a necessary condition for the model to be appropriate for the patient, not a sufficient one: the matching does not consider whether the patient belongs to the population on which the model was developed, whether the model's performance is adequate for the intended use, or whether the data are of sufficient quality. MIMO does not yet describe these properties. 
+Second, support for human decision-making is established on the computational side only: no decision-maker took part in the studies and the application layer was emulated, so the accessibility described above, and its bearing on trust, are properties of the design and not evaluated outcomes. Third, integration in a \emph{continuously updated} environment is supported architecturally through event-driven updates of the Digital Twin state, but the behavior of the binding under evolving or degraded data was not evaluated.
+
+\subsection{Main Research Question}
+\label{subsec:conclusions_mrq}
+
+\begin{quote}
+\textbf{MRQ:} How can semantic, data-centric engineering make the dependencies between heterogeneous data and AI models explicit and machine-actionable, and how does this support selected requirements of Trustworthy AI?
+\end{quote}
+
+Taken together, the answers to the sub-questions show a recurring pattern. At each of the three interfaces examined, a dependency that is usually embedded in code or manual practice was replaced by an explicit specification. Each specification has three properties: it is \emph{separated} from the software that executes it, it is \emph{expressed in a standard formalism} that can be published and reviewed, and it is \emph{machine-checkable}.
+
+The pattern takes a different form at each interface. Between source data and standardized information, the specification is a mapping in the FHIR Mapping Language. Between information and its meaning, it is an ontology-based schema (MEDS-OWL), whose granularity is itself an explicit, adjustable design parameter. Between data and models, it is a model-interface description (the Manifest, in MIMO). Table~\ref{tab:conclusions_framework} summarizes these specifications and relates each stage to the data-centric perspective and the DIKW lens introduced in Chapter~\ref{chap:research_overview}; the alignment between stages and DIKW transitions is interpretive, not a strict one-to-one correspondence.
+
+\begin{table}[htpb]
+\caption{The three methodological stages in relation to the data-centric perspective, the DIKW lens, and the explicit specification each stage contributes.}
+\label{tab:conclusions_framework}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.0cm} >{\raggedright\arraybackslash}p{3.4cm} >{\raggedright\arraybackslash}p{2.4cm} >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Stage (papers)} & \textbf{Data-centric focus} & \textbf{DIKW transition} & \textbf{Specification made explicit} \\
+\midrule
+Harmonization and Structuring (P1--P2) & \emph{Training Data Development}: integration and preparation & Data $\rightarrow$ Information & Source-to-standard mappings in the FHIR Mapping Language, with automated conformance validation \\
+Semantic Enrichment (P3--P4) & \emph{Data Maintenance}: understanding, storage and retrieval & Information $\rightarrow$ Knowledge & Meaning of clinical data (MEDS-OWL) and of model interfaces (Manifest, MIMO) \\
+Inference and Reasoning (P5--P6) & \emph{Data Maintenance}, extended to the operational use of data by models & Knowledge $\rightarrow$ Wisdom & Reasoner-inferred bindings between patient data and model inputs \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+This pattern answers the first part of the MRQ. Semantic, data-centric engineering makes data--model dependencies \emph{explicit} by moving them out of procedural code and into declarative, standard-based specifications. It makes them \emph{machine-actionable} by pairing each specification with an automated procedure that executes or checks it: a mapping engine and conformance validation at the first interface, SHACL validation at the second, and a reasoner that infers the binding of patient data to model inputs at the third.
+
+Two consequences follow. First, once a dependency is explicit, the choices embedded in it become visible as design decisions, including the choice of the target representation itself, as the contrast between FHIR and an AI-oriented standard such as MEDS illustrates. Second, because the specifications are executed by the platform and not by its users, they are also what allows technical complexity to be hidden from those who use the outputs of models.
+
+The evidence for this answer is uneven across the three interfaces. It is strongest at the third, where the binding was implemented end to end and shown to preserve model behavior exactly. At the second, the representation was shown to be faithful to its source across several datasets, and its effect on prediction was established within one model family. It is weakest at the first, where the specification was checked for conformance and source--target consistency on a single dataset.
+
+Two qualifications apply to the answer as a whole. First, the pattern recurs across the three interfaces but was not shown to compose. The stages were evaluated on different data, and the output of one stage was not used as the input of the next. The DIKW progression in Table~\ref{tab:conclusions_framework} is therefore supported stage by stage, not as a demonstrated pipeline. Second, explicit specifications move the integration effort; they do not eliminate it. Mappings and Manifests must still be authored by people with domain and technical expertise, and the thesis did not measure whether doing so is less costly than the implicit practices it replaces.
+
+The second part of the MRQ, how this supports Trustworthy AI, is answered in Section~\ref{sec:conclusions_trustworthy}. In brief, the specifications relate most directly to two FUTURE-AI principles: \emph{Universality}, through the use of standards, and \emph{Traceability}, through documentation and input quality control. They do so as enabling mechanisms rather than evaluated outcomes. For \emph{Usability} and \emph{Explainability}, relevant mechanisms are present in the design: the abstraction of technical complexity and the use of feature attributions in representation design. \emph{Fairness} and \emph{Robustness} were outside the scope of the contributions.
+
+%----------------------------------------------------------------------------------------
+\section{Implications for Trustworthy AI}
+\label{sec:conclusions_trustworthy}
+
+Chapter~\ref{chap:research_overview} adopted FUTURE-AI~\cite{lekadir_future-ai_2025} as a cross-cutting perspective on the contributions. FUTURE-AI addresses AI tools across their entire lifecycle, from design to deployment and monitoring, and distinguishes tools at the research or proof-of-concept stage from those intended for clinical deployment, for which it expects a higher level of compliance. The contributions of this thesis belong to the first category and concern one part of that lifecycle: the data, and the interfaces through which data reach models. The framework is therefore used here as an interpretive lens and not as a compliance checklist. The question is which of its principles the explicit specifications developed in the thesis help to establish, and in what form. Table~\ref{tab:conclusions_futureai} summarizes the answer.
+
+\begin{table}[htpb]
+\caption{Relationship between the thesis contributions and the FUTURE-AI principles~\cite{lekadir_future-ai_2025}. P2--P6 refer to Papers~2--6.}
+\label{tab:conclusions_futureai}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.4cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{3.4cm}}
+\toprule
+\textbf{Principle} & \textbf{Mechanisms contributed by the thesis} & \textbf{Form of support} \\
+\midrule
+\emph{Universality} & Consistent use of existing standards: FHIR and the FHIR Mapping Language (P2); MEDS with PROV-O, DCAT, DCTERMS, and SKOS (P3); a FHIR-compliant API with LOINC and SNOMED~CT annotations (P6). Transformation and model integration are specified independently of a particular dataset or model. & Implemented and evaluated technically \\
+\emph{Traceability} & Published mapping specifications (P2); provenance in MEDS-RDF (P3); machine-readable descriptions of model interfaces (P4, P6); automated conformance and SHACL validation (P2, P3); models invoked only when their declared inputs are satisfied, with bindings that record which patient data satisfy each input (P6). & Implemented and evaluated technically \\
+\emph{Explainability} & Semantic context that relates data, model inputs, and model outputs to domain concepts (P3, P6); feature attributions used to inform the design of the representation (P3). & Design foundation \\
+\emph{Usability} & A uniform interface that hides integration complexity, and model integration through published descriptions instead of dedicated code (P5, P6). & Design foundation \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Principles supported by the contributions.}
+The contributions align most directly with \emph{Universality} and \emph{Traceability}. FUTURE-AI defines Universality as the ability of an AI tool to generalize beyond the environment in which it was built, and asks, to this end, that tools be developed on existing community-defined standards, among which it names FHIR and SNOMED~CT. The contributions follow this recommendation throughout, and the resulting standardized and semantically explicit representations support the interoperability on which generalization depends. Traceability concerns the documentation and monitoring of an AI tool along its trajectory. Here, declarative mappings, published ontologies, and reasoner-inferred data--model bindings make the computational workflow explicit and inspectable. The most concrete link concerns the quality control of model inputs: conformance and SHACL validation detect data that do not match the expected structure, and a model is invoked only when the patient's data satisfy all of its declared inputs, which implements the detection of missing input variables that FUTURE-AI recommends. These relationships are supported by the technical evaluations reported in the individual contributions, within the scope of their datasets and use cases.
+
+\paragraph{Principles for which the contributions provide foundations.}
+For \emph{Explainability} and \emph{Usability}, the thesis contributes mechanisms on which these principles can be built. Semantic representations relate data, model inputs, and outputs to domain concepts, and thus provide the context in which a prediction can be interpreted. The Digital Twin interfaces hide integration complexity from their users, which makes model-based analytical capabilities more accessible and gives stakeholders the means to inspect and compare models. FUTURE-AI defines both principles with respect to end users: the need for explanations and the requirements of use are to be defined with them, and both are to be evaluated with them~\cite{lekadir_future-ai_2025}. That evaluation is the natural continuation of the present work (Section~\ref{sec:conclusions_future}).
+
+\paragraph{Principles beyond the scope of the thesis.}
+\emph{Fairness} and \emph{Robustness} concern the behavior of models across population subgroups and under data variation, and were outside the scope of the contributions, as was a comprehensive treatment of privacy, security, and governance. Explicit representations of data and model interfaces nevertheless offer a starting point for investigating them, as discussed in Section~\ref{sec:conclusions_future}.
+
+\paragraph{Overall assessment.}
+Chapter~\ref{chap:introduction} adopted, as a premise grounded in the literature, the position that data-centricity is a necessary, though not sufficient, enabler of Trustworthy AI. The findings are consistent with this position. Data-centric and semantic approaches strengthen important technical foundations of Trustworthy AI by making the structure, meaning, and use of data explicit. They contribute to the conditions under which trustworthy systems can be built, and the relationships with FUTURE-AI identified here describe enabling mechanisms, not an assessment of compliance with the framework's recommendations.
+
+%----------------------------------------------------------------------------------------
+% \section{Contributions of the Thesis}
+% \label{sec:conclusions_contributions}
+
+% The thesis makes the following contributions.
+
+% \paragraph{Conceptual.}
+% A framework that combines the DIKW model, the dimensions of data-centric AI, and the FUTURE-AI principles to position data engineering, semantic representation, and model integration as successive intervention points on the same problem, the explicit specification of data--model dependencies (Chapter~\ref{chap:research_overview}).
+
+% \paragraph{Empirical.}
+% \begin{itemize}
+%     \item A systematic characterization of how FHIR, OMOP-CDM, and openEHR are adopted, adapted, and implemented in practice, based on 99 studies, identifying fragmentation of implementation practices and poor documentation of transformation processes as barriers to interoperability (Paper~1).
+%     \item Evidence that the relational granularity of a semantic representation measurably affects graph-based clinical prediction, together with an assessment of how such representations compare with tabular baselines (Paper~3).
+% \end{itemize}
+
+% \paragraph{Methodological and technical.}
+% \begin{itemize}
+%     \item A modular FHIR transformation pipeline based on declarative, templated mappings in the FHIR Mapping Language and automated validation, released as open source (Paper~2), together with the resulting FHIR-standardized data collection published separately~\cite{arcobelli2024fhir}.
+%     \item MEDS-OWL, an ontology for the Medical Event Data Standard, and \texttt{meds2rdf}, a streaming converter that generates RDF knowledge graphs from MEDS datasets at the scale of MIMIC-IV, both publicly available (Paper~3).
+%     \item The Manifest concept and the Model Interface Manifest Ontology (MIMO), a formal description of model inputs, outputs, and metadata published in the Linked Open Data Cloud (Papers~4 and~6).
+%     \item CONNECTED, an architecture for patient Digital Twins backed by Personal Knowledge Graphs (Paper~5), and its implementation with reasoner-based binding of patient data to AI models (Paper~6).
+% \end{itemize}
+
+%----------------------------------------------------------------------------------------
+\section{Future Research Directions}
+\label{sec:conclusions_future}
+
+The bounds stated alongside the answers in this chapter define the most important directions for future work. They are read here against a broader observation. Despite the volume of research on medical AI, only a limited number of tools have made the transition to clinical practice. Addressing trustworthiness during design is also expected to be more cost-effective than retrofitting it after development, when changes tend to affect large parts of a tool's architecture~\cite{lekadir_future-ai_2025}. The directions below therefore concern two things: the technical continuation of the contributions, and the conditions under which explicit data--model specifications could support systems that are trustworthy by design. Many trustworthiness requirements are specific to a use case and cannot be met by a single technique~\cite{lekadir_future-ai_2025}. The directions are therefore formulated as questions to be investigated, not as solutions to be applied.
+
+\paragraph{End-to-end integration.}
+The most direct continuation is to connect the three stages, which this thesis examined separately. From an abstract point of view, harmonization, semantic enrichment, and model binding can be seen as modules of a single framework, and CONNECTED is the natural setting in which to integrate them. In such a setting, further datasets could be standardized and used to feed the virtual replicas. The target standard could be selected according to the purpose of the application: OMOP-CDM for clinical and observational analysis, for instance, or MEDS for machine-learning prediction. Tracing data through all three stages would also test whether the specifications developed at each interface compose. It would expose the mismatches between them, such as the alignment between FHIR-based model inputs and event-centric semantic representations.
+
+This integration motivates a new version of CONNECTED that extends the framework in two directions. First, the API would expose not only the capabilities of individual Digital Twins but also endpoints for running analyses over aggregated Digital Twins. Cohort-level questions could then be addressed through the same interface as patient-level ones. Second, the Digital Twins could evolve into agents that reason over their own state and act on it autonomously, for example by selecting and invoking the models applicable to a patient as new data arrive. Such agents would not be meant to operate in isolation. They can support a collaborative approach with human stakeholders, in which agents carry out routine reasoning and surface what requires attention, while stakeholders retain oversight and the final decision.
+
+\paragraph{Reducing the cost of specification.}
+Explicit specifications must be authored, so their adoption depends on the effort they require. This matters beyond convenience. The cost of implementing trustworthiness guidelines may widen disparities in AI adoption, to the disadvantage of smaller developers and resource-limited health systems~\cite{lekadir_future-ai_2025}. Two complementary directions follow. The first is the language-model-assisted generation of mappings and Manifests. Here, domain experts would retain the role of reviewing, correcting, and approving the generated specifications, consistent with the view that human oversight remains necessary to flag errors and override wrong decisions in high-stakes applications~\cite{kaur_trustworthy_2022}. The second is the sharing of specifications as community resources, such as reference mappings and published Manifests. The authoring effort would then be distributed across institutions and not repeated by each of them. Both directions must be accompanied by a measurement of the authoring and maintenance effort and of the correctness of the resulting specifications.
+
+\paragraph{From executable to appropriate models.}
+MIMO currently describes what a model needs in order to run. It could be extended with information on intended use, training population, performance, and limitations, for example through alignment with the Model Card Report Ontology~\cite{Amith2022}. The reasoner could then consider whether a model is appropriate for a patient, and not only whether it is executable. The same descriptions would contribute to the documentation recommended by FUTURE-AI and would support the composition of models into multi-stage pipelines.
+
+\paragraph{Representation design as an experimental variable.}
+The finding that representation granularity affects prediction should be tested beyond the current setting. This means other graph learners and clinical databases, representations enriched by external code hierarchies and temporal structure, and pruning strategies derived from graph models instead of tabular ones. The last point connects to a broader use of explainability methods. In Paper~3, feature attributions were used to select the events retained in the graphs, that is, as an instrument of representation design. Work on explainable AI in other domains identifies this as a research direction in its own right, in which attributions inform the refinement of model inputs in addition to explaining decisions after the fact~\cite{johannssen_explainable_2025}. An open question is whether attributions computed on semantic graphs can guide the choice of granularity, and not only the selection of events.
+
+\paragraph{Quality control and monitoring.}
+The validation mechanisms developed in this thesis can be extended towards the continuous quality control and logging recommended by FUTURE-AI. Examples are aggregating SHACL violations as data-quality indicators, checking value ranges and units before model invocation, and recording which data and model versions produced each prediction. The Digital Twin updates its state as new data arrive. These checks, and any explanation attached to a prediction, would therefore have to be produced with low latency and limited computational overhead, a requirement that the literature identifies for explanation methods operating on streaming data~\cite{mathew_recent_2025}. The cost of reasoning and validation under continuous updates should thus be evaluated together with their coverage.
+
+\paragraph{Fairness, robustness, and accountability.}
+\emph{Fairness} and \emph{Robustness} were outside the scope of this thesis, and making data and model interfaces explicit does not by itself make a system fair or reliable. The same holds for explanations, which need to be complemented by systematic approaches for detecting and mitigating bias and for assessing the consistency of the explanations themselves~\cite{s_band_application_2023}. Explicit specifications nevertheless provide a starting point. Descriptions of the population on which a model was developed, once added to MIMO, would allow a Digital Twin to identify patients who fall outside it. Standardized representations of patient attributes would allow model performance to be stratified by subgroup in a uniform way across models. Robustness could be investigated by evaluating the reasoner-inferred binding under incomplete, noisy, or shifted data. These uses are hypotheses that follow from the design, and each requires its own evaluation.
+
+\paragraph{Governance, standardization, and regulation.}
+Data protection, access control, and regulatory compliance were outside the scope of the contributions, but they condition any deployment. Two lines of work follow. At the technical level, the Digital Twin platform requires fine-grained authorization. It also requires an account of how the provenance and bindings recorded in the knowledge graph can serve auditing. At the level of standards, the artifacts proposed here, namely mapping specifications, ontologies, and model Manifests, are useful in proportion to their adoption. The literature stresses that standards for AI must be developed together with the policies that enforce them, and that AI systems must also comply with the laws and regulations that already apply to their use cases~\cite{kaur_trustworthy_2022}. Two steps would test whether these artifacts can serve beyond individual research prototypes: relating model-interface descriptions to the documentation that regulation requires of medical AI, and proposing them within existing standardization communities.
+
+\paragraph{Stakeholder-centered evaluation.}
+Finally, the role of explicit semantics in supporting human oversight must be evaluated with the people who would exercise it. This involves defining explainability and usability requirements with clinicians, and evaluating whether contextualized outputs in a Digital Twin improve the interpretation of predictions. Such a study would turn the design foundations that this thesis provides for \emph{Explainability} and \emph{Usability} into evaluated outcomes. It should follow user-centered methods. An explanation that is technically detailed may remain difficult to interpret for non-specialist users, and its presentation, for instance through interactive visualization, affects whether it supports a decision~\cite{naveed_overview_2024}. The evaluation also cannot be conducted from within computer science alone. Different stakeholders, including developers, clinicians, patients, and policymakers, need different explanations, so the work calls for collaboration with clinical, social, and legal disciplines~\cite{kaur_trustworthy_2022}.
+
+%----------------------------------------------------------------------------------------
+\section{Concluding Remarks}
+\label{sec:conclusions_remarks}
+
+This thesis rests on a simple premise: an AI system can only be as trustworthy as the data it depends on, and as the path those data follow to reach it. Much of what makes AI in healthcare difficult to reproduce, inspect, and reuse lies not in the models but in the way data are transformed, given meaning, and connected to the models that consume them. These steps usually remain hidden in code and in individual expertise. The central argument of this thesis is that they deserve to be treated as engineering artifacts in their own right.
+
+Two perspectives were combined to pursue this argument. The data-centric perspective treats the quality, structure, and documentation of data as objects of systematic engineering. The semantic perspective makes the meaning of data, and the requirements of the models that use them, explicit and understandable to both people and machines. Together, they turn what is normally implicit into something that can be published, reviewed, checked, and reused. The contributions show that this is feasible along the whole path from raw data to model output: data can be harmonized through transparent and reusable transformations, enriched with explicit meaning, and connected to AI models within a virtual replica of the patient.
+
+This is how data-centric and semantic approaches support Trustworthy AI. Trust requires that a system can be examined: one must be able to ask where the data came from, what they mean, and why a given model was applied to a given patient. Making these aspects explicit does not by itself make a system trustworthy, but it creates the conditions under which trustworthiness can be built, verified, and maintained. It also lowers the technical barriers between stakeholders and the tools they are asked to rely on.
+
+Healthcare was the setting of this research because it is a domain in which technology must remain reliable and oriented towards the people it serves. The path ahead leads from these foundations to complete systems, evaluated together with the stakeholders who will use them. Cutting-edge research should serve the public good, and advances in AI and modeling must therefore be accompanied by the principles of Trustworthy AI and by respect for fundamental rights and democratic values. Trust in AI cannot be demanded. It has to be earned, by building systems that remain open to the scrutiny of the people they are meant to serve.

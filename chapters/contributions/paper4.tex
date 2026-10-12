@@ -4,26 +4,19 @@
 % transcribed from the IEEEtran author blocks, abstract and IEEEkeywords; inline \thebibliography converted to
 % BibTeX entries; body converted mechanically, see the integration report).
 % ============================================================================
-\section{Representation of Machine Learning Models to Enhance Simulation Capabilities Within Digital Twins in Personalized Healthcare}
-\label{sec:paper4}
+\papersection{Representation of Machine Learning Models to Enhance Simulation Capabilities Within Digital Twins in Personalized Healthcare}{sec:paper4}
 
 \noindent This section contains the article~\cite{marfoglia_2024_mimo}.
 
-\paragraph{Authors.}
-Alberto Marfoglia\textsuperscript{1}, Filippo Nardini\textsuperscript{2}, Sabato Mellone\textsuperscript{3}, Antonella Carbonaro\textsuperscript{1}
+\begin{paperheader}
+\textbf{Authors:} Alberto Marfoglia, Filippo Nardini, Sabato Mellone, Antonella Carbonaro.\par
+2024 IEEE International Conference on Pervasive Computing and Communications Workshops and Other Affiliated Events (PerCom Workshops), 2024, pp. 100--105. DOI: \url{https://doi.org/10.1109/PerComWorkshops59983.2024.10502444}.
+\end{paperheader}
 
-{\raggedright % layout: ragged-right metadata block
-\noindent\textsuperscript{1}\textit{Dept. of Computer Science and Engineering}, \textit{Alma Mater Studiorum, University of Bologna}, Cesena, Italy\\
-\textsuperscript{2}\textit{Dept. of Industrial Engineering}, \textit{Alma Mater Studiorum, University of Bologna}, Cesena, Italy\\
-\textsuperscript{3}\textit{Dept. of Electrical, Electronic and Information Engineering}, \textit{Alma Mater Studiorum, University of Bologna}, Bologna, Italy\\
-E-mail addresses: alberto.marfoglia2@unibo.it (A. Marfoglia), filippo.nardini3@unibo.it (F. Nardini), sabato.mellone@unibo.it (S. Mellone), antonella.carbonaro@unibo.it (A. Carbonaro). \\
-2024 IEEE International Conference on Pervasive Computing and Communications Workshops and Other Affiliated Events (PerCom Workshops), 2024, pp. 100--105.\\
-ISSN: 2766-8576. \url{https://doi.org/10.1109/PerComWorkshops59983.2024.10502444}.
-\par}
-
-\subsection*{Abstract}
+\begin{paperabstract}
 
 Healthcare has always been a strategic area where innovative technologies can be applied to increase the effectiveness of services and the quality of patient care. Recent progress has been made in the adoption of machine-learning models within digital twins and knowledge graphs. Nevertheless, their deployment needs to address the complex nature of the framework itself, which entails numerous technical, organizational, legal, and ethical challenges. In this paper, we propose an evolution of the CONNECTED conceptual framework, a multi-layered system in which heterogeneous data sources are integrated, standardized, and used to realize digital twins supported by knowledge graphs accessible through dedicated APIs. The extension involves the integration of machine learning models into digital twins, thereby enabling simulation capabilities. The inclusion of a formal and machine-readable self-description with these models serves as a foundation for semantic reasoning. This pivotal feature empowers our architecture with the capability for automatic indexing, aggregation, and querying of the models.
+\end{paperabstract}
 
 \paragraph{Keywords:} Machine Learning Models, Digital Twins, Personal Knowledge Graphs, Healthcare
 
@@ -75,18 +68,19 @@ CONNECTED (COmpreheNsive and staNdardized hEalthCare plaTforms to collEct and ha
     \item Level 4 (Application): it’s the layer on top of the architecture, it is designed to exploit DT capabilities, to build smart applications, algorithms, and services, for example for proactive disease diagnosis (facilitating preventive care to reduce or prevent occurrences of such diseases on the patient), personalized treatment (by enhancing individualized medication prescriptions and treatment plans), vaccine development and usage (by shortening the discovery time of vaccine candidates) and personalized preventive care (by suggesting personalized lifestyle changes and medications depending on individual health records and other related parameters).  
 \end{itemize}
 
-\begin{figure*}[htbp]
-\centerline{\includegraphics[scale=0.24]{figures/paper4/Connected.png}}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/paper4/Connected.png}
+\end{center}
 \caption{Illustration depicting the 4-tier architecture's former setup: data from the Physical Assets, modeled using FHIR resources, feed the state of the DTs for the overlying applications and services.}
 \label{paper4_fig1}
-\end{figure*}
+\end{figure}
 
 CONNECTED is designed in a microservices architectural style which consists of dividing services into a set of small services. Microservices architecture is considered well-suited for the modular development of flexible, evolving, and distributed systems such as the proposed architecture. Indeed, the microservices architecture offers elasticity. This is manifested in the ability to update the DT framework frequently during runtime. This practice reduces the software delivery time and provides the necessary flexibility to respond quickly and effectively to workload changes that edge and cloud resources may experience. Moreover, it enables seamless orchestration among multiple edge and cloud resources.
 
 Considering the wide range of applications, the flexibility in interaction modes, and the evolution of the system, we consider the development of CONNECTED's microservices using the clean architecture pattern \cite{martin2017clean} that allows the separation of business logic from implementation specifications. In this case, the functionalities of the DT are made available externally through the use of adapters that can make use of specific libraries. Any modifications to the adapters will not affect the core logic of the DT.
 
 The correct communication between the various services is an essential element for the functioning of the whole system. Among the most popular solutions for event-driven information exchange, the use of a message queue is particularly effective. In this asynchronous interaction approach, microservices do not dialogue directly with each other as they produce and consume messages by exploiting a central communication bus, favoring scalability, resilience in the event of disruptions of one or more system components, the decoupling of microservices and the flexibility in introducing new microservices into the system without having to make changes to other components. We adopted Apache Kafka, a distributed event streaming platform, the de facto standard for the implementation of message queues in the context of microservices architectures.
-
 
 In the following section, we propose an enhancement of the existing CONNECTED architecture, integrating ML models with a formal, machine-readable description of their characteristics. This serves as a standard documentation of the models, possibly empowering the framework with additional capabilities, such as seamless integration of new models, and their coordination with existing algorithms or data sources.
 
@@ -101,17 +95,20 @@ After defining a bespoke ontology aimed at defining model manifests, we enhance 
 
 Consider the integration of a hypothetical clinical ML model within our evolved framework, aimed at predicting an individual's risk of developing cardiovascular disease over the following decade. This model draws insights from a range of health indicators including blood pressure, cholesterol levels, and BMI. Stakeholders operating at Layer 4 can harness the diverse capabilities of this model, tailoring them to align with the distinctive profiles of patients through the use of the DT API. Specifically, the expanded Layer 3 accesses the model Manifest (Figure~\ref{paper4_fig2}), providing comprehensive descriptions of each health parameter using LOINC codes from the CONNECTED ontology. These codes facilitate the retrieval of precise values from the patient KG, essential as inputs for the model's computations (Figure~\ref{paper4_fig3}). Once the model completes its execution, the outcomes are conveyed back to the user in a standardized format via the DT API.
 
-\begin{figure*}[b]
-\centerline{\includegraphics[scale=0.28]{figures/paper4/connected-ontology-and-model.png}}
-\caption{RDF Representation of the cardiovascular disease prediction Manifest using the CONNECTED ontology (conn:). It integrates the LOINC ontology terms to uniquely identify the description of the inputs and output of the model.}
-\label{paper4_fig2}
-\end{figure*}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/paper4/connected-ontology-and-model.png}
+\end{center}
+\caption{RDF Representation of the cardiovascular disease prediction Manifest using the CONNECTED ontology (conn:). It integrates the LOINC ontology terms to uniquely identify the description of the inputs and output of the model.}\label{paper4_fig2}
 
-\begin{figure*}[b]
-\centerline{\includegraphics[scale=0.28]{figures/paper4/patient-fhir-kg.png}}
-\caption{RDF Representation of a subset of the patient knowledge graph, that uses FHIR/RDF to describe clinical concepts. The marked nodes, being identified by a LOINC code, are those that will be fed to the cardiovascular risk prediction model.}
-\label{paper4_fig3}
-\end{figure*}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/paper4/patient-fhir-kg.png}
+\end{center}
+\caption{RDF Representation of a subset of the patient knowledge graph, that uses FHIR/RDF to describe clinical concepts. The marked nodes, being identified by a LOINC code, are those that will be fed to the cardiovascular risk prediction model.}\label{paper4_fig3}
+\end{figure}
 
 \subsection{Discussion and Conclusion}\label{sec:paper4_discussion}
 This paper proposed the evolution of the CONNECTED conceptual framework, a multi-layered system designed to seamlessly integrate and standardize heterogeneous data sources, facilitating the realization of DTs supported by KGs. Our contribution lies in the introduction of the Manifest concept, which serves as a formal and machine-readable description for ML models, thereby enabling semantic reasoning. This key feature empowers the effective aggregation of these models and facilitates information retrieval regarding their usage. The proposed enhancement not only refines our current vision of DT but also introduces simulation capabilities and an ecosystem where models can be systematically indexed and leveraged. By having a clear description of the models, existing data can be fed automatically to them, improving their overall usability. Some benefits of this approach are: 

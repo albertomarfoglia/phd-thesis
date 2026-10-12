@@ -1848,7 +1848,11 @@ ISSN: 1831-9424, 1018-5593, 1831-9424},
   publisher={JMIR Publications Toronto, Canada}
 }
 
-@book{ladas2022openehr,
+@article{ladas2022openehr,
+  journal={Studies in Health Technology and Informatics},
+  volume={289},
+  pages={485--486},
+  doi={10.3233/SHTI210963},
   title={openEHR-to-FHIR: Converting openEHR compositions to fast healthcare interoperability resources (FHIR) for the german corona consensus dataset (GECCO)},
   author={Ladas, Nektarios and Franz, Stefan and Haarbrandt, Birger and Sommer, Kim Katrin and Kohler, Severin and Ballout, Sarah and Fiebeck, Johanna and Marschollek, Michael and Gietzelt, Matthias},
   year={2022}
@@ -3821,7 +3825,11 @@ url={https://doi.org/10.1186/s12859-022-04797-6}
 @article{de_analyzing_2021,
   author = {De, A. and Huang, M. and Feng, T. and Yue, X. and Yao, L.},
   title = {{Analyzing patient secure messages using a fast health care interoperability resources (FIHR)-based data model: development and topic modeling study}},
+  journal = {Journal of Medical Internet Research},
   volume = {23},
+  number = {7},
+  pages = {e26770},
+  doi = {10.2196/26770},
   year = {2021}
 }
 
@@ -4649,6 +4657,9 @@ Publisher: Multidisciplinary Digital Publishing Institute},
 }
 
 @misc{qeuropean,
+	author = {{European Commission}},
+	year = {2024},
+	howpublished = {European Commission press corner},
 	type = {Text},
 	title = {Q\&{A} on the {European} {Health} {Data} {Space}},
 	url = {https://ec.europa.eu/commission/presscorner/detail/en/qanda_24_2251},
@@ -4660,6 +4671,8 @@ Publisher: Multidisciplinary Digital Publishing Institute},
 }
 
 @misc{noauthor_21st_2020,
+	author = {{Office of the National Coordinator for Health Information Technology}},
+	howpublished = {Federal Register},
 	title = {21st {Century} {Cures} {Act}: {Interoperability}, {Information} {Blocking}, and the {ONC} {Health} {IT} {Certification} {Program}},
 	shorttitle = {21st {Century} {Cures} {Act}},
 	url = {https://www.federalregister.gov/documents/2020/05/01/2020-07419/21st-century-cures-act-interoperability-information-blocking-and-the-onc-health-it-certification},
@@ -5651,4 +5664,32 @@ Publisher: JMIR Publications Inc., Toronto, Canada},
 	keywords = {Digital twin, Information model, Microservice, OPC UA},
 	pages = {231--246},
 	file = {Full Text PDF:/home/filo/Zotero/storage/LJH5CY9B/Malakuti et al. - 2019 - A Four-Layer Architecture Pattern for Constructing.pdf:application/pdf},
+}
+
+
+@misc{marfoglia_meds-owl_2026,
+	address = {Rochester, NY},
+	type = {{SSRN} {Scholarly} {Paper}},
+	title = {{MEDS}-{OWL}: {An} {Ontology}-{Driven} {Framework} for {Clinical} {Outcome} {Prediction} with {Graph} {Learning}},
+	shorttitle = {{MEDS}-{OWL}},
+	url = {https://papers.ssrn.com/abstract=7545256},
+	doi = {10.2139/ssrn.7545256},
+	abstract = {Objective: To develop a formal semantic representation of the Medical Event Data Standard (MEDS), an event-centric standard for structured clinical data, using Semantic Web technologies and supporting reproducible graph-based machine learning. We further investigate how the semantic granularity of the resulting graph representation affects clinical outcome prediction.Methods: We present MEDS-OWL, a lightweight ontology that extends MEDS with a formal semantic representation, together with meds2rdf, a scalable Python library for transforming MEDS-compliant datasets into FAIR-aligned MEDS-RDF graphs. Round-trip fidelity and scalability were evaluated on four heterogeneous clinical datasets (NEUROVASC, MIMIC-IV, eICU, and NWICU), comprising more than 309,000 hospital stays. For downstream evaluation, 11 prediction tasks derived from MIMIC-IV were formulated as patient-level binary classification problems. A two-layer Relational Graph Convolutional Network with literal-aware encoding was evaluated across three MEDS-RDF schema variants differing in subject–event predicate granularity, enabling systematic assessment of the influence of representation granularity on graph-based learning.Results: The framework preserved structural completeness and the core MEDS fields with high fidelity across the four datasets. Its streaming conversion architecture enabled processing RDF graphs of up to 937 GB, achieving a 2.7× speedup over its predecessor. Across the 11 prediction tasks, increasing semantic granularity from MEDS-RDF-Base to Partial to Full consistently improved Macro-F1, narrowing the performance gap with tabular baselines.Conclusions: MEDS-OWL provides a scalable, interoperable, and FAIR-aligned framework for representing MEDS data as semantic clinical graphs. The results demonstrate that semantic representation extends beyond interoperability and therefore should be treated as an important determinant of graph-based clinical machine learning performance in predictive analytics for clinical outcomes.},
+	language = {en},
+	urldate = {2026-10-02},
+	publisher = {Social Science Research Network},
+	author = {Marfoglia, Alberto and Carbonaro, Antonella and Coulet, Adrien},
+	month = sep,
+	year = {2026},
+	keywords = {FAIR principles, graph convolutional network, Healthcare, Knowledge Graph, Medical Event Data Standard (MEDS), OWL ontology},
+	file = {Full Text PDF:C\:\\Users\\amarf\\Zotero\\storage\\FGPJFBEN\\Marfoglia et al. - 2026 - MEDS-OWL An Ontology-Driven Framework for Clinical Outcome Prediction with Graph Learning.pdf:application/pdf},
+}
+
+@misc{noauthor_nifo,
+	author = {{European Commission}},
+	title = {National {Interoperability} {Framework} {Observatory} - {NIFO} {\textbar} {Interoperable} {Europe} {Portal}},
+	url = {https://interoperable-europe.ec.europa.eu/collection/digital-skills-public-sector/solution/interoperable-europe-academy/national-interoperability-framework-observatory-nifo},
+	language = {en},
+	urldate = {2026-10-07},
+	file = {Snapshot:C\:\\Users\\amarf\\Zotero\\storage\\K8HRL79F\\national-interoperability-framework-observatory-nifo.html:text/html},
 }

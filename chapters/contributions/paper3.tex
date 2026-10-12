@@ -4,34 +4,20 @@
 % mechanically, see the integration report). No bibliographic record for this paper was supplied, so it is not
 % cited here.
 % ============================================================================
-\section{MEDS-OWL: An Ontology-Driven Framework for Clinical Outcome Prediction with Graph Learning}
-\label{sec:paper3}
+\papersection{MEDS-OWL: An Ontology-Driven Framework for Clinical Outcome Prediction with Graph Learning}{sec:paper3}
 
-\paragraph{Authors.}
-Alberto Marfoglia\textsuperscript{1,2,*}, Antonella Carbonaro\textsuperscript{1,*}, Adrien Coulet\textsuperscript{2,*}
+\begin{paperheader}
+\textbf{Authors:} Alberto Marfoglia, Antonella Carbonaro, Adrien Coulet.\par
+Preprint submitted for publication in the Journal of Biomedical Informatics. Available at SSRN: \url{https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7545256}.
+\end{paperheader}
 
-{\raggedright % layout: ragged-right metadata block
-\noindent\textsuperscript{1}Dept.\ of Computer Science and Engineering (DISI), University of Bologna, Bologna, Italy\\
-\textsuperscript{2}Inria, Inserm, Universit\'e Paris Cit\'e, HeKA, UMR 1346, Paris, France\\
-\textsuperscript{*}Corresponding author.\\
-E-mail addresses: alberto.marfoglia2@unibo.it (A. Marfoglia), antonella.carbonaro@unibo.it (A. Carbonaro), adrien.coulet@inria.fr (A. Coulet).\\
-URLs: \url{https://albertomarfoglia.github.io/} (A. Marfoglia), \url{https://www.unibo.it/sitoweb/antonella.carbonaro} (A. Carbonaro), \url{https://heka.gitlabpages.inria.fr/team/members/coulet.html} (A. Coulet).\\
-ORCID: 0009-0000-5857-2376 (A. Marfoglia), 0000-0002-3890-4852 (A. Carbonaro), 0000-0002-1466-062X (A. Coulet).
-\par}
-
-{\raggedright
-\noindent\textsuperscript{a}Dept. of Computer Science and Engineering (DISI), University of Bologna, Bologna, Italy\\
-\textsuperscript{b}Inria, Inserm, Universit\'e Paris Cit\'e, HeKA, UMR 1346, Paris, France\\
-\textsuperscript{*}Corresponding authors.\\
-Preprint submitted for publication in the Journal of Biomedical Informatics. Available at SSRN: \url{https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7545256}.\\
-\par}
-
-\subsection*{Abstract}
+\begin{paperabstract}
 
 Objective: To develop a formal semantic representation of the Medical Event Data Standard (MEDS), an event-centric standard for structured clinical data, using Semantic Web technologies and supporting reproducible graph-based machine learning. We further investigate how the semantic granularity of the resulting graph representation affects clinical outcome prediction.\\
 Methods: We present MEDS-OWL, a lightweight ontology that extends MEDS with a formal semantic representation, together with \texttt{meds2rdf}, a scalable Python library for transforming MEDS-compliant datasets into FAIR-aligned MEDS-RDF graphs. Round-trip fidelity and scalability were evaluated on four heterogeneous clinical datasets (NEUROVASC, MIMIC-IV, eICU, and NWICU), comprising more than 309,000 hospital stays. For downstream evaluation, 11 prediction tasks derived from MIMIC-IV were formulated as patient-level binary classification problems. A two-layer Relational Graph Convolutional Network with literal-aware encoding was evaluated across three MEDS-RDF schema variants differing in subject–event predicate granularity, enabling systematic assessment of the influence of representation granularity on graph-based learning.\\
 Results: The framework preserved structural completeness and the core MEDS fields with high fidelity across the four datasets. Its streaming conversion architecture enabled processing RDF graphs of up to 937 GB, achieving a 2.7$\times$ speedup over its predecessor. Across the 11 prediction tasks, increasing semantic granularity from MEDS-RDF-Base to Partial to Full consistently improved Macro-F1, narrowing the performance gap with tabular baselines.\\
 Conclusions: MEDS-OWL provides a scalable, interoperable, and FAIR-aligned framework for representing MEDS data as semantic clinical graphs. The results demonstrate that semantic representation extends beyond interoperability and therefore should be treated as an important determinant of graph-based clinical machine learning performance in predictive analytics for clinical outcomes.
+\end{paperabstract}
 
 \subsection*{Graphical abstract}
 
@@ -52,8 +38,10 @@ In this study, we propose a semantic framework for representing MEDS-based clini
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{p{0.2\textwidth} p{0.8\textwidth}}
-\hline
+
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{p{0.3\textwidth} p{0.7\textwidth}}
+\toprule
 \textbf{Problem or Issue} &
 MEDS provides a standardized event-centric format for clinical data, but lacks ontology-level semantics, limiting semantic interoperability and leaving the effect of representation granularity on graph-based prediction unclear.
 \\[0.5em]
@@ -69,9 +57,12 @@ We introduce MEDS-OWL, a general-purpose OWL ontology for MEDS, and meds2rdf, a 
 \textbf{Who would benefit from the new knowledge in this paper} &
 Clinical informatics researchers, biomedical data scientists, and machine-learning researchers working with interoperable, reproducible graph representations of longitudinal clinical data.
 \\
-\hline
+\bottomrule
 \end{tabular}
+\caption{Statement of significance}
+\label{tab:paper3_statement-of-significance}
 \end{table}
+
 %
 %
 %
@@ -100,7 +91,7 @@ In this section, we first describe the development of the MEDS-OWL ontology and 
 MEDS-OWL~\cite{marfoglia_teamhekameds-ontology_2025} was developed following the ontology-engineering methodology of Noy and McGuinness~\cite{mcguninnes}, using Protégé~\cite{musen_protege_2015}. It represents EHR- and claims-style medical events defined by MEDS together with dataset- and experiment-level metadata for reproducible ML workflows. The ontology defines seven core classes: \texttt{Subject}, \texttt{Event}, \texttt{Code}, \texttt{DatasetMetadata}, \texttt{SubjectSplit}, \texttt{SubjectLabel},
 and \texttt{ValueModality}. A detailed description of the ontology design nd development process is provided in \cite{marfoglia_clinical_2026}; the correspondence with MEDS schema components and complete class descriptions are reported in Suppl. Tables~\ref{tab:paper3_schema-to-ontology} and \ref{tab:paper3_meds-owl-concepts}, respectively.
 
-\paragraph{MEDS-RDF Generation Library: \texttt{meds2rdf}.}\label{sec:paper3_meds2rdf}
+\paragraph{MEDS-RDF Generation Library: \texttt{meds2rdf}.}\label{sec:paper3_meds2rdf}\mbox{}\\
 We developed \texttt{meds2rdf}~\cite{marfoglia_teamhekameds2rdf_2025}, a Python library implementing the mapping from MEDS datasets to
 MEDS-OWL-compliant RDF graphs. The first release constructed the complete graph in an in-memory \texttt{rdflib.Graph}, which limited scalability for large EHR datasets. The second release introduces a \emph{sink-based} architecture that decouples triple generation from storage. Triples are generated incrementally as MEDS partitions are processed and passed to a \texttt{TripleSink} implementation. Two sinks are provided: \texttt{GraphSink}, which preserves the in-memory \texttt{rdflib.Graph} workflow for small datasets and testing, and \texttt{NTriplesSink}, which streams triples directly to disk in N-Triples format, with optional gzip compression and configurable batching. The latter avoids retaining the complete graph in memory and is intended for large-scale datasets.
 Additional storage backends can be implemented by extending the \texttt{TripleSink} interface.
@@ -109,16 +100,16 @@ Additional storage backends can be implemented by extending the \texttt{TripleSi
 Figure~\ref{fig:paper3_meds-to-rdf-etl} summarizes the end-to-end MEDS-RDF conversion workflow. (a) When source data are not already in MEDS format, \texttt{MEDS-extract}~\cite{mcdermott_meds_2024} first applies a declarative conversion template to generate MEDS event tuples. This step is optional for datasets already conforming to MEDS. (b) The resulting MEDS data are then transformed into MEDS-RDF using \texttt{meds2rdf}, whose deterministic, table-driven mappings associate MEDS schema elements with the corresponding MEDS-OWL classes and properties. (c) Generated triples are incrementally passed to the selected \texttt{TripleSink}. For \texttt{GraphSink} outputs, optional SHACL validation using \texttt{pySHACL} checks the semantic constraints encoded by MEDS-OWL
 before serialization to standard RDF formats. This separation of mapping and validation allows ontology constraints to evolve independently from the conversion implementation; further details are provided in the Supplementary Methods.
 
-\begin{figure*}[h]
+\begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{figures/paper3/fig0.png}
   \caption{Overview of the end-to-end MEDS-RDF transformation pipeline, illustrating (a) normalization and extraction of tabular data into MEDS event tuples, optional if data are already in MEDS, (b) transformation into MEDS-RDF KGs compliant with the MEDS-OWL ontology, and (c) optional SHACL-based validation and serialization into standard RDF formats.}
   \label{fig:paper3_meds-to-rdf-etl}
-\end{figure*}
+\end{figure}
 %
 %
 \paragraph{Evaluation Datasets.}\label{sec:paper3_datasets}
-% \begin{table}[h]
+% \\begin{table}[htbp]
 % \caption{Datasets, with MEDS ETL support, used for evaluation. %All real-world datasets require credentialed access via PhysioNet. MEDS ETL links point to publicly available conversion pipelines
 % }\label{tab:datasets}
 % \begin{tabular*}{\tblwidth}{@{}L@{}R@{}C@{}C@{}C@{}}
@@ -163,25 +154,25 @@ For the enriched variants, predicates are generated deterministically by splitti
 % For both enriched variants, predicates are automatically generated by \texttt{meds2rdf} through a deterministic transformation that splits code strings on non-alphanumeric delimiters, converts the resulting tokens to camelCase, and prefixes them with \texttt{has}. In the absence of a value segment (i.e., codes without the \texttt{//} delimiter), the partial and full variants coincide. In the case of more than one \texttt{//} delimiter, only the first is treated as the separator between the code and value segments; all subsequent occurrences are replaced with underscores (\texttt{\_}) to produce a valid, normalized URI.
 % %Figure~\ref{fig:meds-rdf-variants} illustrates the three representations for the same example event, highlighting how progressively richer predicate semantics modify the structure of the resulting graph.
  
-\begin{figure*}[h]
+\begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{figures/paper3/fig5.png}
-  \caption{MEDS-RDF representation variants of the same event (\texttt{Admission\_Mode//7}) under the three subject--event linking strategies.}
+  \caption[MEDS-RDF representation variants of the same event under three subject--event linking strategies.]{MEDS-RDF representation variants of the same event (\texttt{Admission\_Mode//7}) under the three subject--event linking strategies.}
   \label{fig:paper3_meds-rdf-variants}
-\end{figure*}
+\end{figure}
  
 \subsubsection{Patient Outcome Prediction}\label{sec:paper3_prediction-task}
 \paragraph{Prediction Tasks.}
 To evaluate whether MEDS-RDF schema granularity affects downstream clinical prediction, and whether such effects generalize, we construct a multi-task predictive benchmark over MIMIC-IV using the 11 prediction tasks in Table~\ref{tab:paper3_mimic-tasks}. These latter are common prediction tasks, and we reproduce them by leveraging the ACES (Automatic Cohort Extraction System) definitions published by \cite{mcdermott_mimic-iv_2025} (see Section~\ref{sec:paper3_exp-pipeline}, Stage 2, for details). Each task is cast as a node classification problem over the corresponding MEDS-RDF graph, with patient nodes labelled according to the task-specific binary outcome. 
 %
-\begin{table*}[h]
+\begin{table}[htbp]
 \centering
 \caption{A collection of various common predictive tasks on MIMIC-IV~\cite{mcdermott_mimic-iv_2025}}
 \label{tab:paper3_mimic-tasks}
-\begin{tabular}{p{4.8cm} p{8.4cm}}
-\hline
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.34\textwidth} >{\raggedright\arraybackslash}X}
+\toprule
 \textbf{Task Name} & \textbf{Description} \\
-\hline
+\midrule
 First 24h in-hospital mortality & Predict mortality within a hospital admission using the first 24 hours of data from that admission. \\
 First 48h in-hospital mortality & Predict mortality within a hospital admission using the first 48 hours of data from that admission. \\
 First 24h in-ICU mortality & Predict mortality within an ICU admission using the first 24 hours of data from that admission. \\
@@ -195,13 +186,13 @@ ICU LOS $>$3 days & Predict an ICU length of stay greater than 3 days, using the
 30d re-admission & Predict hospital readmission within 30 days of discharge. \\
 Myocardial infarction 1--5Y phenotyping & Predict myocardial infarction (MI) incidence 1--5 years after an hospital admission. \\
 CKD onset in diabetics 5Y from kidney panel & Predict chronic kidney disease (CKD) onset in diabetic patients within 5 years of any kidney panel laboratory test. \\
-\hline
-\end{tabular}
-\end{table*}
+\bottomrule
+\end{tabularx}
+\end{table}
  %
  %
  
-\paragraph{Architecture.}
+\paragraph{Architecture.}\mbox{}\\
 
 We use a Relational Graph Convolutional Network (RGCN)~\cite{schlichtkrull_2018} as a common downstream model for all experiments, because it has been shown to provide competitive performance for entity classification against alternative graph-based approaches~\cite{schlichtkrull_2018}. We keep the architecture, hyperparameters, and training protocol fixed across graph variants, so that schema granularity (MEDS-RDF-Base, -Partial, and -Full) is the only experimental variable. RGCN is well suited to this comparison because it uses relation-specific transformations for different relation types and directions~\cite{schlichtkrull_2018}, making the learned representations sensitive to differences in predicate specialization.
 
@@ -253,7 +244,7 @@ to ensure balanced training conditions. The sole exception is \emph{CKD onset in
 We instantiate the pruning procedure introduced in Section~\ref{sec:paper3_prediction-task} as follows. For each task, the XGBoost baseline (Section~\ref{sec:paper3_prediction-task}) is trained on a tabular representation of the Stage~3 subsample, using one feature per MEDS event type. %as summarized in Table~\ref{tab:feature-mapping}. 
 SHAP values are then computed on this trained model using \texttt{TreeExplainer}, with per-feature importance taken as the mean absolute SHAP value, computed separately for each output class (TRUE/FALSE); the retained feature set for threshold $\theta$ is the union of per-class features whose importance is at or above the $\theta$-th quantile of that class's distribution. At $\theta = 0.90$ (top 10\%), MEDS events whose code is not in the retained set are dropped from the preprocessed dataset before any RDF conversion, applied identically across schema variants. The choice of $\theta = 0.90$ is justified empirically in Section~\ref{sec:paper3_results-ablation}.
 
-% \begin{table}[h]
+% \\begin{table}[htbp]
 % \caption{Mapping from MEDS event types to tabular features used for XGBoost training.}\label{tab:feature-mapping}
 % \begin{tabular}{p{1.4cm} p{3.3cm} l}
 % \toprule
@@ -300,18 +291,18 @@ The only deviations from perfect fidelity occur in \texttt{text\_value} and code
 
 Duplicate-key events, defined by identical (\texttt{subject\_id}, \texttt{time}, \texttt{code}) values, occur in all real-world datasets and are excluded from join-based fidelity metrics because they cannot be uniquely matched during reconstruction. They account for 7.8--11.0\% of MIMIC-IV events, 0.2--0.5\% of eICU events, and 1.8--2.3\% of NWICU events; approximate matching yielded \texttt{numeric\_value} fidelity of 1.0 for these events.
 
-\begin{table*}[h]
+\begin{table}[htbp]
 \centering
 \caption{Round-trip fidelity results across four MEDS datasets (sampled at 100 patients, averaged over 5 samples). Subject identifier, code, time, and numeric value fidelity are 1.0 across all datasets; text value fidelity is slightly below 1.0 for the real-world datasets due to RDF-compatible normalisation of special characters in free-text fields. Structural losses are ontology-level limitations present in all cases.}
 \label{tab:paper3_fidelity}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lrrrr}
-\hline
-\textbf{Metric} & \textbf{NEUROVASC} & \textbf{MIMIC-IV} & \textbf{eICU} & \textbf{NWICU} \\ \hline
+\toprule
+\textbf{Metric} & \textbf{NEUROVASC} & \textbf{MIMIC-IV} & \textbf{eICU} & \textbf{NWICU} \\ \midrule
 Events (original / reconstructed) & 251 / 251 & 161,356 / 161,356 & 1,373,226 / 1,373,226 & 157,884 / 157,884 \\
 Structural completeness & 1.0 & 1.0 & 1.0 & 1.0 \\
 Subjects (original / reconstructed) & 100 / 100 & 100 / 100 & 100 / 100 & 100 / 100 \\
-Subject completeness & 1.0 & 1.0 & 1.0 & 1.0 \\ \hline
+Subject completeness & 1.0 & 1.0 & 1.0 & 1.0 \\ \midrule
 Fidelity — \texttt{subject\_id} & 1.0 & 1.0 & 1.0 & 1.0 \\
 Fidelity — \texttt{code} & 1.0 & 1.0 & 1.0 & 1.0 \\
 Fidelity — \texttt{time} & 1.0 & 1.0 & 1.0 & 1.0 \\
@@ -321,15 +312,15 @@ Numeric max abs.\ error & 0.0 & 0.0 & 0.0 & 0.0 \\
 Numeric mean abs.\ error & 0.0 & 0.0 & 0.0 & 0.0 \\
 Temporal max $\Delta$ (s) & 0.0 & 0.0 & 0.0 & 0.0 \\
 Temporal mean $\Delta$ (s) & 0.0 & 0.0 & 0.0 & 0.0 \\
-\hline
+\midrule
 Codes (original / reconstructed) & 91 / 91 & 5,608 / 5,607 & 2,225 / 2,224 & 3,413 / 3,413 \\
-Code completeness & 1.0 & 0.9998 & 0.9996 & 1.0 \\ \hline
+Code completeness & 1.0 & 0.9998 & 0.9996 & 1.0 \\ \midrule
 Null rate \texttt{numeric\_value} (orig.) & 1.000 & 0.508 $\pm$ 0.016 & 0.711 $\pm$ 0.025 & 0.405 $\pm$ 0.010 \\
 Null rate \texttt{text\_value} (orig.) & 1.000 & 0.613 $\pm$ 0.076 & 0.998 $\pm$ 0.0004 & 0.995 $\pm$ 0.0007 \\
-Duplicate-key rows (\% of events) & 0.0\% & 7.8–11.0\% & 0.2–0.5\% & 1.8–2.3\% \\ \hline
+Duplicate-key rows (\% of events) & 0.0\% & 7.8–11.0\% & 0.2–0.5\% & 1.8–2.3\% \\ \bottomrule
 \end{tabular}%
 }
-\end{table*}
+\end{table}
 
 \paragraph{Scalability and Performance Evaluation.}\label{sec:paper3_scalability}
 We next assess whether \texttt{meds2rdf} can perform complete conversions at scale. Conversion time and output size were measured for all four datasets, while the first and second releases of \texttt{meds2rdf} were compared on NEUROVASC, the only dataset for which the in-memory v1 conversion could be completed. Experiments were performed on Ubuntu 24.04.2 LTS using 16 AMD EPYC-Genoa cores and 32~GB of RAM.
@@ -338,21 +329,21 @@ On the complete NEUROVASC dataset, comprising 245,015 MEDS events from 10,000 pa
 
 % Please add the following required packages to your document preamble:
 % \usepackage{graphicx}
-\begin{table*}[h]
+\begin{table}[htbp]
 \centering
 \caption{Scalability results for \texttt{meds2rdf} v2 (NTriplesSink) on complete conversions of all four datasets.} %The v1 converter is shown only for NEUROVASC; all real-world datasets exceeded available RAM and could not be completed.}
 \label{tab:paper3_scalability}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lrrrrrr}
-\hline
-\textbf{Dataset} & \textbf{Time (plain)} & \textbf{Size (plain)} & \textbf{Time (gzip)} & \textbf{Size (gzip)} & \multicolumn{1}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}Time\\ overhead\end{tabular}}} & \multicolumn{1}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}Size\\ reduction\end{tabular}}} \\ \hline
+\toprule
+\textbf{Dataset} & \textbf{Time (plain)} & \textbf{Size (plain)} & \textbf{Time (gzip)} & \textbf{Size (gzip)} & \multicolumn{1}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}Time\\ overhead\end{tabular}}} & \multicolumn{1}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}Size\\ reduction\end{tabular}}} \\ \midrule
 NEUROVASC & 15 s & 247 MB & 22 s & 6.9 MB & +32\% & -97\% \\
 NWICU & 1h 07m 42s & 62 GB & 1h 32m 40s & 2.0 GB & +27\% & -97\% \\
 eICU & 38m 31s & 41 GB & 53m 08s & 800 MB & +28\% & -98\% \\
-MIMIC-IV & 17h 17m 53s & 937 GB & 25h 02m 34s & 32 GB & +31\% & -97\% \\ \hline
+MIMIC-IV & 17h 17m 53s & 937 GB & 25h 02m 34s & 32 GB & +31\% & -97\% \\ \bottomrule
 \end{tabular}%
 }
-\end{table*}
+\end{table}
 %
 %
 %
@@ -366,115 +357,81 @@ The results are presented in four stages. (\textit{i}) We first justify the SHAP
 We first calibrated the SHAP-based retention threshold on the \emph{First 24h in-hospital mortality} task using an XGBoost model and
 then fixed it for all subsequent experiments. The SHAP rankings identified a stable set of influential clinical features, led by patient age and followed by laboratory, medication, and admission-related events (Figure~\ref{fig:paper3_shap-summary}), supporting the use of a common threshold.
 %
-\begin{figure*}[h]
+\begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{figures/paper3/fig6.png}
 \caption{SHAP summary plots for the XGBoost model used to rank MEDS (code, value) features by importance for SHAP-guided relation pruning on \emph{First 24h in-hospital mortality}, reported separately for each outcome class: (a) FALSE, (b) TRUE. Each point is one patient; horizontal position is the SHAP value (contribution to model output) and colour encodes the feature's value (low to high). For readability, only the top-20 features are shown.}
   \label{fig:paper3_shap-summary}
-\end{figure*}
+\end{figure}
 
 Across MEDS-RDF-Full, varying the retention threshold from the top 1\% to 30\% yielded similar predictive performance (Macro-F1: 0.70--0.72; AUC: 0.77--0.80) while reducing the number of retained relations from 205 to 14; we therefore selected the top 10\% as a balance between graph compactness and predictive performance. At this threshold, MEDS-RDF-Full achieved a Macro-F1 of 0.72 and AUC of 0.80, compared with 0.63 and 0.69 for MEDS-RDF-Partial and 0.56 and 0.59 for MEDS-RDF-Base, respectively. Removing temporal information reduced Macro-F1 to 0.71 and AUC to 0.76, while additionally removing literal information reduced them to 0.70 and 0.75, indicating complementary contributions from temporal and literal information (Table~\ref{tab:paper3_results-ablation}).
 
-\begin{table*}[h]
+\begin{table}[htbp]
+\centering
 \caption{Configuration ablation on \emph{First 24h in-hospital mortality}: SHAP-pruning threshold (retained top-percentile of relations by importance), literal/temporal information, and resulting graph size. Experiments use RGCN2+lit with all-MiniLM-L6-v2 for textual values, except \emph{Full (no-time; no-txt)}, where no sentence transformer is used.}
 \label{tab:paper3_results-ablation}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{llccccccccc}
-\hline
-\multicolumn{1}{c}{\multirow{2}{*}{Dataset}} & \multicolumn{1}{c}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}MEDS-RDF variant\end{tabular}}} & \multicolumn{1}{l}{\multirow{2}{*}{Predicates}} & \multicolumn{1}{l}{\multirow{2}{*}{Triples}} & \multicolumn{4}{c}{F1-score} & \multirow{2}{*}{Accuracy} & \multirow{2}{*}{AUC} & \multirow{2}{*}{AUPRC} \\ \cline{5-8}
-\multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & False & True & Macro & Weighted &  &  &  \\ \hline
+\toprule
+\multicolumn{1}{c}{\multirow{2}{*}{Dataset}} & \multicolumn{1}{c}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}MEDS-RDF variant\end{tabular}}} & \multicolumn{1}{l}{\multirow{2}{*}{Predicates}} & \multicolumn{1}{l}{\multirow{2}{*}{Triples}} & \multicolumn{4}{c}{F1-score} & \multirow{2}{*}{Accuracy} & \multirow{2}{*}{AUC} & \multirow{2}{*}{AUPRC} \\ \cmidrule(lr){5-8}
+\multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & False & True & Macro & Weighted &  &  &  \\ \midrule
 \multirow{2}{*}{Entire} & Base & 9 & \multirow{2}{*}{2,768,048} & 0.61 ±   0.06 & 0.63 ± 0.12 & 0.62 ± 0.08 & 0.62 ± 0.08 & 0.61 ± 0.06 & 0.66 ± 0.07 & 0.67 ± 0.07 \\
  & Partial & 19 &  & 0.66 ± 0.05 & 0.66 ± 0.06 & 0.66 ± 0.05 & 0.66 ± 0.05 & 0.65 ± 0.04 & 0.73 ± 0.05 & 0.72 ± 0.06 \\
-\hline
+\midrule
   Only top 30\% & \multirow{2}{*}{Full} & 205 & \multicolumn{1}{r}{968,738} & 0.70 ± 0.04 & 0.69 ± 0.06 & 0.69 ± 0.05 & 0.69 ± 0.05 & 0.69 ± 0.05 & 0.77 ± 0.04 & 0.78 ± 0.04 \\ 
   Only top 15\% &  & 105 & \multicolumn{1}{r}{511,006} & 0.72 ± 0.05 & 0.71 ± 0.06 & 0.71 ± 0.04 & 0.71 ± 0.04 & 0.71 ± 0.04 & 0.79 ± 0.05 & 0.79 ± 0.05 \\
-\hline
+\midrule
 \multirow{5}{*}{Only top 10\%} & Base & 7 & \multirow{5}{*}{366,053} & 0.54 ± 0.15 & 0.57 ± 0.16 & 0.56 ± 0.12 & 0.56 ± 0.12 & 0.56 ± 0.06 & 0.59 ± 0.09 & 0.60 ± 0.08 \\
  & Partial & 12 &  & 0.64 ± 0.06 & 0.62 ± 0.05 & 0.63 ± 0.05 & 0.63 ± 0.05 & 0.63 ± 0.05 & 0.69 ± 0.06 & 0.67 ± 0.06 \\
  & Full & 74 &  & \textbf{0.73 ± 0.05} & \textbf{0.71 ± 0.05} & \textbf{0.72 ± 0.04} & \textbf{0.72 ± 0.04} & \textbf{0.72 ± 0.05} & \textbf{0.80 ± 0.05} & \textbf{0.79 ± 0.05} \\
  & \begin{tabular}[c]{@{}l@{}}Full (no-time)\end{tabular} & 74 &  & 0.71 ± 0.05 & 0.71 ± 0.05 & 0.71 ± 0.04 & 0.71 ± 0.04 & 0.70 ± 0.04 & 0.76 ± 0.05 & 0.75 ± 0.05 \\
  & \begin{tabular}[c]{@{}l@{}}Full (no-time;no-txt)\end{tabular} & 74 &  & 0.69 ± 0.05 & 0.70 ± 0.05 & 0.70 ± 0.04 & 0.70 ± 0.04 & 0.69 ± 0.04 & 0.75 ± 0.06 & 0.74 ± 0.06 \\
- \hline
+ \midrule
 % Only top 30\% & \multirow{4}{*}{Full} & 205 & \multicolumn{1}{r}{968,738} & 0.70 ± 0.04 & 0.69 ± 0.06 & 0.69 ± 0.05 & 0.69 ± 0.05 & 0.69 ± 0.05 & 0.77 ± 0.04 & 0.78 ± 0.04 \\ 
 %Only top 15\% &  & 105 & \multicolumn{1}{r}{511,006} & 0.72 ± 0.05 & 0.71 ± 0.06 & 0.71 ± 0.04 & 0.71 ± 0.04 & 0.71 ± 0.04 & 0.79 ± 0.05 & 0.79 ± 0.05 \\
 Only top 5\% & \multirow{2}{*}{Full} & 41 & \multicolumn{1}{r}{202,437} & 0.72 ± 0.06 & 0.72 ± 0.06 & 0.72 ± 0.05 & 0.72 ± 0.05 & 0.72 ± 0.06 & 0.80 ± 0.06 & 0.78 ± 0.06 \\
 Only top 1\% &  & 14 & \multicolumn{1}{r}{45,892} & 0.71 ± 0.07 & 0.70 ± 0.05 & 0.70 ± 0.05 & 0.70 ± 0.05 & 0.70 ± 0.05 & 0.78 ± 0.05 & 0.76 ± 0.06 \\
-\hline
-\multicolumn{11}{c}{\textbf{Task : First 24h in-hospital mortality}} \\ \hline
+\midrule
+\multicolumn{11}{c}{\textbf{Task : First 24h in-hospital mortality}} \\ \bottomrule
 \end{tabular}%
 }
-\end{table*}
+\end{table}
  
 \paragraph{Impact of semantic representation across prediction tasks.}\label{sec:paper3_results-schema}
 Using the top-10\% SHAP-pruning threshold established in Section~\ref{sec:paper3_results-ablation}, we compared MEDS-RDF-Base, MEDS-RDF-Partial, and MEDS-RDF-Full across the 11 MIMIC-IV prediction tasks. Table~\ref{tab:paper3_results-illustrative} presents three representative tasks, while complete results and comparisons with Logistic Regression, Random Forest, and XGBoost are reported in Supplementary Tables~\ref{tab:paper3_results-schema-full} and~\ref{tab:paper3_results-tabular-full}. Because all pruned variants use the same filtered event set, performance differences isolate the effect of semantic specialization. Macro-F1 increased consistently with schema granularity across all 11 tasks, with MEDS-RDF-Full providing the highest Macro-F1 in every case. %On the unpruned dataset, the same progression was observed in 9 of 11 tasks; the two exceptions disappear once SHAP-guided pruning is applied. This indicate that pruning does not merely make MEDS-RDF-Full tractable, but also removes noise from rare or uninformative codes that can otherwise destabilise the coarser partial schema.
 We also evaluated RGCN depth and found no benefit from increasing the number of message-passing layers beyond two: on \emph{First 24 in-hospital mortality}, Macro-F1 decreased from 0.72 with RGCN2+lit to 0.71 with three to five layers, while training time increased from 55.1~$\pm$~29.6~s to 66.4--77.2~s (Suppl. Table~\ref{tab:paper3_rgcn-depth}).
 Against tabular baselines, XGBoost achieved the highest mean Macro-F1 across the 11 tasks (0.816), compared with 0.813 for Random Forest and 0.796 for Logistic Regression, while RGCN2+lit with MEDS-RDF-Full (pruned) achieved 0.784. Paired tests identified significant differences between RGCN2+lit and XGBoost in 8 of 11 tasks, with the largest gap for \emph{LOS in ICU $>3$ days} (Macro-F1: 0.831 vs.\ 0.937, $p<0.001$); detailed per-task comparisons are provided in Supplementary Table~\ref{tab:paper3_results-xgb-statistical}.
 
-% \begin{table*}[h]
-% \caption{Schema-granularity progression and comparison with the XGBoost tabular baseline for three representative tasks. \emph{Entire} denotes the unpruned dataset; \emph{Only top 10\%} denotes the subset retaining the top 10\% of relations by SHAP importance. \emph{Base}, \emph{Partial}, and \emph{Full} denote the corresponding MEDS-RDF schema variants. The best-performing model--schema combination within each task--dataset block is shown in bold. Full results for all 11 tasks and all tabular baselines are reported in Suppl. Tables \ref{tab:results-schema-full} and \ref{tab:results-tabular-full}.}
-% \label{tab:results-illustrative}
-% \resizebox{\textwidth}{!}{%
-% \begin{tabular}{llllcccccc}
-% \hline
-% \multicolumn{1}{c}{\multirow{4}{*}{Task}} & \multirow{4}{*}{Model} & \multicolumn{1}{c}{\multirow{4}{*}{Dataset}} & \multicolumn{1}{c}{\multirow{4}{*}{Schema}} & \multicolumn{3}{c}{\multirow{2}{*}{F1-score}} & \multirow{4}{*}{Accuracy} & \multirow{4}{*}{AUC} & \multirow{4}{*}{AUPRC} \\
-% \multicolumn{1}{c}{} &  & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{3}{c}{} &  &  &  \\ \cline{5-7}
-% \multicolumn{1}{c}{} &  & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multirow{2}{*}{False} & \multirow{2}{*}{True} & \multirow{2}{*}{Macro} &  &  &  \\
-% \multicolumn{1}{c}{} &  & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  &  &  &  &  &  \\ \hline
-% \multirow{6}{*}{\begin{tabular}[c]{@{}l@{}}First 24h \\ in-ICU \\ mortality\end{tabular}} & \multicolumn{1}{c}{\multirow{5}{*}{RGCN2+lit}} & \multirow{2}{*}{Entire} & Base & 0.34 ± 0.25 & 0.38 ± 0.22 & 0.36 ± 0.13 & 0.50 ± 0.04 & 0.52 ± 0.07 & 0.53 ± 0.05 \\
-%  & \multicolumn{1}{c}{} &  & Partial & 0.60 ± 0.05 & 0.60 ± 0.06 & 0.60 ± 0.05 & 0.59 ± 0.05 & 0.64 ± 0.07 & 0.65 ± 0.06 \\ \cline{3-10} 
-%  & \multicolumn{1}{c}{} & \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Only \\ top 10\%\end{tabular}} & Base & 0.42 ± 0.23 & 0.31 ± 0.27 & 0.37 ± 0.16 & 0.50 ± 0.02 & 0.50 ± 0.06 & 0.51 ± 0.05 \\
-%  & \multicolumn{1}{c}{} &  & Partial & 0.58 ± 0.06 & 0.57 ± 0.13 & 0.58 ± 0.08 & 0.57 ± 0.05 & 0.62 ± 0.06 & 0.62 ± 0.07 \\
-%  & \multicolumn{1}{c}{} &  & Full & \textbf{0.74 ± 0.06} & \textbf{0.74 ± 0.05} & \textbf{0.74 ± 0.05} & \textbf{0.74 ± 0.04} & \textbf{0.82 ± 0.05} & \textbf{0.80 ± 0.05} \\
-%  & XGBoost &  & Tabular & \textbf{0.78 ± 0.02} & \textbf{0.79 ± 0.02} & \textbf{0.78 ± 0.02} & \textbf{0.78 ± 0.02} & \textbf{0.87 ± 0.02} & \textbf{0.86 ± 0.02} \\ \hline
-% \multirow{6}{*}{\begin{tabular}[c]{@{}l@{}}1y post \\ -hospital \\ -discharge \\ mortality\end{tabular}} & \multirow{5}{*}{RGCN2+lit} & \multirow{2}{*}{Entire} & Base & 0.67 ± 0.07 & 0.63 ± 0.15 & 0.65 ± 0.10 & 0.64 ± 0.06 & 0.71 ± 0.06 & 0.70 ± 0.06 \\
-%  &  &  & Partial & 0.76 ± 0.06 & 0.73 ± 0.05 & 0.74 ± 0.04 & 0.74 ± 0.04 & 0.82 ± 0.04 & 0.81 ± 0.05 \\ \cline{3-10} 
-%  &  & \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Only \\ top 10\%\end{tabular}} & Base & 0.63 ± 0.16 & 0.63 ± 0.09 & 0.63 ± 0.11 & 0.61 ± 0.08 & 0.68 ± 0.09 & 0.71 ± 0.06 \\
-%  &  &  & Partial & 0.77 ± 0.05 & 0.74 ± 0.05 & 0.76 ± 0.04 & 0.75 ± 0.05 & 0.84 ± 0.04 & 0.83 ± 0.05 \\
-%  &  &  & Full & \textbf{0.82 ± 0.05} & \textbf{0.80 ± 0.06} & \textbf{0.81 ± 0.05} & \textbf{0.81 ± 0.05} & \textbf{0.89 ± 0.04} & \textbf{0.89 ± 0.04} \\
-%  & XGBoost &  & Tabular & \textbf{0.81 ± 0.01} & \textbf{0.82 ± 0.01} & \textbf{0.82 ± 0.01} & \textbf{0.82 ± 0.01} & \textbf{0.90 ± 0.00} & \textbf{0.90 ± 0.00} \\ \hline
-% \multirow{6}{*}{\begin{tabular}[c]{@{}l@{}}Myocardial \\ infarction \\ 1--5Y \\ phenotyping\end{tabular}} & \multirow{5}{*}{RGCN2+lit} & \multirow{2}{*}{Entire} & Base & 0.58 ± 0.09 & 0.55 ± 0.17 & 0.57 ± 0.11 & 0.56 ± 0.05 & 0.62 ± 0.07 & 0.64 ± 0.07 \\
-%  &  &  & Partial & 0.70 ± 0.06 & 0.71 ± 0.04 & 0.71 ± 0.04 & 0.70 ± 0.04 & 0.78 ± 0.04 & 0.77 ± 0.05 \\ \cline{3-10} 
-%  &  & \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Only \\ top 10\%\end{tabular}} & Base & 0.57 ± 0.08 & 0.51 ± 0.21 & 0.54 ± 0.13 & 0.57 ± 0.06 & 0.64 ± 0.06 & 0.66 ± 0.06 \\
-%  &  &  & Partial & 0.71 ± 0.05 & 0.71 ± 0.06 & 0.71 ± 0.05 & 0.71 ± 0.05 & 0.78 ± 0.04 & 0.77 ± 0.05 \\
-%  &  &  & Full & \textbf{0.72 ± 0.05} & \textbf{0.76 ± 0.06} & \textbf{0.74 ± 0.04} & \textbf{0.73 ± 0.04} & \textbf{0.82 ± 0.04} & \textbf{0.82 ± 0.06} \\
-%  & XGBoost &  & Tabular & \textbf{0.74 ± 0.02} & \textbf{0.74 ± 0.02} & \textbf{0.74 ± 0.02} & \textbf{0.74 ± 0.02} & \textbf{0.83 ± 0.02} & \textbf{0.83 ± 0.02} \\ \hline
-% \end{tabular}%
-% }
-% \end{table*}
-
-
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
-% \usepackage{graphicx}
-\begin{table*}[]
+\begin{table}[htbp]
+\centering
 \caption{Schema-granularity progression and comparison with the XGBoost tabular baseline for three representative tasks. \emph{Entire} denotes the unpruned dataset; \emph{Only top 10\%} denotes the subset retaining the top 10\% of relations by SHAP importance. \emph{Base}, \emph{Partial}, and \emph{Full} denote the corresponding MEDS-RDF schema variants. The best-performing model--schema combination within each task--dataset block is shown in bold. Full results for all 11 tasks and all tabular baselines are reported in Suppl. Tables \ref{tab:paper3_results-schema-full} and \ref{tab:paper3_results-tabular-full}.}
 \label{tab:paper3_results-illustrative}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{llllcccccccc}
-\hline
-\multicolumn{1}{c}{\multirow{2}{*}{Task}} & \multirow{2}{*}{Model} & \multicolumn{1}{c}{\multirow{2}{*}{Dataset}} & \multicolumn{1}{c}{\multirow{2}{*}{Schema}} & \multicolumn{3}{c}{F1-score} & \multirow{2}{*}{Accuracy} & \multirow{2}{*}{AUC} & \multirow{2}{*}{AUPRC} & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Duration\\ (s)\end{tabular}} & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Emission\\ (gCO2eq)\end{tabular}} \\ \cline{5-7}
-\multicolumn{1}{c}{} &  & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & False & True & Macro &  &  &  &  &  \\ \hline
+\toprule
+\multicolumn{1}{c}{\multirow{2}{*}{Task}} & \multirow{2}{*}{Model} & \multicolumn{1}{c}{\multirow{2}{*}{Dataset}} & \multicolumn{1}{c}{\multirow{2}{*}{Schema}} & \multicolumn{3}{c}{F1-score} & \multirow{2}{*}{Accuracy} & \multirow{2}{*}{AUC} & \multirow{2}{*}{AUPRC} & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Duration\\ (s)\end{tabular}} & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Emission\\ (gCO2eq)\end{tabular}} \\ \cmidrule(lr){5-7}
+\multicolumn{1}{c}{} &  & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & False & True & Macro &  &  &  &  &  \\ \midrule
 \multirow{6}{*}{\begin{tabular}[c]{@{}l@{}}First 24h \\ in-ICU \\ mortality\end{tabular}} & \multicolumn{1}{c}{\multirow{5}{*}{RGCN2+lit}} & \multirow{2}{*}{Entire} & Base & 0.34 ± 0.25 & 0.38 ± 0.22 & 0.36 ± 0.13 & 0.50 ± 0.04 & 0.52 ± 0.07 & 0.53 ± 0.05 & 23.0 ± 23.6 & 1.78 ± 1.97 \\
- & \multicolumn{1}{c}{} &  & Partial & 0.60 ± 0.05 & 0.60 ± 0.06 & 0.60 ± 0.05 & 0.59 ± 0.05 & 0.64 ± 0.07 & 0.65 ± 0.06 & 131.1 ± 144.1 & 5.47 ± 6.02 \\ \cline{3-12} 
+ & \multicolumn{1}{c}{} &  & Partial & 0.60 ± 0.05 & 0.60 ± 0.06 & 0.60 ± 0.05 & 0.59 ± 0.05 & 0.64 ± 0.07 & 0.65 ± 0.06 & 131.1 ± 144.1 & 5.47 ± 6.02 \\ \cmidrule(lr){3-12} 
  & \multicolumn{1}{c}{} & \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Only \\ top 10\%\end{tabular}} & Base & 0.42 ± 0.23 & 0.31 ± 0.27 & 0.37 ± 0.16 & 0.50 ± 0.02 & 0.50 ± 0.06 & 0.51 ± 0.05 & 5.1 ± 2.5 & 0.21 ± 0.09 \\
  & \multicolumn{1}{c}{} &  & Partial & 0.58 ± 0.06 & 0.57 ± 0.13 & 0.58 ± 0.08 & 0.57 ± 0.05 & 0.62 ± 0.06 & 0.62 ± 0.07 & 14.3 ± 15.8 & 0.57 ± 0.61 \\
  & \multicolumn{1}{c}{} &  & Full & \textbf{0.74 ± 0.06} & \textbf{0.74 ± 0.05} & \textbf{0.74 ± 0.05} & \textbf{0.74 ± 0.04} & \textbf{0.82 ± 0.05} & \textbf{0.80 ± 0.05} & 81.1 ± 36.8 & 3.45 ± 1.57 \\
- & XGBoost &  & Tabular & \textbf{0.78 ± 0.02} & \textbf{0.79 ± 0.02} & \textbf{0.78 ± 0.02} & \textbf{0.78 ± 0.02} & \textbf{0.87 ± 0.02} & \textbf{0.86 ± 0.02} & 2.50 ± 0.19 & 0.07 ± 0.01 \\ \hline
+ & XGBoost &  & Tabular & \textbf{0.78 ± 0.02} & \textbf{0.79 ± 0.02} & \textbf{0.78 ± 0.02} & \textbf{0.78 ± 0.02} & \textbf{0.87 ± 0.02} & \textbf{0.86 ± 0.02} & 2.50 ± 0.19 & 0.07 ± 0.01 \\ \midrule
 \multirow{6}{*}{\begin{tabular}[c]{@{}l@{}}1y post \\ -hospital \\ -discharge \\ mortality\end{tabular}} & \multirow{5}{*}{RGCN2+lit} & \multirow{2}{*}{Entire} & Base & 0.67 ± 0.07 & 0.63 ± 0.15 & 0.65 ± 0.10 & 0.64 ± 0.06 & 0.71 ± 0.06 & 0.70 ± 0.06 & 42.6 ± 33.6 & 4.19 ± 3.15 \\
- &  &  & Partial & 0.76 ± 0.06 & 0.73 ± 0.05 & 0.74 ± 0.04 & 0.74 ± 0.04 & 0.82 ± 0.04 & 0.81 ± 0.05 & 188.7 ± 152.7 & 8.40 ± 6.87 \\ \cline{3-12} 
+ &  &  & Partial & 0.76 ± 0.06 & 0.73 ± 0.05 & 0.74 ± 0.04 & 0.74 ± 0.04 & 0.82 ± 0.04 & 0.81 ± 0.05 & 188.7 ± 152.7 & 8.40 ± 6.87 \\ \cmidrule(lr){3-12} 
  &  & \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Only \\ top 10\%\end{tabular}} & Base & 0.63 ± 0.16 & 0.63 ± 0.09 & 0.63 ± 0.11 & 0.61 ± 0.08 & 0.68 ± 0.09 & 0.71 ± 0.06 & 40.5 ± 56.7 & 1.51 ± 2.21 \\
  &  &  & Partial & 0.77 ± 0.05 & 0.74 ± 0.05 & 0.76 ± 0.04 & 0.75 ± 0.05 & 0.84 ± 0.04 & 0.83 ± 0.05 & 39.1 ± 27.5 & 1.57 ± 1.13 \\
  &  &  & Full & \textbf{0.82 ± 0.05} & \textbf{0.80 ± 0.06} & \textbf{0.81 ± 0.05} & \textbf{0.81 ± 0.05} & \textbf{0.89 ± 0.04} & \textbf{0.89 ± 0.04} & 84.5 ± 38.8 & 3.92 ± 1.81 \\
- & XGBoost &  & Tabular & \textbf{0.81 ± 0.01} & \textbf{0.82 ± 0.01} & \textbf{0.82 ± 0.01} & \textbf{0.82 ± 0.01} & \textbf{0.90 ± 0.00} & \textbf{0.90 ± 0.00} & 2.75 ± 0.09 & 0.09 ± 0.01 \\ \hline
+ & XGBoost &  & Tabular & \textbf{0.81 ± 0.01} & \textbf{0.82 ± 0.01} & \textbf{0.82 ± 0.01} & \textbf{0.82 ± 0.01} & \textbf{0.90 ± 0.00} & \textbf{0.90 ± 0.00} & 2.75 ± 0.09 & 0.09 ± 0.01 \\ \midrule
 \multirow{6}{*}{\begin{tabular}[c]{@{}l@{}}Myocardial \\ infarction \\ 1--5Y \\ phenotyping\end{tabular}} & \multirow{5}{*}{RGCN2+lit} & \multirow{2}{*}{Entire} & Base & 0.58 ± 0.09 & 0.55 ± 0.17 & 0.57 ± 0.11 & 0.56 ± 0.05 & 0.62 ± 0.07 & 0.64 ± 0.07 & 20.5 ± 19.5 & 1.38 ± 1.38 \\
- &  &  & Partial & 0.70 ± 0.06 & 0.71 ± 0.04 & 0.71 ± 0.04 & 0.70 ± 0.04 & 0.78 ± 0.04 & 0.77 ± 0.05 & 50.3 ± 37.1 & 2.12 ± 1.58 \\ \cline{3-12} 
+ &  &  & Partial & 0.70 ± 0.06 & 0.71 ± 0.04 & 0.71 ± 0.04 & 0.70 ± 0.04 & 0.78 ± 0.04 & 0.77 ± 0.05 & 50.3 ± 37.1 & 2.12 ± 1.58 \\ \cmidrule(lr){3-12} 
  &  & \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Only \\ top 10\%\end{tabular}} & Base & 0.57 ± 0.08 & 0.51 ± 0.21 & 0.54 ± 0.13 & 0.57 ± 0.06 & 0.64 ± 0.06 & 0.66 ± 0.06 & 20.3 ± 26.2 & 0.81 ± 1.02 \\
  &  &  & Partial & 0.71 ± 0.05 & 0.71 ± 0.06 & 0.71 ± 0.05 & 0.71 ± 0.05 & 0.78 ± 0.04 & 0.77 ± 0.05 & 15.9 ± 10.9 & 0.63 ± 0.45 \\
  &  &  & Full & \textbf{0.72 ± 0.05} & \textbf{0.76 ± 0.06} & \textbf{0.74 ± 0.04} & \textbf{0.73 ± 0.04} & \textbf{0.82 ± 0.04} & \textbf{0.82 ± 0.06} & 38.7 ± 25.0 & 1.60 ± 1.11 \\
- & XGBoost &  & Tabular & \textbf{0.74 ± 0.02} & \textbf{0.74 ± 0.02} & \textbf{0.74 ± 0.02} & \textbf{0.74 ± 0.02} & \textbf{0.83 ± 0.02} & \textbf{0.83 ± 0.02} & 2.08 ± 0.16 & 0.05 ± 0.01 \\ \hline
+ & XGBoost &  & Tabular & \textbf{0.74 ± 0.02} & \textbf{0.74 ± 0.02} & \textbf{0.74 ± 0.02} & \textbf{0.74 ± 0.02} & \textbf{0.83 ± 0.02} & \textbf{0.83 ± 0.02} & 2.08 ± 0.16 & 0.05 ± 0.01 \\ \bottomrule
 \end{tabular}%
 }
-\end{table*}
+\end{table}
 
 
 % \subsubsection*{Comparison with tabular baselines}\label{sec:results-tabular}
@@ -608,21 +565,21 @@ This study was partially supported by the Italian Ministry of University and Res
 % Content of papers/meds_owl_JBI_2(1)/supplementary.tex (title page, author block and table of contents of the
 % standalone supplementary document omitted; its S-prefixed figure/table numbering is replaced by thesis numbering).
 
-	\subsubsection{Supplementary Figures}
-	\label{sec:paper3_supp-figures}
+\subsubsection{Supplementary Figures}
+\label{sec:paper3_supp-figures}
 	
-	This section provides supplementary figures that give additional detail on the MEDS-OWL ontology, the MEDS-to-RDF conversion workflow, provenance representation, and the graph-learning architecture. These figures support the descriptions and results presented in the main manuscript.
+This section provides supplementary figures that give additional detail on the MEDS-OWL ontology, the MEDS-to-RDF conversion workflow, provenance representation, and the graph-learning architecture. These figures support the descriptions and results presented in the main manuscript.
 	
-	\begin{figure}[ht]
-		\centering
-		\includegraphics[width=\textwidth]{figures/paper3/fig1.png}
-		\caption{Overview of the MEDS-OWL ontology. Azure nodes and edges denote locally defined classes and object properties, respectively. Black edges with green labels are datatype properties. Nodes and edges colored differently indicate imported entities from either the Data Catalogue Vocabulary (\texttt{dcat} prefix), Dublin Core Terms (\texttt{dct} prefix) or PROV-O (prefix \texttt{prov}). Dotted edges represent \texttt{subClassOf} predicate. The figure is drawn with WebVOWL.}%~\citep{lohmann_webvowl_2014}.}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/paper3/fig1.png}
+	\caption{Overview of the MEDS-OWL ontology. Azure nodes and edges denote locally defined classes and object properties, respectively. Black edges with green labels are datatype properties. Nodes and edges colored differently indicate imported entities from either the Data Catalogue Vocabulary (\texttt{dcat} prefix), Dublin Core Terms (\texttt{dct} prefix) or PROV-O (prefix \texttt{prov}). Dotted edges represent \texttt{subClassOf} predicate. The figure is drawn with WebVOWL.}%~\citep{lohmann_webvowl_2014}.}
 	\label{fig:paper3_ontology-diagram}
 \end{figure}
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=\textwidth]{figures/paper3/fig2.png}
+\includegraphics[width=0.85\textwidth]{figures/paper3/fig2.png}
 	\caption{MEDS-OWL conversion workflow for the NEUROVASC dataset. (a) Initial preprocessing of three patient features: age, nimodipine administration (ATC code: C08CA06), and tracheostomy procedure (ICD-10-PCS code: 0BH17EZ). (b) Conversion to MEDS tabular format via \texttt{MEDS-extract}, with each feature represented as a distinct event. (c) Transformation of the resulting MEDS dataset into MEDS-RDF using \texttt{meds2rdf}, which instantiates the corresponding MEDS-OWL classes.}
 	\label{fig:paper3_etl-conversion}
 \end{figure}
@@ -662,14 +619,14 @@ Table~\ref{tab:paper3_labels} reports the mappings of SubjectSplitSchema and
 LabelSchema elements to \texttt{meds:SubjectSplit} and
 \texttt{meds:SubjectLabel}, respectively.
 
-\begin{table}[ht]
+\begin{table}[htbp]
 	\centering
 	\caption{Core MEDS-OWL classes and their description, as defined by MEDS format.}
 	\label{tab:paper3_meds-owl-concepts}
-	\begin{tabular}{p{3.3cm} p{6.5cm} p{3.4cm}}
-		\hline
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.24\textwidth} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{0.24\textwidth}}
+		\toprule
 		\textbf{Class} & \textbf{Description} & \textbf{Example} \\
-		\hline
+		\midrule
 		\texttt{Subject} &
 		Primary entity under observation, typically corresponding to a patient, admission, or longitudinal unit to which events are attributed. &
 		Patient \#10234 \\
@@ -679,7 +636,7 @@ LabelSchema elements to \texttt{meds:SubjectSplit} and
 		\texttt{Code} &
 		An entity used to type events, which includes canonical identifiers, descriptions, and optional linkage to external terminologies or ontologies. &
 		ATC:C08CA06 (Nimodipine) \\
-		\texttt{DatasetMetadata} &
+		\texttt{Dataset\allowbreak Metadata} &
 		Dataset-level description and provenance information, capturing identity, versioning, creation time, and ETL-related metadata. &
 		X dataset, in MEDS format, v1.0 \\
 		\texttt{SubjectSplit} &
@@ -689,30 +646,31 @@ LabelSchema elements to \texttt{meds:SubjectSplit} and
 		A supervised learning instance defined by a subject identifier, an as-of prediction time (the latest time up to which subject data may be used for the prediction), and exactly one observed ground truth label value \(y\). &
 		Subject \#10234, prediction time = discharge date, categorical label = rehabilitation\\
 		\texttt{ValueModality} & Generic, extensible entity that links an \texttt{Event} to additional value modalities (for example, images, waveform recordings, audio clips, or other non-tabular payloads). & Chest X-ray image (DICOM series URI)\\
-		\hline
-	\end{tabular}
+		\bottomrule
+\end{tabularx}
 \end{table}
 
-\begin{table}[ht]
+\begin{table}[htbp]
 	\centering
+	\footnotesize
 	\caption{Mapping from MEDS schema components to MEDS-OWL classes. See Table~\ref{tab:paper3_meds-owl-concepts} for class definitions and examples.}
 	\label{tab:paper3_schema-to-ontology}
-	\begin{tabular}{p{2.4cm} p{5.4cm} p{5.4cm}}
-		\hline
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.19\textwidth} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+		\toprule
 		\textbf{MEDS schema} & \textbf{Brief description} & \textbf{Mapped MEDS-OWL class(es)} \\
-		\hline
+		\midrule
 		DataSchema &
 		Core medical event table describing sequences of subject events, where each row corresponds to a single clinical event. &
 		\texttt{meds:Event} as the primary representation of each MEDS row from this table.  
 		\texttt{meds:ValueModality} is used to model additional or non-tabular payloads associated with an event (e.g., images, waveforms, signals).  
 		See Suppl. Table \ref{tab:paper3_events} for row-to-triple mappings. \\[4pt]%~\ref{tab:events}
 		
-		DatasetMetadata \\ Schema &
+		Dataset\allowbreak Metadata \\ Schema &
 		Dataset-level metadata captures dataset identity, versioning, creation time, licensing, and ETL provenance information. &
 		\texttt{meds:DatasetMetadata}, aligned with \texttt{dcterms} and \texttt{dcat}, and linked to ETL activities via \texttt{prov:wasGeneratedBy}.  
 		See Suppl. Table \ref{tab:paper3_dataset}. \\[4pt] %~\ref{tab:dataset}
 		
-		CodeMetadata \\ Schema &
+		Code\allowbreak Metadata \\ Schema &
 		Metadata describing the controlled vocabularies and codes used to type medical events, including canonical identifiers and hierarchical relations. &
 		\texttt{meds:Code}, with \texttt{meds:codeString} as a canonical identifier and optional \texttt{meds:parentCode} relations to represent code hierarchies.  
 		See Suppl. Table \ref{tab:paper3_codes}. \\[4pt] %~\ref{tab:codes}
@@ -732,92 +690,89 @@ LabelSchema elements to \texttt{meds:SubjectSplit} and
 		Subject identifiers appear across multiple MEDS schemas and provide the logical join key between events, splits, and labels. &
 		\texttt{meds:Subject}, representing the canonical subject entity via \texttt{meds:subjectId}, and serving as the hub linking \texttt{Event}, \texttt{SubjectLabel}, and \texttt{SubjectSplit}. \\
 		
-		\hline
-	\end{tabular}
+		\bottomrule
+\end{tabularx}
 \end{table}
 
-\begin{table}[ht]
+\begin{table}[htbp]
 	\centering
 	\caption{Mapping of the elements of the MEDS DataSchema tables to \texttt{meds:Event} and \texttt{meds:Subject} classes, with descriptions. For each tuple (or row) of DataSchema, a list of associated RDF triples is generated. Card. stands for the cardinality of the relationship.}
 	\label{tab:paper3_events}
-	\begin{tabular}{l p{4.8cm} >{\raggedright}p{3.8cm} c}
-		\hline
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X c}		\toprule
 		\textbf{MEDS element} & \textbf{Description} & \textbf{RDF triple} & \textbf{Card.} \\
-		\hline
+		\midrule
 		event\_row e & The row representing an event e of the subject s. & \texttt{?e a meds:Event.}  & 1 \\
-		subject\_id id& The identifier of the subject s (typically the patient). & \texttt{?s a meds:Subject. \break ?s meds:subjectId ?id}\verb|^^|\texttt{xsd:string.} \break \texttt{?e meds:hasSubject ?s.} & 1 \\
-		time t& The time of the measurement, nullable for static measurements. & \texttt{?e meds:time ?t}\verb|^^|\texttt{xsd:dateTime.} & 0..1 \\
+		subject\_id id& The identifier of the subject s (typically the patient). & \texttt{?s a meds:Subject. \break ?s meds:subjectId ?id}\texttt{\string^\string^}\texttt{xsd:string.} \break \texttt{?e meds:hasSubject ?s.} & 1 \\
+		time t& The time of the measurement, nullable for static measurements. & \texttt{?e meds:time ?t}\texttt{\string^\string^}\texttt{xsd:dateTime.} & 0..1 \\
 		code c & The categorical descriptor of the measurement (e.g., lab test, diagnosis code). & \texttt{?c a meds:Code. \break ?e meds:hasCode ?c.} & 1 \\
-		code\_string cs& The string representation of the code. & \texttt{?e meds:codeString ?cs.}\verb|^^|\texttt{xsd:string.} & 1 \\
-		numeric\_value nv & A numeric value associated with the measurement (e.g., lab test result), nullable. & \texttt{?e meds:numericValue ?nv}\verb|^^|\texttt{xsd:double.} & 0..1 \\
-		text\_value tv & A text value associated with the measurement (e.g., clinical note, text-based test result), nullable. & \texttt{?e meds:textValue ?tv}\verb|^^|\texttt{xsd:string.} & 0..1 \\
-		\hline
-	\end{tabular}
+		code\_string cs& The string representation of the code. & \texttt{?e meds:codeString ?cs.}\texttt{\string^\string^}\texttt{xsd:string.} & 1 \\
+		numeric\_value nv & A numeric value associated with the measurement (e.g., lab test result), nullable. & \texttt{?e meds:numericValue ?nv}\texttt{\string^\string^}\texttt{xsd:double.} & 0..1 \\
+		text\_value tv & A text value associated with the measurement (e.g., clinical note, text-based test result), nullable. & \texttt{?e meds:textValue ?tv}\texttt{\string^\string^}\texttt{xsd:string.} & 0..1 \\
+		\bottomrule
+\end{tabularx}
 \end{table}
 %
-\begin{table}[ht]
+\begin{table}[htbp]
 	\centering
 	\caption{Mapping metadata of a transformed MEDS dataset (DatasetMetadataSchema) to the \texttt{meds:DatasetMetadata} class. For each dataset generated, a list of associated ``meta'' RDF triples is generated.}
 	\label{tab:paper3_dataset}
-	\begin{tabular}{l p{3.8cm} >{\raggedright}p{4.6cm} c}
-		\hline
+	\setlength{\tabcolsep}{2pt}
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X c}		\toprule
 		\textbf{MEDS element} & \textbf{Description} & \textbf{RDF triple} & \textbf{Card.} \\
-		\hline
+		\midrule
 		dataset ds & The dataset converted to RDF. & \texttt{?ds a meds:DatasetMetadata.%\break rdfs:subClassOf prov:Entity, dcat:Dataset.
 		} & 1 \\
-		dataset\_name n & The name of the dataset ds. & \texttt{?ds dct:title ?n}\verb|^^|\texttt{xsd:string.} & 1 \\
+		dataset\_name n & The name of the dataset ds. & \texttt{?ds dct:title ?n}\texttt{\string^\string^}\texttt{xsd:string.} & 1 \\
 		dataset\_version dsv& The version of the dataset. & \texttt{?ds dct:hasVersion ?dsv.} & 0..1 \\
-		meds\_version mv& The version of the MEDS schema. & \texttt{?ds meds:medsVersion ?mv}\verb|^^|\texttt{xsd:string.} & 1 \\
-		created\_at & ISO 8601 creation date and time. & \texttt{?ds dct:created ?time}\verb|^^|\texttt{xsd:dateTime.} & 1 \\
+		meds\_version mv& The version of the MEDS schema. & \texttt{?ds meds:medsVersion ?mv}\texttt{\string^\string^}\texttt{xsd:string.} & 1 \\
+		created\_at & ISO 8601 creation date and time. & \texttt{?ds dct:created ?time}\texttt{\string^\string^}\texttt{xsd:dateTime.} & 1 \\
 		license & License under which the dataset is released. & \texttt{?li a dct:LicenseDocument. \break ?ds dct:license ?li.} & 0..1 \\
 		location\_uri & URI(s) where the dataset is hosted. & \texttt{?ds dcat:distribution ?dist. \break ?dist dcat:downloadURL ?dw.} & 0..* \\
 		description\_uri & URI(s) referencing a detailed description of the dataset. & \texttt{?dist dcat:accessURL ?au.} & 0..* \\
 		etl\_name etln& Name of the ETL process etl that generated the dataset. & \texttt{?etl a prov:Activity. \break ?etl rdfs:label ?etln. \break ?ds prov:wasGeneratedBy ?etl.} & 0..1 \\
 		etl\_version etlv& Version of the ETL process. & 
 		\texttt{?etl dct:hasVersion ?etlv.} & 0..1 \\
-		\hline
-	\end{tabular}
+		\bottomrule
+\end{tabularx}
 \end{table}
 %
-\begin{table}[ht]
+\begin{table}[htbp]
 	\centering
 	\caption{Mapping of the elements of the MEDS CodeMetadataSchema table to \texttt{meds:Code} class. For each tuple (or row) of CodeMetadataSchema, a list of associated RDF triples is generated. } 
 	\label{tab:paper3_codes}
-	\begin{tabular}{l p{4.2cm} >{\raggedright}p{4.5cm} c}
-		\hline
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X c}		\toprule
 		\textbf{MEDS element} & \textbf{Description} & \textbf{RDF triple} & \textbf{Card.} \\
-		\hline
+		\midrule
 		code\_row c & The row representing a code c in the dataset. & \texttt{?c a meds:Code.} & 1 \\
-		code\_string cs & The categorical descriptor of a possible measurement; links to the DataSchema code column. & \texttt{?c meds:codeString ?cs}\verb|^^|\texttt{xsd:string.} & 1 \\
-		description d& A human-readable description of what the code represents. & \texttt{?c meds:codeDescription ?d}\verb|^^|\texttt{xsd:string.} & 0..1 \\
+		code\_string cs & The categorical descriptor of a possible measurement; links to the DataSchema code column. & \texttt{?c meds:codeString ?cs}\texttt{\string^\string^}\texttt{xsd:string.} & 1 \\
+		description d& A human-readable description of what the code represents. & \texttt{?c meds:codeDescription ?d}\texttt{\string^\string^}\texttt{xsd:string.} & 0..1 \\
 		parent\_codes p & One or more higher-level or parent codes in an ontological hierarchy, possibly linking to other codes in MEDS or external vocabularies (e.g., OMOP CDM). & \texttt{?p a meds:Code. \break ?c meds:parentCode ?p.} & 0..* \\
-		\hline
-	\end{tabular}
+		\bottomrule
+\end{tabularx}
 \end{table}
 %
-\begin{table}[ht]
+\begin{table}[htbp]
 	\centering
 	\caption{Mapping of the elements of MEDS SubjectSplitSchema and LabelSchema tables to \texttt{meds:SubjectSplit} and \texttt{meds:SubjectLabel} classes, respectively. For each tuple (or row) of LabelSchema, a list of associated RDF triples is generated.
 	}
 	\label{tab:paper3_labels}
-	\begin{tabular}{l >{\raggedright}p{4.2cm} >{\raggedright}p{4.5cm} c}
-		\hline
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X c}		\toprule
 		\textbf{MEDS element} & \textbf{Description} & \textbf{RDF triple} & \textbf{Card.} \\
-		\hline
+		\midrule
 		split & The name of the subset a subject is assigned to, following a dataset split (e.g., train, validation, test). & \texttt{?set a meds:SubjectSplit. \break ?s a meds:Subject. \break ?s meds:assignedSplit ?set.} & 0..* \\
 		
 		label\_row & A prediction label (sample) for a subject in a supervised learning task. This is the ground truth label extracted from the dataset according to the task specification. & \texttt{?l a meds:SubjectLabel. \break ?l meds:hasSubject ?s.} & 0..* \\
 		
-		prediction\_time & The timestamp representing the endpoint of the data that can be used to predict the label for the given sample. This is not necessarily the time of the event itself nor the deployment prediction time. It defines the "as-of" cutoff for input data. & \texttt{?l meds:predictionTime ?pt}\verb|^^|\texttt{xsd:dateTime.} & 1 \\
+		prediction\_time & The timestamp representing the endpoint of the data that can be used to predict the label for the given sample. This is not necessarily the time of the event itself nor the deployment prediction time. It defines the "as-of" cutoff for input data. & \texttt{?l meds:predictionTime ?pt}\texttt{\string^\string^}\texttt{xsd:dateTime.} & 1 \\
 		
 		label\_value & The value for the label. It can be one of the following types depending on the task: binary tasks, ordinal or continuous numeric tasks, and categorical tasks. 
 		&
-		\texttt{?l meds:booleanValue ?bv}\verb|^^|\texttt{xsd:boolean.} \break
-		\texttt{?l meds:integerValue ?iv}\verb|^^|\texttt{xsd:integer.} \break
-		\texttt{?l meds:floatValue ?fv}\verb|^^|\texttt{xsd:double.} \break
-		\texttt{?l meds:categoricalValue ?cv}\verb|^^|\texttt{xsd:string.} & 0..1 \\
-		\hline
-	\end{tabular}
+		\texttt{?l meds:booleanValue ?bv}\texttt{\string^\string^}\texttt{xsd:boolean.} \break
+		\texttt{?l meds:integerValue ?iv}\texttt{\string^\string^}\texttt{xsd:integer.} \break
+		\texttt{?l meds:floatValue ?fv}\texttt{\string^\string^}\texttt{xsd:double.} \break
+		\texttt{?l meds:\allowbreak categoricalValue ?cv}\texttt{\string^\string^}\texttt{xsd:string.} & 0..1 \\
+		\bottomrule
+\end{tabularx}
 \end{table}
 
 %% ============================================================
@@ -852,7 +807,7 @@ Let $f \in \{$\texttt{subject\_id}, \texttt{code}, \texttt{time}, \texttt{numeri
 	\[
 	F_f = \frac{1}{n} \sum_{i=1}^{n} \mathbf{1}\!\left[e_i^{\text{recon}} = e_i^{\text{orig}}\right]
 	\]
-	the exact-match rate. Events with duplicate composite keys $(\texttt{subject\_id}, \texttt{time}, \texttt{code})$ cannot be uniquely matched and are excluded from this metric; their fidelity is assessed separately via approximate matching.
+the exact-match rate. Events with duplicate composite keys $(\texttt{subject\_id},\allowbreak \texttt{time},\allowbreak \texttt{code})$ cannot be uniquely matched and are excluded from this metric; their fidelity is assessed separately via approximate matching.
 	
 	\item \emph{Numeric precision} for \texttt{numeric\_value}, computed over non-null value pairs:
 	\[
@@ -899,220 +854,224 @@ This section reports the complete per-task results. Table~\ref{tab:paper3_result
 % Please add the following required packages to your document preamble:
 % \usepackage{multirow}
 % \usepackage{graphicx}
-\begin{table}[ht]
+\begin{table}[htbp]
+\centering
 	\caption{Schema-granularity progression across MIMIC-IV tasks. \emph{Entire} denotes the unpruned dataset; \emph{Only top 10\%} denotes the subset retaining the top 10\% of relations by SHAP importance. \emph{Base}, \emph{Partial}, and \emph{Full} denote the corresponding MEDS-RDF schema variants. The winning schema per task is shown in bold.}
 	\label{tab:paper3_results-schema-full}
-	\resizebox{\textwidth}{!}{%
+	\resizebox{0.80\textwidth}{!}{%
 		\begin{tabular}{lllcccccc}
-			\hline
+			\toprule
 			\multicolumn{1}{c}{\multirow{4}{*}{Task}} & \multicolumn{1}{c}{\multirow{4}{*}{Dataset}} & \multicolumn{1}{c}{\multirow{4}{*}{\begin{tabular}[c]{@{}c@{}}Schema\end{tabular}}} & \multicolumn{3}{c}{\multirow{2}{*}{F1-score}} & \multirow{4}{*}{Accuracy} & \multirow{4}{*}{AUC} & \multirow{4}{*}{AUPRC} \\
-			\multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{3}{c}{} &  &  &  \\ \cline{4-6}
+			\multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{3}{c}{} &  &  &  \\ \cmidrule(lr){4-6}
 			\multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multirow{2}{*}{False} & \multirow{2}{*}{True} & \multirow{2}{*}{Macro} &  &  &  \\
-			\multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  &  &  &  &  &  \\ \hline
+			\multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  &  &  &  &  &  \\ \midrule
 			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}First 24h \\ in-hospital\\ mortality\end{tabular}} & \multirow{2}{*}{Entire} & Base & 0.61 ± 0.06 & 0.63 ± 0.12 & 0.62 ± 0.08 & 0.61 ± 0.06 & 0.66 ± 0.07 & 0.67 ± 0.07 \\
-			&  & Partial & 0.66 ± 0.05 & 0.66 ± 0.06 & 0.66 ± 0.05 & 0.65 ± 0.04 & 0.73 ± 0.05 & 0.72 ± 0.06 \\ \cline{2-9} 
+			&  & Partial & 0.66 ± 0.05 & 0.66 ± 0.06 & 0.66 ± 0.05 & 0.65 ± 0.04 & 0.73 ± 0.05 & 0.72 ± 0.06 \\ \cmidrule(lr){2-9} 
 			& \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Only \\ top 10\%\end{tabular}} & Base & 0.54 ± 0.15 & 0.57 ± 0.16 & 0.56 ± 0.12 & 0.56 ± 0.06 & 0.59 ± 0.09 & 0.60 ± 0.08 \\
 			&  & Partial & 0.64 ± 0.06 & 0.62 ± 0.05 & 0.63 ± 0.05 & 0.63 ± 0.05 & 0.69 ± 0.06 & 0.67 ± 0.06 \\
-			&  & Full & \textbf{0.73 ± 0.05} & \textbf{0.71 ± 0.05} & \textbf{0.72 ± 0.04} & \textbf{0.72 ± 0.05} & \textbf{0.80 ± 0.05} & \textbf{0.79 ± 0.05} \\ \hline
+			&  & Full & \textbf{0.73 ± 0.05} & \textbf{0.71 ± 0.05} & \textbf{0.72 ± 0.04} & \textbf{0.72 ± 0.05} & \textbf{0.80 ± 0.05} & \textbf{0.79 ± 0.05} \\ \midrule
 			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}First 24h \\ in-ICU\\ mortality\end{tabular}} & \multirow{2}{*}{Entire} & Base & 0.34 ± 0.25 & 0.38 ± 0.22 & 0.36 ± 0.13 & 0.50 ± 0.04 & 0.52 ± 0.07 & 0.53 ± 0.05 \\
-			&  & Partial & 0.60 ± 0.05 & 0.60 ± 0.06 & 0.60 ± 0.05 & 0.59 ± 0.05 & 0.64 ± 0.07 & 0.65 ± 0.06 \\ \cline{2-9} 
+			&  & Partial & 0.60 ± 0.05 & 0.60 ± 0.06 & 0.60 ± 0.05 & 0.59 ± 0.05 & 0.64 ± 0.07 & 0.65 ± 0.06 \\ \cmidrule(lr){2-9} 
 			& \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Only \\ top 10\%\end{tabular}} & Base & 0.42 ± 0.23 & 0.31 ± 0.27 & 0.37 ± 0.16 & 0.50 ± 0.02 & 0.50 ± 0.06 & 0.51 ± 0.05 \\
 			&  & Partial & 0.58 ± 0.06 & 0.57 ± 0.13 & 0.58 ± 0.08 & 0.57 ± 0.05 & 0.62 ± 0.06 & 0.62 ± 0.07 \\
-			&  & Full & \textbf{0.74 ± 0.06} & \textbf{0.74 ± 0.05} & \textbf{0.74 ± 0.05} & \textbf{0.74 ± 0.04} & \textbf{0.82 ± 0.05} & \textbf{0.80 ± 0.05} \\ \hline
+			&  & Full & \textbf{0.74 ± 0.06} & \textbf{0.74 ± 0.05} & \textbf{0.74 ± 0.05} & \textbf{0.74 ± 0.04} & \textbf{0.82 ± 0.05} & \textbf{0.80 ± 0.05} \\ \midrule
 			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}First 48h \\ in-hospital\\ mortality\end{tabular}} & \multirow{2}{*}{Entire} & Base & 0.45 ± 0.22 & 0.50 ± 0.20 & 0.48 ± 0.16 & 0.53 ± 0.06 & 0.55 ± 0.08 & 0.58 ± 0.07 \\
-			&  & Partial & 0.67 ± 0.06 & 0.67 ± 0.06 & 0.67 ± 0.05 & 0.66 ± 0.05 & 0.72 ± 0.06 & 0.71 ± 0.07 \\ \cline{2-9} 
+			&  & Partial & 0.67 ± 0.06 & 0.67 ± 0.06 & 0.67 ± 0.05 & 0.66 ± 0.05 & 0.72 ± 0.06 & 0.71 ± 0.07 \\ \cmidrule(lr){2-9} 
 			& \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Only \\ top 10\%\end{tabular}} & Base & 0.55 ± 0.20 & 0.46 ± 0.23 & 0.51 ± 0.17 & 0.55 ± 0.06 & 0.57 ± 0.10 & 0.58 ± 0.08 \\
 			&  & Partial & 0.65 ± 0.05 & 0.64 ± 0.06 & 0.65 ± 0.04 & 0.64 ± 0.04 & 0.70 ± 0.05 & 0.70 ± 0.06 \\
-			&  & Full & \textbf{0.74 ± 0.06} & \textbf{0.72 ± 0.06} & \textbf{0.73 ± 0.05} & \textbf{0.73 ± 0.05} & \textbf{0.80 ± 0.05} & \textbf{0.79 ± 0.07} \\ \hline
+			&  & Full & \textbf{0.74 ± 0.06} & \textbf{0.72 ± 0.06} & \textbf{0.73 ± 0.05} & \textbf{0.73 ± 0.05} & \textbf{0.80 ± 0.05} & \textbf{0.79 ± 0.07} \\ \midrule
 			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}First 48h \\ in-ICU\\ mortality\end{tabular}} & \multirow{2}{*}{Entire} & Base & 0.45 ± 0.19 & 0.49 ± 0.32 & 0.47 ± 0.19 & 0.52 ± 0.03 & 0.52 ± 0.06 & 0.54 ± 0.05 \\
-			&  & Partial & 0.62 ± 0.05 & 0.63 ± 0.06 & 0.63 ± 0.04 & 0.62 ± 0.04 & 0.66 ± 0.05 & 0.66 ± 0.05 \\ \cline{2-9} 
+			&  & Partial & 0.62 ± 0.05 & 0.63 ± 0.06 & 0.63 ± 0.04 & 0.62 ± 0.04 & 0.66 ± 0.05 & 0.66 ± 0.05 \\ \cmidrule(lr){2-9} 
 			& \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Only \\ top 10\%\end{tabular}} & Base & 0.44 ± 0.27 & 0.57 ± 0.22 & 0.51 ± 0.19 & 0.56 ± 0.08 & 0.57 ± 0.10 & 0.58 ± 0.09 \\
 			&  & Partial & 0.61 ± 0.08 & 0.61 ± 0.07 & 0.61 ± 0.06 & 0.60 ± 0.05 & 0.65 ± 0.06 & 0.66 ± 0.06 \\
-			&  & Full & \textbf{0.74 ± 0.05} & \textbf{0.74 ± 0.06} & \textbf{0.74 ± 0.05} & \textbf{0.74 ± 0.05} & \textbf{0.82 ± 0.05} & \textbf{0.81 ± 0.06} \\ \hline
+			&  & Full & \textbf{0.74 ± 0.05} & \textbf{0.74 ± 0.06} & \textbf{0.74 ± 0.05} & \textbf{0.74 ± 0.05} & \textbf{0.82 ± 0.05} & \textbf{0.81 ± 0.06} \\ \midrule
 			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}LOS in ICU \\ \textgreater 3 days\end{tabular}} & \multirow{2}{*}{Entire} & Base & 0.72 ± 0.13 & 0.79 ± 0.14 & 0.76 ± 0.12 & 0.76 ± 0.07 & 0.84 ± 0.06 & 0.86 ± 0.06 \\
-			&  & Partial & 0.59 ± 0.08 & 0.59 ± 0.10 & 0.59 ± 0.09 & 0.59 ± 0.08 & 0.62 ± 0.11 & 0.63 ± 0.10 \\ \cline{2-9} 
+			&  & Partial & 0.59 ± 0.08 & 0.59 ± 0.10 & 0.59 ± 0.09 & 0.59 ± 0.08 & 0.62 ± 0.11 & 0.63 ± 0.10 \\ \cmidrule(lr){2-9} 
 			& \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Only \\ top 10\%\end{tabular}} & Base & 0.58 ± 0.29 & 0.70 ± 0.25 & 0.64 ± 0.24 & 0.69 ± 0.14 & 0.74 ± 0.16 & 0.77 ± 0.16 \\
 			&  & Partial & 0.68 ± 0.08 & 0.67 ± 0.10 & 0.68 ± 0.08 & 0.67 ± 0.09 & 0.73 ± 0.09 & 0.73 ± 0.09 \\
-			&  & Full & \textbf{0.83 ± 0.04} & \textbf{0.83 ± 0.05} & \textbf{0.83 ± 0.04} & \textbf{0.83 ± 0.04} & \textbf{0.91 ± 0.03} & \textbf{0.91 ± 0.03} \\ \hline
+			&  & Full & \textbf{0.83 ± 0.04} & \textbf{0.83 ± 0.05} & \textbf{0.83 ± 0.04} & \textbf{0.83 ± 0.04} & \textbf{0.91 ± 0.03} & \textbf{0.91 ± 0.03} \\ \midrule
 			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}LOS \\ in Hospital \\ \textgreater 3 days\end{tabular}} & \multirow{2}{*}{Entire} & Base & 0.73 ± 0.05 & 0.81 ± 0.05 & 0.77 ± 0.04 & 0.76 ± 0.04 & 0.84 ± 0.04 & 0.85 ± 0.04 \\
-			&  & Partial & 0.99 ± 0.01 & 0.99 ± 0.01 & 0.99 ± 0.01 & 0.99 ± 0.01 & 0.99 ± 0.01 & 1.00 ± 0.01 \\ \cline{2-9} 
+			&  & Partial & 0.99 ± 0.01 & 0.99 ± 0.01 & 0.99 ± 0.01 & 0.99 ± 0.01 & 0.99 ± 0.01 & 1.00 ± 0.01 \\ \cmidrule(lr){2-9} 
 			& \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Only \\ top 10\%\end{tabular}} & Base & 0.72 ± 0.06 & 0.82 ± 0.06 & 0.77 ± 0.04 & 0.75 ± 0.05 & 0.84 ± 0.04 & 0.85 ± 0.05 \\
 			&  & Partial & 0.99 ± 0.01 & 0.99 ± 0.02 & 0.99 ± 0.01 & 0.99 ± 0.01 & 1.00 ± 0.01 & 1.00 ± 0.00 \\
-			&  & Full & \textbf{0.99 ± 0.01} & \textbf{1.00 ± 0.01} & \textbf{0.99 ± 0.01} & \textbf{0.99 ± 0.01} & \textbf{1.00 ± 0.01} & \textbf{1.00 ± 0.00} \\ \hline
+			&  & Full & \textbf{0.99 ± 0.01} & \textbf{1.00 ± 0.01} & \textbf{0.99 ± 0.01} & \textbf{0.99 ± 0.01} & \textbf{1.00 ± 0.01} & \textbf{1.00 ± 0.00} \\ \midrule
 			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}1y \\ post-hospital- \\discharge \\ mortality\end{tabular}} & \multirow{2}{*}{Entire} & Base & 0.67 ± 0.07 & 0.63 ± 0.15 & 0.65 ± 0.10 & 0.64 ± 0.06 & 0.71 ± 0.06 & 0.70 ± 0.06 \\
-			&  & Partial & 0.76 ± 0.06 & 0.73 ± 0.05 & 0.74 ± 0.04 & 0.74 ± 0.04 & 0.82 ± 0.04 & 0.81 ± 0.05 \\ \cline{2-9} 
+			&  & Partial & 0.76 ± 0.06 & 0.73 ± 0.05 & 0.74 ± 0.04 & 0.74 ± 0.04 & 0.82 ± 0.04 & 0.81 ± 0.05 \\ \cmidrule(lr){2-9} 
 			& \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Only \\ top 10\%\end{tabular}} & Base & 0.63 ± 0.16 & 0.63 ± 0.09 & 0.63 ± 0.11 & 0.61 ± 0.08 & 0.68 ± 0.09 & 0.71 ± 0.06 \\
 			&  & Partial & 0.77 ± 0.05 & 0.74 ± 0.05 & 0.76 ± 0.04 & 0.75 ± 0.05 & 0.84 ± 0.04 & 0.83 ± 0.05 \\
-			&  & Full & \textbf{0.82 ± 0.05} & \textbf{0.80 ± 0.06} & \textbf{0.81 ± 0.05} & \textbf{0.81 ± 0.05} & \textbf{0.89 ± 0.04} & \textbf{0.89 ± 0.04} \\ \hline
+			&  & Full & \textbf{0.82 ± 0.05} & \textbf{0.80 ± 0.06} & \textbf{0.81 ± 0.05} & \textbf{0.81 ± 0.05} & \textbf{0.89 ± 0.04} & \textbf{0.89 ± 0.04} \\ \midrule
 			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}30d \\ post-hospital- \\discharge \\ mortality\end{tabular}} & \multirow{2}{*}{Entire} & Base & 0.75 ± 0.06 & 0.71 ± 0.06 & 0.73 ± 0.04 & 0.72 ± 0.05 & 0.79 ± 0.04 & 0.79 ± 0.06 \\
-			&  & Partial & 0.79 ± 0.06 & 0.76 ± 0.04 & 0.77 ± 0.04 & 0.77 ± 0.04 & 0.85 ± 0.03 & 0.84 ± 0.04 \\ \cline{2-9} 
+			&  & Partial & 0.79 ± 0.06 & 0.76 ± 0.04 & 0.77 ± 0.04 & 0.77 ± 0.04 & 0.85 ± 0.03 & 0.84 ± 0.04 \\ \cmidrule(lr){2-9} 
 			& \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Only \\ top 10\%\end{tabular}} & Base & 0.69 ± 0.12 & 0.73 ± 0.07 & 0.71 ± 0.09 & 0.71 ± 0.06 & 0.78 ± 0.10 & 0.79 ± 0.08 \\
 			&  & Partial & 0.79 ± 0.06 & 0.78 ± 0.05 & 0.79 ± 0.04 & 0.79 ± 0.04 & 0.87 ± 0.04 & 0.86 ± 0.04 \\
-			&  & Full & \textbf{0.87 ± 0.04} & \textbf{0.86 ± 0.04} & \textbf{0.86 ± 0.03} & \textbf{0.86 ± 0.03} & \textbf{0.94 ± 0.02} & \textbf{0.94 ± 0.02} \\ \hline
+			&  & Full & \textbf{0.87 ± 0.04} & \textbf{0.86 ± 0.04} & \textbf{0.86 ± 0.03} & \textbf{0.86 ± 0.03} & \textbf{0.94 ± 0.02} & \textbf{0.94 ± 0.02} \\ \midrule
 			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}30d \\ re-admission\end{tabular}} & \multirow{2}{*}{Entire} & Base & 0.64 ± 0.09 & 0.61 ± 0.17 & 0.62 ± 0.10 & 0.60 ± 0.06 & 0.65 ± 0.07 & 0.65 ± 0.07 \\
-			&  & Partial & 0.58 ± 0.05 & 0.61 ± 0.07 & 0.59 ± 0.06 & 0.59 ± 0.06 & 0.63 ± 0.05 & 0.65 ± 0.06 \\ \cline{2-9} 
+			&  & Partial & 0.58 ± 0.05 & 0.61 ± 0.07 & 0.59 ± 0.06 & 0.59 ± 0.06 & 0.63 ± 0.05 & 0.65 ± 0.06 \\ \cmidrule(lr){2-9} 
 			& \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Only \\ top 10\%\end{tabular}} & Base & 0.63 ± 0.06 & 0.61 ± 0.15 & 0.62 ± 0.09 & 0.62 ± 0.05 & 0.68 ± 0.04 & 0.69 ± 0.05 \\
 			&  & Partial & 0.62 ± 0.05 & 0.66 ± 0.08 & 0.64 ± 0.06 & 0.64 ± 0.06 & 0.69 ± 0.06 & 0.69 ± 0.06 \\
-			&  & Full & \textbf{0.68 ± 0.05} & \textbf{0.72 ± 0.06} & \textbf{0.70 ± 0.05} & \textbf{0.70 ± 0.05} & \textbf{0.76 ± 0.05} & \textbf{0.78 ± 0.05} \\ \hline
+			&  & Full & \textbf{0.68 ± 0.05} & \textbf{0.72 ± 0.06} & \textbf{0.70 ± 0.05} & \textbf{0.70 ± 0.05} & \textbf{0.76 ± 0.05} & \textbf{0.78 ± 0.05} \\ \midrule
 			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Myocardial \\ infarction\\ 1--5Y \\ phenotyping\end{tabular}} & \multirow{2}{*}{Entire} & Base & 0.58 ± 0.09 & 0.55 ± 0.17 & 0.57 ± 0.11 & 0.56 ± 0.05 & 0.62 ± 0.07 & 0.64 ± 0.07 \\
-			&  & Partial & 0.70 ± 0.06 & 0.71 ± 0.04 & 0.71 ± 0.04 & 0.70 ± 0.04 & 0.78 ± 0.04 & 0.77 ± 0.05 \\ \cline{2-9} 
+			&  & Partial & 0.70 ± 0.06 & 0.71 ± 0.04 & 0.71 ± 0.04 & 0.70 ± 0.04 & 0.78 ± 0.04 & 0.77 ± 0.05 \\ \cmidrule(lr){2-9} 
 			& \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}Only \\ top 10\%\end{tabular}} & Base & 0.57 ± 0.08 & 0.51 ± 0.21 & 0.54 ± 0.13 & 0.57 ± 0.06 & 0.64 ± 0.06 & 0.66 ± 0.06 \\
 			&  & Partial & 0.71 ± 0.05 & 0.71 ± 0.06 & 0.71 ± 0.05 & 0.71 ± 0.05 & 0.78 ± 0.04 & 0.77 ± 0.05 \\
-			&  & Full & \textbf{0.72 ± 0.05} & \textbf{0.76 ± 0.06} & \textbf{0.74 ± 0.04} & \textbf{0.73 ± 0.04} & \textbf{0.82 ± 0.04} & \textbf{0.82 ± 0.06} \\ \hline
+			&  & Full & \textbf{0.72 ± 0.05} & \textbf{0.76 ± 0.06} & \textbf{0.74 ± 0.04} & \textbf{0.73 ± 0.04} & \textbf{0.82 ± 0.04} & \textbf{0.82 ± 0.06} \\ \midrule
 			\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}CKD onset \\ in diabetics \\ 5Y from \\ kidney panel\end{tabular}} & \multirow{2}{*}{Entire} & Base & 0.71 ± 0.13 & 0.64 ± 0.12 & 0.67 ± 0.10 & 0.67 ± 0.07 & 0.74 ± 0.05 & 0.73 ± 0.06 \\
-			&  & Partial & 0.72 ± 0.06 & 0.69 ± 0.04 & 0.70 ± 0.04 & 0.70 ± 0.04 & 0.76 ± 0.05 & 0.74 ± 0.06 \\ \cline{2-9} 
+			&  & Partial & 0.72 ± 0.06 & 0.69 ± 0.04 & 0.70 ± 0.04 & 0.70 ± 0.04 & 0.76 ± 0.05 & 0.74 ± 0.06 \\ \cmidrule(lr){2-9} 
 			& \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}} Only \\ top 10\%\end{tabular}} & Base & 0.70 ± 0.07 & 0.68 ± 0.06 & 0.69 ± 0.04 & 0.68 ± 0.04 & 0.75 ± 0.04 & 0.74 ± 0.05 \\
 			&  & Partial & 0.72 ± 0.05 & 0.70 ± 0.05 & 0.71 ± 0.04 & 0.70 ± 0.04 & 0.77 ± 0.05 & 0.75 ± 0.06 \\
-			&  & Full & \textbf{0.76 ± 0.05} & \textbf{0.75 ± 0.05} & \textbf{0.76 ± 0.04} & \textbf{0.75 ± 0.04} & \textbf{0.84 ± 0.04} & \textbf{0.83 ± 0.05} \\ \hline
+			&  & Full & \textbf{0.76 ± 0.05} & \textbf{0.75 ± 0.05} & \textbf{0.76 ± 0.04} & \textbf{0.75 ± 0.04} & \textbf{0.84 ± 0.04} & \textbf{0.83 ± 0.05} \\ \bottomrule
 		\end{tabular}%
 	}
 \end{table}
 
 
-\begin{table}[ht]
+\begin{table}[htbp]
+\centering
 	\caption{Sensitivity of RGCN+lit predictive performance and computational cost to the number of RGCN layers for the \emph{First 24h in-hospital mortality} task. Results are reported for the two-layer configuration used in the main experiments and for three-, four-, and five-layer variants under the same evaluation protocol.}
 	\label{tab:paper3_rgcn-depth}
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{ccccccccc}
-			\hline
+			\toprule
 			\multirow{4}{*}{Model} & \multicolumn{3}{c}{\multirow{2}{*}{F1-score}} & \multirow{4}{*}{Accuracy} & \multirow{4}{*}{AUC} & \multirow{4}{*}{AUPRC} & \multirow{4}{*}{Duration (s)} & \multirow{4}{*}{Emission (gCO2eq)} \\
-			& \multicolumn{3}{c}{} &  &  &  &  &  \\ \cline{2-4}
+			& \multicolumn{3}{c}{} &  &  &  &  &  \\ \cmidrule(lr){2-4}
 			& \multirow{2}{*}{False} & \multirow{2}{*}{True} & \multirow{2}{*}{Macro} &  &  &  &  &  \\
-			&  &  &  &  &  &  &  &  \\ \hline
+			&  &  &  &  &  &  &  &  \\ \midrule
 			RGCN2+lit & 0.73 ± 0.05 & 0.71 ± 0.05 & 0.72 ± 0.04 & 0.72 ± 0.05 & 0.80 ± 0.05 & 0.79 ± 0.05 & 55.1 ± 29.6 & 1.96 ± 1.06 \\
 			RGCN3+lit & 0.72 ± 0.06 & 0.71 ± 0.05 & 0.71 ± 0.05 & 0.71 ± 0.05 & 0.71 ± 0.05 & 0.79 ± 0.05 & 0.79 ± 0.05 & 66.4 ± 38.9 \\
 			RGCN4+lit & 0.72 ± 0.05 & 0.71 ± 0.05 & 0.71 ± 0.04 & 0.71 ± 0.04 & 0.78 ± 0.05 & 0.77 ± 0.06 & 68.1 ± 42.7 & 2.45 ± 1.55 \\
-			RGCN5+lit & 0.71 ± 0.06 & 0.70 ± 0.06 & 0.71 ± 0.05 & 0.70 ± 0.05 & 0.78 ± 0.05 & 0.77 ± 0.06 & 77.2 ± 40.3 & 2.78 ± 1.46 \\ \hline
-			\multicolumn{9}{c}{\textbf{Task : First 24h in-hospital mortality}} \\ \hline
+			RGCN5+lit & 0.71 ± 0.06 & 0.70 ± 0.06 & 0.71 ± 0.05 & 0.70 ± 0.05 & 0.78 ± 0.05 & 0.77 ± 0.06 & 77.2 ± 40.3 & 2.78 ± 1.46 \\ \midrule
+			\multicolumn{9}{c}{\textbf{Task : First 24h in-hospital mortality}} \\ \bottomrule
 		\end{tabular}%
 	}
 \end{table}
 
-\begin{table}[ht]
+\begin{table}[htbp]
+\centering
 	\caption{MEDS-RDF-Full (RGCN2+lit, top 10\% of relations by SHAP importance) vs. tabular baselines. The best-performing model per task is shown in bold.}
 	\label{tab:paper3_results-tabular-full}
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{llcccccc}
-			\hline
+			\toprule
 			\multicolumn{1}{c}{\multirow{4}{*}{Task}} & \multicolumn{1}{c}{\multirow{4}{*}{Model}} & \multicolumn{3}{c}{\multirow{2}{*}{F1-score}} & \multirow{4}{*}{Accuracy} & \multirow{4}{*}{AUC} & \multirow{4}{*}{AUPRC} \\
-			\multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{3}{c}{} &  &  &  \\ \cline{3-5}
+			\multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{3}{c}{} &  &  &  \\ \cmidrule(lr){3-5}
 			\multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multirow{2}{*}{False} & \multirow{2}{*}{True} & \multirow{2}{*}{Macro} &  &  &  \\
-			\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  &  &  &  &  &  \\ \hline
+			\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  &  &  &  &  &  \\ \midrule
 			\multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}First 24h \\ in-hospital \\ mortality\end{tabular}} & LR & 0.75 ± 0.02 & 0.75 ± 0.02 & 0.75 ± 0.02 & 0.75 ± 0.02 & 0.83 ± 0.02 & 0.83 ± 0.03 \\
 			& RF & 0.76 ± 0.02 & 0.77 ± 0.02 & 0.76 ± 0.02 & 0.76 ± 0.02 & 0.85 ± 0.02 & 0.84 ± 0.03 \\
 			& XGBoost & \textbf{0.76 ± 0.02} & \textbf{0.77 ± 0.02} & \textbf{0.76 ± 0.02} & \textbf{0.77 ± 0.02} & \textbf{0.85 ± 0.02} & \textbf{0.84 ± 0.03} \\
-			& RGCN2+lit & 0.73 ± 0.05 & 0.71 ± 0.05 & 0.72 ± 0.04 & 0.72 ± 0.05 & 0.80 ± 0.05 & 0.79 ± 0.05 \\ \hline
+			& RGCN2+lit & 0.73 ± 0.05 & 0.71 ± 0.05 & 0.72 ± 0.04 & 0.72 ± 0.05 & 0.80 ± 0.05 & 0.79 ± 0.05 \\ \midrule
 			\multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}First 24h \\ in-ICU \\ mortality\end{tabular}} & LR & 0.77 ± 0.01 & 0.77 ± 0.02 & 0.77 ± 0.01 & 0.77 ± 0.01 & 0.84 ± 0.02 & 0.83 ± 0.02 \\
 			& RF & 0.78 ± 0.02 & 0.79 ± 0.01 & 0.78 ± 0.01 & 0.78 ± 0.01 & 0.86 ± 0.01 & 0.85 ± 0.02 \\
 			& XGBoost & \textbf{0.78 ± 0.02} & \textbf{0.79 ± 0.02} & \textbf{0.78 ± 0.02} & \textbf{0.78 ± 0.02} & \textbf{0.87 ± 0.02} & \textbf{0.86 ± 0.02} \\
-			& RGCN2+lit & 0.74 ± 0.06 & 0.74 ± 0.05 & 0.74 ± 0.05 & 0.74 ± 0.04 & 0.82 ± 0.05 & 0.80 ± 0.05 \\ \hline
+			& RGCN2+lit & 0.74 ± 0.06 & 0.74 ± 0.05 & 0.74 ± 0.05 & 0.74 ± 0.04 & 0.82 ± 0.05 & 0.80 ± 0.05 \\ \midrule
 			\multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}First 48h \\ in-hospital \\ mortality\end{tabular}} & LR & 0.76 ± 0.01 & 0.76 ± 0.01 & 0.76 ± 0.01 & 0.76 ± 0.01 & 0.84 ± 0.02 & 0.82 ± 0.02 \\
 			& RF & 0.75 ± 0.01 & 0.76 ± 0.01 & 0.76 ± 0.01 & 0.76 ± 0.01 & 0.84 ± 0.01 & 0.82 ± 0.02 \\
 			& XGBoost & \textbf{0.77 ± 0.02} & \textbf{0.77 ± 0.01} & \textbf{0.77 ± 0.01} & \textbf{0.77 ± 0.01} & \textbf{0.85 ± 0.02} & \textbf{0.83 ± 0.02} \\
-			& RGCN2+lit & 0.74 ± 0.06 & 0.72 ± 0.06 & 0.73 ± 0.05 & 0.73 ± 0.05 & 0.80 ± 0.05 & 0.79 ± 0.07 \\ \hline
+			& RGCN2+lit & 0.74 ± 0.06 & 0.72 ± 0.06 & 0.73 ± 0.05 & 0.73 ± 0.05 & 0.80 ± 0.05 & 0.79 ± 0.07 \\ \midrule
 			\multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}First 48h \\ in-ICU \\ mortality\end{tabular}} & LR & 0.77 ± 0.01 & 0.77 ± 0.01 & 0.77 ± 0.01 & 0.77 ± 0.01 & 0.84 ± 0.01 & 0.83 ± 0.02 \\
 			& RF & \multicolumn{1}{l}{0.78 ± 0.02} & 0.79 ± 0.01 & 0.78 ± 0.01 & 0.78 ± 0.01 & 0.87 ± 0.01 & 0.85 ± 0.02 \\
 			& XGBoost & \textbf{0.79 ± 0.02} & \textbf{0.80 ± 0.02} & \textbf{0.79 ± 0.02} & \textbf{0.79 ± 0.02} & \textbf{0.88 ± 0.01} & \textbf{0.87 ± 0.01} \\
-			& RGCN2+lit & 0.74 ± 0.05 & 0.74 ± 0.06 & 0.74 ± 0.05 & 0.74 ± 0.05 & 0.82 ± 0.05 & 0.81 ± 0.06 \\ \hline
+			& RGCN2+lit & 0.74 ± 0.05 & 0.74 ± 0.06 & 0.74 ± 0.05 & 0.74 ± 0.05 & 0.82 ± 0.05 & 0.81 ± 0.06 \\ \midrule
 			\multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}LOS \\ in ICU \\ \textgreater 3 days\end{tabular}} & LR & 0.90 ± 0.01 & 0.90 ± 0.01 & 0.90 ± 0.01 & 0.90 ± 0.01 & 0.96 ± 0.01 & 0.95 ± 0.01 \\
 			& RF & 0.92 ± 0.01 & 0.91 ± 0.01 & 0.92 ± 0.01 & 0.92 ± 0.01 & 0.97 ± 0.00 & 0.98 ± 0.00 \\
 			& XGBoost & \textbf{0.94 ± 0.01} & \textbf{0.93 ± 0.01} & \textbf{0.94 ± 0.01} & \textbf{0.94 ± 0.01} & \textbf{0.98 ± 0.00} & \textbf{0.98 ± 0.00} \\
-			& RGCN2+lit & 0.83 ± 0.04 & 0.83 ± 0.05 & 0.83 ± 0.04 & 0.83 ± 0.04 & 0.91 ± 0.03 & 0.91 ± 0.03 \\ \hline
+			& RGCN2+lit & 0.83 ± 0.04 & 0.83 ± 0.05 & 0.83 ± 0.04 & 0.83 ± 0.04 & 0.91 ± 0.03 & 0.91 ± 0.03 \\ \midrule
 			\multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}LOS \\ in Hospital \\ \textgreater 3 days\end{tabular}} & LR & 0.99 ± 0.00 & 0.99 ± 0.00 & 0.99 ± 0.00 & 0.99 ± 0.00 & 1.00 ± 0.00 & 1.00 ± 0.00 \\
 			& RF & 0.99 ± 0.00 & 0.99 ± 0.00 & 0.99 ± 0.00 & 0.99 ± 0.00 & 1.00 ± 0.00 & 1.00 ± 0.00 \\
 			& XGBoost & \textbf{0.99 ± 0.00} & \textbf{0.99 ± 0.00} & \textbf{0.99 ± 0.00} & \textbf{0.99 ± 0.00} & \textbf{1.00 ± 0.00} & \textbf{1.00 ± 0.00} \\
-			& RGCN2+lit & 0.99 ± 0.01 & 1.00 ± 0.01 & 0.99 ± 0.01 & 0.99 ± 0.01 & 1.00 ± 0.01 & 1.00 ± 0.00 \\ \hline
+			& RGCN2+lit & 0.99 ± 0.01 & 1.00 ± 0.01 & 0.99 ± 0.01 & 0.99 ± 0.01 & 1.00 ± 0.01 & 1.00 ± 0.00 \\ \midrule
 			\multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}1y \\ post-hospital- \\ discharge  \\ mortality\end{tabular}} & LR & 0.80 ± 0.02 & 0.80 ± 0.01 & 0.80 ± 0.01 & 0.80 ± 0.01 & 0.88 ± 0.02 & 0.88 ± 0.02 \\
 			& RF & 0.81 ± 0.01 & 0.82 ± 0.01 & 0.82 ± 0.01 & 0.82 ± 0.01 & 0.90 ± 0.01 & 0.90 ± 0.01 \\
 			& XGBoost & \textbf{0.81 ± 0.01} & \textbf{0.82 ± 0.01} & \textbf{0.82 ± 0.01} & \textbf{0.82 ± 0.01} & \textbf{0.90 ± 0.00} & \textbf{0.90 ± 0.00} \\
-			& RGCN2+lit & 0.82 ± 0.05 & 0.80 ± 0.06 & 0.81 ± 0.05 & 0.81 ± 0.05 & 0.89 ± 0.04 & 0.89 ± 0.04 \\ \hline
+			& RGCN2+lit & 0.82 ± 0.05 & 0.80 ± 0.06 & 0.81 ± 0.05 & 0.81 ± 0.05 & 0.89 ± 0.04 & 0.89 ± 0.04 \\ \midrule
 			\multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}30d \\ post-hospital- \\ discharge \\ mortality\end{tabular}} & LR & 0.86 ± 0.01 & 0.85 ± 0.01 & 0.85 ± 0.01 & 0.85 ± 0.01 & 0.92 ± 0.01 & 0.92 ± 0.01 \\
 			& RF & 0.86 ± 0.01 & 0.86 ± 0.01 & 0.86 ± 0.01 & 0.86 ± 0.01 & 0.93 ± 0.01 & 0.93 ± 0.00 \\
 			& XGBoost & \textbf{0.87 ± 0.01} & \textbf{0.88 ± 0.01} & \textbf{0.88 ± 0.01} & \textbf{0.88 ± 0.01} & \textbf{0.94 ± 0.00} & \textbf{0.94 ± 0.01} \\
-			& RGCN2+lit & 0.87 ± 0.04 & 0.86 ± 0.04 & 0.86 ± 0.03 & 0.86 ± 0.03 & 0.94 ± 0.02 & 0.94 ± 0.02 \\ \hline
+			& RGCN2+lit & 0.87 ± 0.04 & 0.86 ± 0.04 & 0.86 ± 0.03 & 0.86 ± 0.03 & 0.94 ± 0.02 & 0.94 ± 0.02 \\ \midrule
 			\multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}30d \\ re-admission\end{tabular}} & LR & 0.70 ± 0.00 & 0.67 ± 0.00 & 0.69 ± 0.00 & 0.69 ± 0.00 & 0.74 ± 0.01 & 0.77 ± 0.01 \\
 			& RF & \textbf{0.73 ± 0.01} & \textbf{0.68 ± 0.01} & \textbf{0.71 ± 0.01} & \textbf{0.71 ± 0.01} & \textbf{0.77 ± 0.01} & \textbf{0.80 ± 0.01} \\
 			& XGBoost & 0.72 ± 0.02 & 0.67 ± 0.02 & 0.70 ± 0.02 & 0.70 ± 0.02 & 0.77 ± 0.02 & 0.80 ± 0.02 \\
-			& RGCN2+lit & 0.68 ± 0.05 & 0.72 ± 0.06 & 0.70 ± 0.05 & 0.70 ± 0.05 & 0.76 ± 0.05 & 0.78 ± 0.05 \\ \hline
+			& RGCN2+lit & 0.68 ± 0.05 & 0.72 ± 0.06 & 0.70 ± 0.05 & 0.70 ± 0.05 & 0.76 ± 0.05 & 0.78 ± 0.05 \\ \midrule
 			\multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Myocardial \\ infarction \\ 1--5Y \\ phenotyping\end{tabular}} & LR & 0.74 ± 0.03 & 0.72 ± 0.03 & 0.73 ± 0.03 & 0.73 ± 0.03 & 0.82 ± 0.02 & 0.82 ± 0.02 \\
 			& RF & \textbf{0.75 ± 0.01} & \textbf{0.74 ± 0.01} & \textbf{0.75 ± 0.01} & \textbf{0.75 ± 0.01} & \textbf{0.83 ± 0.01} & \textbf{0.83 ± 0.02} \\
 			& XGBoost & 0.74 ± 0.02 & 0.74 ± 0.02 & 0.74 ± 0.02 & 0.74 ± 0.02 & 0.83 ± 0.02 & 0.83 ± 0.02 \\
-			& RGCN2+lit & 0.72 ± 0.05 & 0.76 ± 0.06 & 0.74 ± 0.04 & 0.73 ± 0.04 & 0.82 ± 0.04 & 0.82 ± 0.06 \\ \hline
+			& RGCN2+lit & 0.72 ± 0.05 & 0.76 ± 0.06 & 0.74 ± 0.04 & 0.73 ± 0.04 & 0.82 ± 0.04 & 0.82 ± 0.06 \\ \midrule
 			\multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}CKD onset \\ in diabetics \\ 5Y from \\ kidney panel\end{tabular}} & LR & 0.76 ± 0.01 & 0.74 ± 0.01 & 0.75 ± 0.01 & 0.75 ± 0.01 & 0.82 ± 0.02 & 0.82 ± 0.02 \\
 			& RF & \textbf{0.81 ± 0.02} & \textbf{0.82 ± 0.02} & \textbf{0.81 ± 0.02} & \textbf{0.81 ± 0.02} & \textbf{0.90 ± 0.01} & \textbf{0.89 ± 0.01} \\
 			& XGBoost & 0.81 ± 0.02 & 0.82 ± 0.02 & 0.81 ± 0.02 & 0.81 ± 0.02 & 0.90 ± 0.02 & 0.89 ± 0.02 \\
-			& RGCN2+lit & 0.76 ± 0.05 & 0.75 ± 0.05 & 0.76 ± 0.04 & 0.75 ± 0.04 & 0.84 ± 0.04 & 0.83 ± 0.05 \\ \hline
+			& RGCN2+lit & 0.76 ± 0.05 & 0.75 ± 0.05 & 0.76 ± 0.04 & 0.75 ± 0.04 & 0.84 ± 0.04 & 0.83 ± 0.05 \\ \bottomrule
 		\end{tabular}%
 	}
 \end{table}
 
 
-\begin{table}[ht]
+\begin{table}[htbp]
+\centering
 	\caption{Subsample-level comparison of Macro-F1 performance between RGCN+lit and XGBoost across the 11 clinical prediction tasks. %For each task, Macro-F1 scores are reported for the five independent patient subsamples. 
 		The reported $\Delta$ Macro-F1 represents the mean paired difference between RGCN+lit and XGBoost ($\Delta = \text{Macro-F1}_{RGCN+lit} - \text{Macro-F1}_{XGBoost}$). Statistical significance was assessed using a two-sided paired $t\text{-}test$ on the five matched subsample-level Macro-F1 scores, with $p<0.05$ considered statistically significant.} %The Significative column indicates whether this threshold was met.}
 \label{tab:paper3_results-xgb-statistical}
-\resizebox{\textwidth}{!}{%
+\resizebox{0.70\textwidth}{!}{%
 	\begin{tabular}{lcccccc}
-		\hline
+		\toprule
 		\multicolumn{1}{c}{\multirow{4}{*}{Task}} & \multicolumn{1}{c}{\multirow{4}{*}{Subample}} & \multirow{4}{*}{\begin{tabular}[c]{@{}c@{}}F1-Score\\      RGCN+lit\end{tabular}} & \multirow{4}{*}{\begin{tabular}[c]{@{}c@{}}F1-Score\\      XGBoost\end{tabular}} & \multirow{4}{*}{$\Delta$ Macro-F1} & \multirow{4}{*}{P-value} & \multirow{4}{*}{\begin{tabular}[c]{@{}c@{}}Significative\\      (p\textless{}0,05)\end{tabular}} \\
 		\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  &  &  &  &  \\
 		\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  &  &  &  &  \\
-		\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  &  &  &  &  \\ \hline
+		\multicolumn{1}{c}{} & \multicolumn{1}{c}{} &  &  &  &  &  \\ \midrule
 		\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}First 24h in-hospital mortality\end{tabular}} & 1 & 0,748 & 0,773 & \multirow{5}{*}{-0,0531} & \multirow{5}{*}{0,0037} & \multirow{5}{*}{True} \\
 		& 2 & 0,695 & 0,744 &  &  &  \\
 		& 3 & 0,703 & 0,753 &  &  &  \\
 		& 4 & 0,704 & 0,777 &  &  &  \\
-		& 5 & 0,722 & 0,792 &  &  &  \\ \hline
+		& 5 & 0,722 & 0,792 &  &  &  \\ \midrule
 		\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}First 24h in-ICU mortality\end{tabular}} & 1 & 0,724 & 0,779 & \multirow{5}{*}{-0,0527} & \multirow{5}{*}{0,0028} & \multirow{5}{*}{True} \\
 		& 2 & 0,736 & 0,762 &  &  &  \\
 		& 3 & 0,716 & 0,791 &  &  &  \\
 		& 4 & 0,744 & 0,794 &  &  &  \\
-		& 5 & 0,756 & 0,814 &  &  &  \\ \hline
+		& 5 & 0,756 & 0,814 &  &  &  \\ \midrule
 		\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}First 48h in-hospital mortality\end{tabular}} & 1 & 0,742 & 0,774 & \multirow{5}{*}{-0,0470} & \multirow{5}{*}{0,0010} & \multirow{5}{*}{True} \\
 		& 2 & 0,741 & 0,787 &  &  &  \\
 		& 3 & 0,734 & 0,776 &  &  &  \\
 		& 4 & 0,712 & 0,761 &  &  &  \\
-		& 5 & 0,692 & 0,757 &  &  &  \\ \hline
+		& 5 & 0,692 & 0,757 &  &  &  \\ \midrule
 		\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}First 48h in-ICU mortality\end{tabular}} & 1 & 0,725 & 0,799 & \multirow{5}{*}{-0,0549} & \multirow{5}{*}{0,0019} & \multirow{5}{*}{True} \\
 		& 2 & 0,707 & 0,769 &  &  &  \\
 		& 3 & 0,747 & 0,808 &  &  &  \\
 		& 4 & 0,756 & 0,805 &  &  &  \\
-		& 5 & 0,756 & 0,785 &  &  &  \\ \hline
+		& 5 & 0,756 & 0,785 &  &  &  \\ \midrule
 		\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}LOS in ICU \textgreater 3 days\end{tabular}} & 1 & 0,813 & 0,932 & \multirow{5}{*}{-0,1063} & \multirow{5}{*}{0,0002} & \multirow{5}{*}{True} \\
 		& 2 & 0,822 & 0,950 &  &  &  \\
 		& 3 & 0,846 & 0,935 &  &  &  \\
 		& 4 & 0,845 & 0,936 &  &  &  \\
-		& 5 & 0,828 & 0,932 &  &  &  \\ \hline
+		& 5 & 0,828 & 0,932 &  &  &  \\ \midrule
 		\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}LOS in Hospital \textgreater 3 days\end{tabular}} & 1 & 0,995 & 0,994 & \multirow{5}{*}{-0,0006} & \multirow{5}{*}{0,3047} & \multirow{5}{*}{False} \\
 		& 2 & 0,993 & 0,993 &  &  &  \\
 		& 3 & 0,993 & 0,994 &  &  &  \\
 		& 4 & 0,995 & 0,996 &  &  &  \\
-		& 5 & 0,993 & 0,995 &  &  &  \\ \hline
+		& 5 & 0,993 & 0,995 &  &  &  \\ \midrule
 		\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}1y post-hospital-discharge mortality\end{tabular}} & 1 & 0,814 & 0,829 & \multirow{5}{*}{-0,0138} & \multirow{5}{*}{0,0491} & \multirow{5}{*}{True} \\
 		& 2 & 0,799 & 0,816 &  &  &  \\
 		& 3 & 0,796 & 0,825 &  &  &  \\
 		& 4 & 0,815 & 0,825 &  &  &  \\
-		& 5 & 0,812 & 0,810 &  &  &  \\ \hline
+		& 5 & 0,812 & 0,810 &  &  &  \\ \midrule
 		\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}30d post-hospital-discharge mortality\end{tabular}} & 1 & 0,855 & 0,863 & \multirow{5}{*}{-0,0154} & \multirow{5}{*}{0,0140} & \multirow{5}{*}{True} \\
 		& 2 & 0,861 & 0,883 &  &  &  \\
 		& 3 & 0,869 & 0,890 &  &  &  \\
 		& 4 & 0,856 & 0,877 &  &  &  \\
-		& 5 & 0,867 & 0,872 &  &  &  \\ \hline
+		& 5 & 0,867 & 0,872 &  &  &  \\ \midrule
 		\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}30d re-admission\end{tabular}} & 1 & 0,679 & 0,689 & \multirow{5}{*}{0,0014} & \multirow{5}{*}{0,8101} & \multirow{5}{*}{False} \\
 		& 2 & 0,706 & 0,688 &  &  &  \\
 		& 3 & 0,692 & 0,682 &  &  &  \\
 		& 4 & 0,691 & 0,697 &  &  &  \\
-		& 5 & 0,704 & 0,710 &  &  &  \\ \hline
+		& 5 & 0,704 & 0,710 &  &  &  \\ \midrule
 		\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}Myocardial infarction 1--5Y \\ phenotyping\end{tabular}} & 1 & 0,745 & 0,755 & \multirow{5}{*}{-0,0127} & \multirow{5}{*}{0,0639} & \multirow{5}{*}{False} \\
 		& 2 & 0,739 & 0,766 &  &  &  \\
 		& 3 & 0,730 & 0,729 &  &  &  \\
 		& 4 & 0,734 & 0,740 &  &  &  \\
-		& 5 & 0,717 & 0,738 &  &  &  \\ \hline
+		& 5 & 0,717 & 0,738 &  &  &  \\ \midrule
 		\multirow{5}{*}{\begin{tabular}[c]{@{}l@{}}CKD onset in diabetics 5Y from \\ kidney panel\end{tabular}} & 1 & 0,751 & 0,818 & \multirow{5}{*}{-0,0591} & \multirow{5}{*}{0,0007} & \multirow{5}{*}{True} \\
 		& 2 & 0,740 & 0,819 &  &  &  \\
 		& 3 & 0,782 & 0,839 &  &  &  \\
 		& 4 & 0,743 & 0,787 &  &  &  \\
-		& 5 & 0,750 & 0,799 &  &  &  \\ \hline
+		& 5 & 0,750 & 0,799 &  &  &  \\ \bottomrule
 	\end{tabular}%
 }
 \end{table}
@@ -1123,104 +1082,106 @@ This section reports the complete per-task results. Table~\ref{tab:paper3_result
 \label{sec:paper3_sustainability-tables}
 This section reports the complete sustainability results. Tables~\ref{tab:paper3_results-sustainability-a} and~\ref{tab:paper3_results-sustainability-b} report training duration and estimated carbon emissions for the RGCN2+lit model across all 11 MIMIC-IV prediction tasks, considering the entire (unpruned) dataset and the SHAP-pruned subset retaining the top 10\% of relations. The XGBoost tabular baseline is also reported for comparison. Together, these tables provide the complete computational-cost results corresponding to the representative sustainability comparisons discussed in the main manuscript.
 
-\begin{table}[ht]
+\begin{table}[htbp]
+\centering
 \caption{Training duration and estimated carbon emissions for the first five of the 11 MIMIC-IV prediction tasks, comparing RGCN2+lit across schema variants and XGBoost as a tabular baseline. \emph{Entire} denotes the unpruned dataset; \emph{Only top 10\%} denotes the subset retaining the top 10\% of relations by SHAP importance. See Table~\ref{tab:paper3_results-sustainability-b} for the remaining six tasks.}
 \label{tab:paper3_results-sustainability-a}
 
 \resizebox{\textwidth}{!}{%
 	\begin{tabular}{llllcc}
-		\hline
-		\multicolumn{1}{c}{Task} & \multicolumn{1}{c}{Dataset} & Model & \multicolumn{1}{c}{Schema} & Duration (s) & {\begin{tabular}[c]{@{}l@{}}Emission \\ (gCO2eq) \end{tabular}} \\ \hline
+		\toprule
+		\multicolumn{1}{c}{Task} & \multicolumn{1}{c}{Dataset} & Model & \multicolumn{1}{c}{Schema} & Duration (s) & {\begin{tabular}[c]{@{}l@{}}Emission \\ (gCO2eq) \end{tabular}} \\ \midrule
 		\multirow{7}{*}{\begin{tabular}[c]{@{}l@{}}First 24h \\ in-hospital \\ mortality\end{tabular}} & \multirow{3}{*}{Entire} & \multirow{2}{*}{RGCN2+lit} & MEDS-RDF-Base & 42.5 ± 36.1 & 2.46 ± 2.12 \\
 		&  &  & MEDS-RDF-Partial & 25.5 ± 14.0 & 1.02 ± 0.58 \\
-		&  & XGBoost & Tabular & 3.06 ± 0.48 & 0.11 ± 0.03 \\ \cline{2-6} 
+		&  & XGBoost & Tabular & 3.06 ± 0.48 & 0.11 ± 0.03 \\ \cmidrule(lr){2-6} 
 		& \multirow{4}{*}{Only top 10\%} & \multirow{3}{*}{RGCN2+lit} & MEDS-RDF-Base & 8.3 ± 6.8 & 0.32 ± 0.26 \\
 		&  &  & MEDS-RDF-Partial & 10.7 ± 5.4 & 0.38 ± 0.20 \\
 		&  &  & MEDS-RDF-Full & \textbf{55.1 ± 29.6} & \textbf{1.96 ± 1.06} \\
-		&  & XGBoost & Tabular & 2.21 ± 0.45 & 0.05 ± 0.01 \\ \hline
+		&  & XGBoost & Tabular & 2.21 ± 0.45 & 0.05 ± 0.01 \\ \midrule
 		\multirow{7}{*}{\begin{tabular}[c]{@{}l@{}}First 24h \\ in-ICU \\ mortality\end{tabular}} & \multirow{3}{*}{Entire} & \multirow{2}{*}{RGCN2+lit} & MEDS-RDF-Base & 23.0 ± 23.6 & 1.78 ± 1.97 \\
 		&  &  & MEDS-RDF-Partial & \textbf{131.1 ± 144.1} & \textbf{5.47 ± 6.02} \\
-		&  & XGBoost & Tabular & 4.31 ± 0.39 & 0.23 ± 0.04 \\ \cline{2-6} 
+		&  & XGBoost & Tabular & 4.31 ± 0.39 & 0.23 ± 0.04 \\ \cmidrule(lr){2-6} 
 		& \multirow{4}{*}{Only top 10\%} & \multirow{3}{*}{RGCN2+lit} & MEDS-RDF-Base & 5.1 ± 2.5 & 0.21 ± 0.09 \\
 		&  &  & MEDS-RDF-Partial & 14.3 ± 15.8 & 0.57 ± 0.61 \\
 		&  &  & MEDS-RDF-Full & 81.1 ± 36.8 & 3.45 ± 1.57 \\
-		&  & XGBoost & Tabular & 2.50 ± 0.19 & 0.07 ± 0.01 \\ \hline
+		&  & XGBoost & Tabular & 2.50 ± 0.19 & 0.07 ± 0.01 \\ \midrule
 		\multirow{7}{*}{\begin{tabular}[c]{@{}l@{}}First 48h \\ in-hospital \\ mortality\end{tabular}} & \multirow{3}{*}{Entire} & \multirow{2}{*}{RGCN2+lit} & MEDS-RDF-Base & 18.4 ± 16.7 & 1.15 ± 1.10 \\
 		&  &  & MEDS-RDF-Partial & 44.9 ± 36.4 & 1.82 ± 1.51 \\
-		&  & XGBoost & Tabular & 3.28 ± 0.44 & 0.14 ± 0.04 \\ \cline{2-6} 
+		&  & XGBoost & Tabular & 3.28 ± 0.44 & 0.14 ± 0.04 \\ \cmidrule(lr){2-6} 
 		& \multirow{4}{*}{Only top 10\%} & \multirow{3}{*}{RGCN2+lit} & MEDS-RDF-Base & 7.1 ± 5.5 & 0.35 ± 0.30 \\
 		&  &  & MEDS-RDF-Partial & 8.3 ± 3.7 & 0.32 ± 0.15 \\
 		&  &  & MEDS-RDF-Full & \textbf{68.4 ± 40.3} & \textbf{2.52 ± 1.50} \\
-		&  & XGBoost & Tabular & 2.15 ± 0.06 & 0.06 ± 0.01 \\ \hline
+		&  & XGBoost & Tabular & 2.15 ± 0.06 & 0.06 ± 0.01 \\ \midrule
 		\multirow{7}{*}{\begin{tabular}[c]{@{}l@{}}First 48h \\ in-ICU \\ mortality\end{tabular}} & \multirow{3}{*}{Entire} & \multirow{2}{*}{RGCN2+lit} & MEDS-RDF-Base & 23.4 ± 30.8 & 2.10 ± 2.79 \\
 		&  &  & MEDS-RDF-Partial & \textbf{112.8 ± 113.8} & \textbf{4.75 ± 4.81} \\
-		&  & XGBoost & Tabular & 5.62 ± 0.42 & 0.35 ± 0.14 \\ \cline{2-6} 
+		&  & XGBoost & Tabular & 5.62 ± 0.42 & 0.35 ± 0.14 \\ \cmidrule(lr){2-6} 
 		& \multirow{4}{*}{Only top 10\%} & \multirow{3}{*}{RGCN2+lit} & MEDS-RDF-Base & 27.4 ± 30.7 & 1.02 ± 1.17 \\
 		&  &  & MEDS-RDF-Partial & 33.1 ± 20.8 & 1.27 ± 0.84 \\
 		&  &  & MEDS-RDF-Full & 75.3 ± 34.9 & 3.39 ± 1.71 \\
-		&  & XGBoost & Tabular & \multicolumn{1}{l}{2.65 ± 0.22} & 0.08 ± 0.02 \\ \hline
+		&  & XGBoost & Tabular & \multicolumn{1}{l}{2.65 ± 0.22} & 0.08 ± 0.02 \\ \midrule
 		\multirow{7}{*}{\begin{tabular}[c]{@{}l@{}}LOS in ICU \\ \textgreater 3 days\end{tabular}} & \multirow{3}{*}{Entire} & \multirow{2}{*}{RGCN2+lit} & MEDS-RDF-Base & 138.9 ± 78.5 & 5.58 ± 3.18 \\
 		&  &  & MEDS-RDF-Partial & \textbf{367.9 ± 407.3} & \textbf{15.4 ± 17.1} \\
-		&  & XGBoost & Tabular & 5.42 ± 0.59 & 0.34 ± 0.07 \\ \cline{2-6} 
+		&  & XGBoost & Tabular & 5.42 ± 0.59 & 0.34 ± 0.07 \\ \cmidrule(lr){2-6} 
 		& \multirow{4}{*}{Only top 10\%} & \multirow{3}{*}{RGCN2+lit} & MEDS-RDF-Base & 37.7 ± 47.5 & 1.43 ± 1.81 \\
 		&  &  & MEDS-RDF-Partial & 108.0 ± 104.2 & 4.30 ± 4.21 \\
 		&  &  & MEDS-RDF-Full & 108.7 ± 34.6 & 5.42 ± 1.76 \\
-		&  & XGBoost & Tabular & 2.75 ± 0.10 & 0.08 ± 0.01 \\ \hline
+		&  & XGBoost & Tabular & 2.75 ± 0.10 & 0.08 ± 0.01 \\ \bottomrule
 	\end{tabular}%
 }
 \end{table}
 
 
-\begin{table}[ht]
+\begin{table}[htbp]
+\centering
 \caption{Training duration and estimated carbon emissions for the remaining six of the 11 MIMIC-IV prediction tasks, comparing RGCN2+lit across schema variants and XGBoost as a tabular baseline. \emph{Entire} denotes the unpruned dataset; \emph{Only top 10\%} denotes the subset retaining the top 10\% of relations by SHAP importance. See Table~\ref{tab:paper3_results-sustainability-a} for the first five tasks.}
 \label{tab:paper3_results-sustainability-b}
 
-\resizebox{\textwidth}{!}{%
+\resizebox{0.90\textwidth}{!}{%
 	\begin{tabular}{llllcc}
-		\hline
-		\multicolumn{1}{c}{Task} & \multicolumn{1}{c}{Dataset} & Model & \multicolumn{1}{c}{Schema} & Duration (s) & {\begin{tabular}[c]{@{}l@{}}Emission \\ (gCO2eq) \end{tabular}} \\ \hline
+		\toprule
+		\multicolumn{1}{c}{Task} & \multicolumn{1}{c}{Dataset} & Model & \multicolumn{1}{c}{Schema} & Duration (s) & {\begin{tabular}[c]{@{}l@{}}Emission \\ (gCO2eq) \end{tabular}} \\ \midrule
 		\multirow{7}{*}{\begin{tabular}[c]{@{}l@{}}1y post\\-hospital\\-discharge\\ mortality \end{tabular}} & \multirow{3}{*}{Entire} & \multirow{2}{*}{RGCN2+lit} & MEDS-RDF-Base & 42.6 ± 33.6 & 4.19 ± 3.15 \\
 		&  &  & MEDS-RDF-Partial & \textbf{188.7 ± 152.7} & \textbf{8.40 ± 6.87} \\
-		&  & XGBoost & Tabular & 3.79 ± 0.21 & 0.17 ± 0.02 \\ \cline{2-6} 
+		&  & XGBoost & Tabular & 3.79 ± 0.21 & 0.17 ± 0.02 \\ \cmidrule(lr){2-6} 
 		& \multirow{4}{*}{Only top 10\%} & \multirow{3}{*}{RGCN2+lit} & MEDS-RDF-Base & 40.5 ± 56.7 & 1.51 ± 2.21 \\
 		&  &  & MEDS-RDF-Partial & 39.1 ± 27.5 & 1.57 ± 1.13 \\
 		&  &  & MEDS-RDF-Full & 84.5 ± 38.8 & 3.92 ± 1.81 \\
-		&  & XGBoost & Tabular & 2.75 ± 0.09 & 0.09 ± 0.01 \\ \hline
+		&  & XGBoost & Tabular & 2.75 ± 0.09 & 0.09 ± 0.01 \\ \midrule
 		\multirow{7}{*}{\begin{tabular}[c]{@{}l@{}}LOS \\ in Hospital \\ \textgreater 3 days \end{tabular}} & \multirow{3}{*}{Entire} & \multirow{2}{*}{RGCN2+lit} & MEDS-RDF-Base & 36.8 ± 21.2 & 1.99 ± 1.20 \\
 		&  &  & MEDS-RDF-Partial & 49.8 ± 48.9 & 2.00 ± 2.00 \\
-		&  & XGBoost & Tabular & 3.04 ± 0.19 & 0.11 ± 0.01 \\ \cline{2-6} 
+		&  & XGBoost & Tabular & 3.04 ± 0.19 & 0.11 ± 0.01 \\ \cmidrule(lr){2-6} 
 		& \multirow{4}{*}{Only top 10\%} & \multirow{3}{*}{RGCN2+lit} & MEDS-RDF-Base & 5.5 ± 4.0 & 0.26 ± 0.22 \\
 		&  &  & MEDS-RDF-Partial & 12.9 ± 14.7 & 0.51 ± 0.61 \\
 		&  &  & MEDS-RDF-Full & \textbf{76.9 ± 52.6} & \textbf{2.89 ± 2.00} \\
-		&  & XGBoost & Tabular & 2.00 ± 0.13 & 0.05 ± 0.01 \\ \hline
+		&  & XGBoost & Tabular & 2.00 ± 0.13 & 0.05 ± 0.01 \\ \midrule
 		\multirow{7}{*}{\begin{tabular}[c]{@{}l@{}} 30d post\\-hospital\\-discharge\\mortality \end{tabular}} & \multirow{3}{*}{Entire} & \multirow{2}{*}{RGCN2+lit} & MEDS-RDF-Base & 77.2 ± 45.2 & 9.13 ± 5.52 \\
 		&  &  & MEDS-RDF-Partial & \textbf{284.6 ± 226.8} & \textbf{12.81 ± 10.28} \\
-		&  & XGBoost & Tabular & 6.01 ± 0.60 & 0.48 ± 0.13 \\ \cline{2-6} 
+		&  & XGBoost & Tabular & 6.01 ± 0.60 & 0.48 ± 0.13 \\ \cmidrule(lr){2-6} 
 		& \multirow{4}{*}{Only top 10\%} & \multirow{3}{*}{RGCN2+lit} & MEDS-RDF-Base & 95.0 ± 80.0 & 3.69 ± 3.10 \\
 		&  &  & MEDS-RDF-Partial & 106.2 ± 103.8 & 4.51 ± 4.47 \\
 		&  &  & MEDS-RDF-Full & 163.5 ± 62.2 & 8.62 ± 3.37 \\
-		&  & XGBoost & Tabular & 3.20 ± 0.18 & 0.13 ± 0.02 \\ \hline
+		&  & XGBoost & Tabular & 3.20 ± 0.18 & 0.13 ± 0.02 \\ \midrule
 		\multirow{7}{*}{\begin{tabular}[c]{@{}l@{}} 30d \\ re-admission \end{tabular}} & \multirow{3}{*}{Entire} & \multirow{2}{*}{RGCN2+lit} & MEDS-RDF-Base & 75.4 ± 116.9 & 2.95 ± 4.58 \\
 		&  &  & MEDS-RDF-Partial & \textbf{120.7 ± 157.3} & \textbf{5.32 ± 7.04} \\
-		&  & XGBoost & Tabular & 3.25 ± 0.26 & 0.12 ± 0.01 \\ \cline{2-6} 
+		&  & XGBoost & Tabular & 3.25 ± 0.26 & 0.12 ± 0.01 \\ \cmidrule(lr){2-6} 
 		& \multirow{4}{*}{Only top 10\%} & \multirow{3}{*}{RGCN2+lit} & MEDS-RDF-Base & 26.5 ± 29.9 & 0.99 ± 1.14 \\
 		&  &  & MEDS-RDF-Partial & 39.3 ± 42.2 & 1.57 ± 1.71 \\
 		&  &  & MEDS-RDF-Full & 74.6 ± 43.9 & 3.37 ± 2.09 \\
-		&  & XGBoost & Tabular & 2.33 ± 0.20 & 0.06 ± 0.01 \\ \hline
+		&  & XGBoost & Tabular & 2.33 ± 0.20 & 0.06 ± 0.01 \\ \midrule
 		\multirow{7}{*}{\begin{tabular}[c]{@{}l@{}} Myocardial \\ infarction \\ 1--5Y \\ phenotyping\end{tabular}} & \multirow{3}{*}{Entire} & \multirow{2}{*}{RGCN2+lit} & MEDS-RDF-Base & 20.5 ± 19.5 & 1.38 ± 1.38 \\
 		&  &  & MEDS-RDF-Partial & \textbf{50.3 ± 37.1} & \textbf{2.12 ± 1.58} \\
-		&  & XGBoost & Tabular & 2.66 ± 0.20 & 0.01 ± 0.00 \\ \cline{2-6} 
+		&  & XGBoost & Tabular & 2.66 ± 0.20 & 0.01 ± 0.00 \\ \cmidrule(lr){2-6} 
 		& \multirow{4}{*}{Only top 10\%} & \multirow{3}{*}{RGCN2+lit} & MEDS-RDF-Base & 20.3 ± 26.2 & 0.81 ± 1.02 \\
 		&  &  & MEDS-RDF-Partial & 15.9 ± 10.9 & 0.63 ± 0.45 \\
 		&  &  & MEDS-RDF-Full & 38.7 ± 25.0 & 1.60 ± 1.11 \\
-		&  & XGBoost & Tabular & 2.08 ± 0.16 & 0.05 ± 0.01 \\ \hline
+		&  & XGBoost & Tabular & 2.08 ± 0.16 & 0.05 ± 0.01 \\ \midrule
 		\multirow{7}{*}{\begin{tabular}[c]{@{}l@{}} CKD onset \\ in diabetics \\ 5Y from \\ kidney panel\end{tabular}} & \multirow{3}{*}{Entire} & \multirow{2}{*}{RGCN2+lit} & MEDS-RDF-Base & 36.9 ± 23.3 & 3.47 ± 2.24 \\
 		&  &  & MEDS-RDF-Partial & \textbf{135.8 ± 122.1} & \textbf{5.97 ± 5.38} \\
-		&  & XGBoost & Tabular & 3.56 ± 0.06 & 0.01 ± 0.01 \\ \cline{2-6} 
+		&  & XGBoost & Tabular & 3.56 ± 0.06 & 0.01 ± 0.01 \\ \cmidrule(lr){2-6} 
 		& \multirow{4}{*}{Only top 10\%} & \multirow{3}{*}{RGCN2+lit} & MEDS-RDF-Base & 59.3 ± 42.1 & 2.25 ± 1.61 \\
 		&  &  & MEDS-RDF-Partial & 44.9 ± 29.9 & 1.81 ± 1.22 \\
 		&  &  & MEDS-RDF-Full & 91.5 ± 44.9 & 4.39 ± 2.16 \\
-		&  & XGBoost & Tabular & 2.38 ± 0.07 & 0.07 ± 0.01 \\ \hline
+		&  & XGBoost & Tabular & 2.38 ± 0.07 & 0.07 ± 0.01 \\ \bottomrule
 	\end{tabular}%
 }
 \end{table}

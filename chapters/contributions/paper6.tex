@@ -4,24 +4,16 @@
 % body converted mechanically, see the integration report). The source contains \credit{} commands but
 % \printcredits is commented out, so no CRediT statement is printed (as in the source).
 % ============================================================================
-\section{A Knowledge Graph-Driven Framework for Deploying AI-Powered Patient Digital Twins}
-\label{sec:paper6}
+\papersection{A Knowledge Graph-Driven Framework for Deploying AI-Powered Patient Digital Twins}{sec:paper6}
 
 \noindent This section contains the article~\cite{MARFOGLIA2026108380}.
 
-\paragraph{Authors.}
-Alberto Marfoglia\textsuperscript{1,*}, Christian D'Errico\textsuperscript{1}, Sabato Mellone\textsuperscript{2}, Antonella Carbonaro\textsuperscript{1}
+\begin{paperheader}
+\textbf{Authors:} Alberto Marfoglia, Christian D'Errico, Sabato Mellone, Antonella Carbonaro.\par
+Future Generation Computer Systems 180 (2026), article 108380. DOI: \url{https://doi.org/10.1016/j.future.2026.108380}.
+\end{paperheader}
 
-{\raggedright % layout: ragged-right metadata block
-\noindent\textsuperscript{1}Dept. of Computer Science and Engineering - DISI, University of Bologna, Cesena, Italy\\
-\textsuperscript{2}Dept. of Electrical, Electronic and Information - DEI, Engineering ``Guglielmo Marconi'', Bologna, Italy\\
-\textsuperscript{*}Corresponding author: Alberto Marfoglia (alberto.marfoglia2@unibo.it)\\
-E-mail addresses: alberto.marfoglia2@unibo.it (A. Marfoglia), christian.derrico2@unibo.it (C. D'Errico), sabato.mellone@unibo.it (S. Mellone), antonella.carbonaro@unibo.it (A. Carbonaro).\\
-ORCID: \url{https://orcid.org/0009-0000-5857-2376} (A. Marfoglia), \url{https://orcid.org/0009-0002-5784-0492} (C. D'Errico), \url{https://orcid.org/0000-0001-7688-0188} (S. Mellone), \url{https://orcid.org/0000-0002-3890-4852} (A. Carbonaro). \\
-Future Generation Computer Systems 180 (2026) 108380. \url{https://doi.org/10.1016/j.future.2026.108380}. Received 20 May 2025; Received in revised form 23 October 2025; Accepted 16 January 2026; Available online 20 January 2026.\\ 0167-739X/\textcopyright{} 2026 The Author(s). Published by Elsevier B.V. This is an open access article under the CC BY license (\url{http://creativecommons.org/licenses/by/4.0/}). 
-\par}
-
-\subsection*{Abstract}
+\begin{paperabstract}
 
 Background: The healthcare sector faces diverse challenges, including poor interoperability and a lack of personalized approaches, which limit patient outcomes. Ineffective data exchange and one-size-fits-all treatments fail to meet individual needs. Emerging technologies like digital twins (DTs), the semantic web, and AI show promise in tackling these obstacles. For this reason, we introduced CONNECTED, a conceptual multi-level framework that combines these techniques to deploy general-purpose patient DTs.
 %
@@ -32,6 +24,7 @@ Methods: We enhanced the CONNECTED architecture by providing a formal definition
 Results: Our implementation comprehends: (1) deploying a FHIR-compliant, patient-centric API for clinical history access, real-time monitoring, and predictive simulation; (2) publishing MIMO; (3) establishing the Manifest protocol for seamless, general-purpose AI model integration tailored to individual patient profiles; and (4) a proof-of-concept benchmarking application comparing multiple stroke risk classifiers.
 %
 Conclusion: CONNECTED establishes a flexible, scalable foundation for interoperable semantic patient DTs. Automation reduces technical overhead and enables users to focus on delivering personalized, insight-driven care.
+\end{paperabstract}
 
 \subsection*{Highlights}
 
@@ -150,7 +143,7 @@ This CONNECTED framework introduces a multi-layer architecture (Figure~\ref{pape
 %
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{figures/paper6/fig1.png}
+    \includegraphics[width=\textwidth]{figures/paper6/fig1.png}
     \caption{Diagram of the 4-tier architecture setup: data from the sources, structured with FHIR resources, are used to update the DTs' states, enabling functionality for applications and services in the highest layer.}\label{paper6_fig1}
 \end{figure}
 %
@@ -206,7 +199,7 @@ The functionalities of the DT Layer are structured into four independent Ktor we
 
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{figures/paper6/fig2.png}
+    \includegraphics[width=\textwidth]{figures/paper6/fig2.png}
     \caption{Micro-services architecture of the Digital Twin Layer.}\label{paper6_fig2}
 \end{figure}
 
@@ -334,7 +327,7 @@ Table~\ref{tab:paper6_qualitymetrics} presents the quality scores for each dimen
 
 The table shows zero scores for metrics assessing links between MIMO and other ontologies. This applies to the Interlinking score, which evaluates alignment with other KGs; the Reputation score, derived from the PageRank algorithm to measure how many external graphs link to MIMO; and the Completeness score, which represents the ratio between triples with external links and the total triples of MIMO. This is because it is the first version of the ontology, which initially needs to support the integration of models into the platform. This basic operability is achieved without link MIMO to external knowledge graphs.
 
-\begin{table}[ht]
+\begin{table}[htbp]
 \centering
 %%%% CHANGED:
 % \caption{KGHeartBeat Quality Metrics for MIMO by Dimension (Normalized 0--100)}
@@ -415,7 +408,7 @@ As expected, CONNECTED’s internal data-model binding process matched all model
 
 To validate correct integration, we compared the stroke risk predictions produced through Manifest-driven execution within CONNECTED against those generated by the original standalone Neural Network. Table~\ref{tab:paper6_model_comparison} shows that the evaluation metrics were identical across implementations. This confirms functional equivalence and demonstrates that the reasoning process does not introduce distortion or loss in predictive performance.
 
-\begin{table}[ht]
+\begin{table}[htbp]
 \centering
 \caption{Comparison of Neural Network performance metrics between standalone implementation and Manifest-driven execution in CONNECTED}
 \label{tab:paper6_model_comparison}
@@ -452,7 +445,7 @@ We designed an incremental evaluation strategy to emulate the gradual accumulati
 
 This incremental evaluation highlights not only static performance but also model robustness when operating with limited cohorts—an important property in clinical settings where decisions are often required early in deployment. After each cumulative expansion we computed standard classification metrics (accuracy, precision, recall, and F1-score) and report mean and dispersion (standard deviation and 95\% confidence intervals) across repeated runs. As shown in Table~\ref{tab:paper6_benchmarking-metrics} and Figure~\ref{fig:paper6_benchmarking-results}, performance variability is larger in early stages due to small sample sizes and stabilizes as more patient-level records are incorporated; once stabilized, the Neural Network consistently attains the highest performance among the tested models, in agreement with Dev et al.~\cite{dev_predictive_2022}. 
 
-\begin{table*}[ht]
+\begin{table}[htbp]
 \centering
 %%%% CHANGED:   
 % \caption{Incremental evaluation of model performance over 10 cumulative patient data chunks. Metrics: Accuracy, Precision, Recall, and F1-score, reported for Neural Network (NN), Random Forest (RF), and Decision Tree (DT).}
@@ -461,12 +454,12 @@ This incremental evaluation highlights not only static performance but also mode
 \label{tab:paper6_benchmarking-metrics}
 \renewcommand{\arraystretch}{1.2}
 \resizebox{\textwidth}{!}{% layout: resized to the thesis text width
-\begin{tabular}{|c|c|ccc|ccc|ccc|ccc|}
-\hline
-\multirow{2}{*}{\textbf{Chunk}} & \multirow{2}{*}{\textbf{N}} & \multicolumn{3}{c|}{\textbf{Accuracy}} & \multicolumn{3}{c|}{\textbf{Precision}} & \multicolumn{3}{c|}{\textbf{Recall}} & \multicolumn{3}{c|}{\textbf{F1-score}} \\
-\cline{3-14}
+\begin{tabular}{cccccccccccccc}
+\toprule
+\multirow{2}{*}{\textbf{Chunk}} & \multirow{2}{*}{\textbf{N}} & \multicolumn{3}{c}{\textbf{Accuracy}} & \multicolumn{3}{c}{\textbf{Precision}} & \multicolumn{3}{c}{\textbf{Recall}} & \multicolumn{3}{c}{\textbf{F1-score}} \\
+\cmidrule(lr){3-14}
  &  & \textbf{NN} & \textbf{RF} & \textbf{DT} & \textbf{NN} & \textbf{RF} & \textbf{DT} & \textbf{NN} & \textbf{RF} & \textbf{DT} & \textbf{NN} & \textbf{RF} & \textbf{DT} \\
-\hline
+\midrule
 1  & 33  & 0.76 & 0.82 & 0.70 & 0.78 & 0.89 & 0.79 & 0.86 & 0.81 & 0.71 & 0.82 & 0.85 & 0.75 \\
 2  & 66  & 0.77 & 0.79 & 0.71 & 0.78 & 0.84 & 0.78 & 0.88 & 0.80 & 0.72 & 0.82 & 0.82 & 0.75 \\
 3  & 99  & 0.79 & 0.76 & 0.69 & 0.78 & 0.81 & 0.74 & 0.88 & 0.75 & 0.70 & 0.82 & 0.78 & 0.72 \\
@@ -477,10 +470,10 @@ This incremental evaluation highlights not only static performance but also mode
 8  & 264 & 0.78 & 0.75 & 0.66 & 0.75 & 0.75 & 0.68 & 0.85 & 0.76 & 0.64 & 0.80 & 0.75 & 0.66 \\
 9  & 296 & 0.78 & 0.74 & 0.66 & 0.74 & 0.73 & 0.67 & 0.85 & 0.75 & 0.64 & 0.79 & 0.74 & 0.66 \\
 10 & 329 & 0.78 & 0.74 & 0.66 & 0.74 & 0.73 & 0.66 & 0.85 & 0.76 & 0.65 & 0.79 & 0.74 & 0.66 \\
-\hline
+\bottomrule
 \end{tabular}
 }
-\end{table*}
+\end{table}
 
 \begin{figure}
 \centerline{\includegraphics[width=\linewidth]{figures/paper6/fig8.jpeg}}
@@ -505,7 +498,7 @@ All experiments were executed on a single-host deployment running the full CONNE
 Workload generation and measurement were performed using a custom Python profiling script that employs a \texttt{ThreadPoolExecutor} to issue concurrent HTTP prediction requests against the platform’s REST API. Each request executed a complete digital-twin simulation for a single patient and returned the corresponding prediction. Each experimental run issued 329 independent requests (matching the evaluation dataset); no caching or shared state was used between requests. We exercised four concurrency levels (1, 5, 10, and 20 worker threads) and collected per-request response traces from which we derived mean and median latency (ms), 95th-percentile latency (p95, ms), and throughput (successful requests per second, req/s).
 
 Table~\ref{tab:paper6_performance} summarizes the measured metrics across all concurrency levels. As concurrency increases, overall throughput rises substantially, from 5.4\,req/s at a single thread to 26.7\,req/s at 20 threads. However, this improvement is accompanied by a gradual increase in latency: the mean latency grows from 185\,ms (1 thread) to 737\,ms (20 threads), and the 95th percentile latency reaches approximately 912\,ms.
-\begin{table*}[ht]
+\begin{table}[htbp]
 \centering
 \caption{Performance metrics across different concurrency levels.}
 \label{tab:paper6_performance}
@@ -521,32 +514,32 @@ Table~\ref{tab:paper6_performance} summarizes the measured metrics across all co
 \bottomrule
 \end{tabular}
 }
-\end{table*}
+\end{table}
 %
 Figure~\ref{fig:paper6_performance_plots} provides a visual summary of the performance behavior. The latency cumulative distribution (Figure~\ref{fig:paper6_latency_cdf}) shows that, in sequential execution, most requests complete within 200\,ms, indicating a low base latency under minimal contention. The throughput plot (Figure~\ref{fig:paper6_throughput}) highlights the scalability of the platform: throughput grows almost linearly up to 10 concurrent threads before plateauing near 26\,req/s. This behavior suggests that the system effectively utilizes available CPU cores up to a certain point, after which contention and scheduling overheads limit further gains. The 95th percentile latency (Figure~\ref{fig:paper6_p95_latency}) exhibits a similar pattern, increasing sharply beyond 10 threads due to resource competition among containers.
 %
 \begin{figure*}[t]
     \centering
     % Subfigure 1
-    \begin{subfigure}{0.32\linewidth}
+    \begin{subfigure}{0.32\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{figures/paper6/fig9.png}
-        \caption{Latency CDF (Sequential)}
+        \includegraphics[width=\textwidth]{figures/paper6/fig9.png}
+        \caption{Latency CDF (Sequential) \\}
         \label{fig:paper6_latency_cdf}
     \end{subfigure}
     \hfill
     % Subfigure 2
-    \begin{subfigure}{0.32\linewidth}
+    \begin{subfigure}{0.32\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{figures/paper6/fig10.png}
+        \includegraphics[width=\textwidth]{figures/paper6/fig10.png}
         \caption{Throughput vs Concurrency}
         \label{fig:paper6_throughput}
     \end{subfigure}
     \hfill
     % Subfigure 3
-    \begin{subfigure}{0.32\linewidth}
+    \begin{subfigure}{0.32\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{figures/paper6/fig11.png}
+        \includegraphics[width=\textwidth]{figures/paper6/fig11.png}
         \caption{95th Percentile Latency vs Concurrency}
         \label{fig:paper6_p95_latency}
     \end{subfigure}
