@@ -19,6 +19,8 @@
 \usepackage{placeins}   % \FloatBarrier at the end of each paper (keeps floats within their paper)
 \usepackage{caption}    % consistent table caption styling
 \usepackage{xcolor}     % shaded paper title bands
+\usepackage{tikz}       % schemes in Chapters 2 and 6
+\usetikzlibrary{positioning,arrows.meta}
 % Thesis-wide caption typography, alignment, and spacing for figures and tables.
 \captionsetup{font=small,labelfont=bf,justification=justified,singlelinecheck=false,skip=6pt}
 \setlength{\emergencystretch}{3em}
@@ -29,9 +31,9 @@
 \newcolumntype{L}{@{\extracolsep{\fill}}l}
 \newcolumntype{C}{@{\extracolsep{\fill}}c}
 \newlength{\tblwidth}\AtBeginDocument{\setlength{\tblwidth}{\textwidth}}
-% The papers' own sections become \subsection within each chapter; number one more level so that the
-% papers' internal cross-references (e.g. "Section~\ref{...}") resolve to a numbered unit.
-\setcounter{secnumdepth}{3}
+% The papers' own sections become \subsection within each chapter; their \subsubsection headings are left
+% unnumbered to avoid four-level numbers (X.Y.Z.W).
+\setcounter{secnumdepth}{2}
 
 % Numbered title band for each published paper.
 \makeatletter
@@ -89,12 +91,18 @@
 \frontmatter
 \input{front}
 
-\begin{abstract}	
+\begin{abstract}
+The increasing availability of healthcare data and advances in Artificial Intelligence (AI) have created new opportunities for clinical prediction and decision support. However, scientific progress should serve the public good and respect fundamental rights and democratic values. Trust in AI cannot be assumed; systems must remain open to scrutiny to earn it. Achieving this requires the ability to inspect how data are represented, how their meaning is made explicit, and how they are bound to the models that consume them. This thesis investigates how semantic, data-centric engineering can make these dependencies explicit through machine-actionable specifications, thereby supporting the requirements of Trustworthy AI.
+
+The research addresses this objective through three complementary methodological stages, each investigated in a separate setting. (i) \emph{Harmonization and Structuring} transforms heterogeneous clinical data into standardized representations through declarative specifications and automated validation. (ii) \emph{Semantic Enrichment} employs semantic technologies to create machine-interpretable representations of clinical event data and investigates their impact on AI-based prediction. (iii) \emph{Inference and Reasoning} combines explicit descriptions of AI model interfaces with semantic reasoning to match model requirements to available data and support automated model execution.
+
+The results demonstrate the feasibility of the proposed strategies across all three stages, highlighting their potential to systematize and automate the transformation of heterogeneous data into actionable knowledge. Finally, integrating data-centric and semantic perspectives complements model-centric AI development and lays the groundwork for trustworthy AI systems.
 \end{abstract}
 
 %----------------------------------------------------------------------------------------
 \tableofcontents   
 \listoffigures     % (optional) comment if empty
+\listoftables
 %\lstlistoflistings % (optional) comment if empty
 %----------------------------------------------------------------------------------------
 

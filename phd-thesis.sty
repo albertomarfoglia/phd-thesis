@@ -51,7 +51,7 @@
 
 \let\oldbibliography\bibliography
 \renewcommand{\bibliography}[1]{
-	\addcontentsline{toc}{part}{}
+	\cleardoublepage\phantomsection
 	\addcontentsline{toc}{chapter}{\bibname}
 	\oldbibliography{#1}
 }

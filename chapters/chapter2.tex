@@ -15,7 +15,7 @@ This conceptualization provides the basis for organizing the contributions prese
 \section{Research Methodology}
 \label{sec:research_methodology}
 
-The thesis adopts a data-centric perspective to investigate how heterogeneous data can be progressively transformed into knowledge and ultimately support AI-enabled decision-making. Three complementary dimensions provide the conceptual and methodological foundation of this work.
+Methodologically, this thesis adopts a design-oriented research approach. With the exception of the systematic literature review, its contributions take the form of artifacts, each developed to address an identified problem and evaluated against that problem to generate knowledge \cite{hevner_design_2004}. The evaluation strategy is tailored to the maturity of each artifact, ranging from illustrative scenarios for architectural designs to technical evaluations of implemented systems (Table~\ref{tab:article_contributions}). The research is structured around the three complementary dimensions introduced above, each of which is discussed in turn.
 
 First, the thesis adopts the DIKW model as a conceptual lens for structuring its research trajectory. Its conventional linear interpretation has been criticized for overlooking the roles of context, experience, human judgment, and social factors in the formation of knowledge and wisdom~\cite{peters_dikw_2025}. Accordingly, DIKW is not treated here as a strict or deterministic hierarchy, nor is its final stage understood as an attempt to computationally reproduce human wisdom. Rather, it provides a conceptual framework for characterizing the successive transformations examined across the thesis and for situating its research contributions within a common conceptual trajectory. Within this interpretation, the four levels represent progressively richer forms of representation and use. \emph{Data} refers to heterogeneous observations originating from different sources. \emph{Information} refers to data that have been organized and harmonized into a structured representation. \emph{Knowledge} adds explicit semantics, relationships, and contextual information. Finally, \emph{Wisdom} is operationalized in this thesis as the application of knowledge and inference to derive actionable insights that can support informed and human-centered decision-making.
 
@@ -39,19 +39,72 @@ The three methodological stages should not, however, be understood as strictly s
 \begin{table}[htpb]
 \caption{Mapping of the six research contributions to the thesis research questions and methodological stages.}
 \label{tab:article_contributions}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{ll>{\raggedright\arraybackslash}p{7.2cm}>{\raggedright\arraybackslash}p{4.4cm}c}
-\hline
-\textbf{Ref.} & \textbf{RQ / stage} & \textbf{Contribution} & \textbf{Form of evaluation} & \textbf{Section} \\ \hline
-\cite{marfoglia2026challenges} & \begin{tabular}[c]{@{}l@{}}RQ1\\ Harmonization and\\ Structuring\end{tabular} & Characterizes variation in health data standard adoption and implementation, including barriers to reliable, interoperable, and traceable data use. & Systematic review (99 studies, PRISMA) & \ref{sec:paper1} \\
-\cite{marfoglia_towards_2025} & \begin{tabular}[c]{@{}l@{}}RQ1\\ Harmonization and\\ Structuring\end{tabular} & Develops a modular transformation pipeline with declarative mappings and automated validation, supporting reusable and verifiable data preparation. & Verification on one real-world dataset & \ref{sec:paper2} \\
-\cite{marfoglia_meds-owl_2026} & \begin{tabular}[c]{@{}l@{}}RQ2\\ Semantic Enrichment\end{tabular} & Adds an explicit semantic layer to clinical event data and evaluates how representation granularity affects graph-based prediction. & Fidelity and scalability on four datasets; 11 prediction tasks & \ref{sec:paper3} \\
-\cite{marfoglia_2024_mimo} & \begin{tabular}[c]{@{}l@{}}RQ2\\ Semantic Enrichment\end{tabular} & Proposes a formal description of model inputs, outputs, and metadata to enable matching with patient data, making data--model dependencies explicit. & Conceptual design (evaluated in Paper~6) & \ref{sec:paper4} \\
-\cite{10.3389/fdgth.2023.1322428_carbonaro_connected} & \begin{tabular}[c]{@{}l@{}}RQ3\\ Inference and Reasoning\end{tabular} & Proposes an architecture integrating heterogeneous healthcare data in patient Digital Twins backed by knowledge graphs. & Literature-derived requirements; illustrative scenario & \ref{sec:paper5} \\
-\cite{MARFOGLIA2026108380} & \begin{tabular}[c]{@{}l@{}}RQ3\\ Inference and Reasoning\end{tabular} & Implements automated data--model binding and AI model integration in a Digital Twin platform. & Proof of concept: functional equivalence, model benchmarking, performance & \ref{sec:paper6} \\ \hline
-\end{tabular}%
-}
+\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{1.9cm} >{\raggedright\arraybackslash}p{2.3cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{3.0cm} c@{}}
+\toprule
+\textbf{Paper} & \textbf{RQ / stage} & \textbf{Contribution} & \textbf{Form of evaluation} & \textbf{Sect.} \\
+\midrule
+P1\newline\cite{marfoglia2026challenges} & RQ1: Harmonization and Structuring & Characterizes variation in health data standard adoption and implementation, including barriers to reliable, interoperable, and traceable data use. & Systematic review (99 studies, PRISMA) & \ref{sec:paper1} \\
+\addlinespace
+P2\newline\cite{marfoglia_towards_2025} & RQ1: Harmonization and Structuring & Develops a modular transformation pipeline with declarative mappings and automated validation, supporting reusable and verifiable data preparation. & Verification on one real-world dataset & \ref{sec:paper2} \\
+\addlinespace
+P3\newline\cite{marfoglia_meds-owl_2026} & RQ2: Semantic Enrichment & Adds an explicit semantic layer to clinical event data and evaluates how representation granularity affects graph-based prediction. & Fidelity and scalability on four datasets; 11 prediction tasks & \ref{sec:paper3} \\
+\addlinespace
+P4\newline\cite{marfoglia_2024_mimo} & RQ2: Semantic Enrichment & Proposes a formal description of model inputs, outputs, and metadata to enable matching with patient data, making data--model dependencies explicit. & Conceptual design (evaluated in Paper~6) & \ref{sec:paper4} \\
+\addlinespace
+P5\newline\cite{10.3389/fdgth.2023.1322428_carbonaro_connected} & RQ3: Inference and Reasoning & Proposes an architecture integrating heterogeneous healthcare data in patient Digital Twins backed by knowledge graphs. & Literature-derived requirements; illustrative scenario & \ref{sec:paper5} \\
+\addlinespace
+P6\newline\cite{MARFOGLIA2026108380} & RQ3: Inference and Reasoning & Implements automated data--model binding and AI model integration in a Digital Twin platform. & Proof of concept: functional equivalence, model benchmarking, performance & \ref{sec:paper6} \\
+\bottomrule
+\end{tabularx}
 \end{table}
+
+Figure~\ref{fig:paper_relationships} complements the table by showing how the six contributions relate to one another. It distinguishes the cases in which one contribution builds directly on another from those in which two contributions are connected only conceptually, without any exchange of data between them.
+
+\begin{figure}[!htb]
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  stage/.style={text width=2.9cm, align=flush center, font=\footnotesize\bfseries, fill=gray!25, draw=gray!70, rounded corners=2pt, minimum height=1.45cm, inner sep=4pt},
+  paper/.style={text width=2.9cm, align=flush center, draw=black, fill=gray!6, rounded corners=2pt, minimum height=2.3cm, inner sep=4pt},
+  builds/.style={-{Latex[length=2.2mm]}, thick},
+  concept/.style={dashed, thick, gray!70!black},
+  flow/.style={-{Latex[length=3mm,width=3mm]}, line width=2.2pt, gray!55},
+  lbl/.style={font=\footnotesize, text=black, fill=white, inner sep=2pt, align=center},
+  flbl/.style={font=\footnotesize\itshape, text=black, align=center},
+]
+% stage headers and the progression that links them
+\node[stage] (s1) at (0,0)    {Harmonization and Structuring (RQ1)};
+\node[stage] (s2) at (5.2,0)  {Semantic Enrichment (RQ2)};
+\node[stage] (s3) at (10.4,0) {Inference and Reasoning (RQ3)};
+\draw[flow] (s1) -- node[flbl, above=2pt] {information} (s2);
+\draw[flow] (s2) -- node[flbl, above=2pt] {knowledge} (s3);
+% papers
+\node[paper] (p1) at (0,-2.6)    {\textbf{Paper 1}\\Systematic review of standard adoption};
+\node[paper] (p2) at (0,-7.2)    {\textbf{Paper 2}\\Transformation pipeline\\{\itshape standard: FHIR}};
+\node[paper] (p3) at (5.2,-2.6)  {\textbf{Paper 3}\\MEDS-OWL and graph-based prediction\\{\itshape standard: MEDS}};
+\node[paper] (p4) at (5.2,-7.2)  {\textbf{Paper 4}\\Manifest: description of model interfaces};
+\node[paper] (p5) at (10.4,-2.6) {\textbf{Paper 5}\\CONNECTED architecture\\{\itshape standard: FHIR}};
+\node[paper] (p6) at (10.4,-7.2) {\textbf{Paper 6}\\CONNECTED implementation with AI models\\{\itshape standard: FHIR}};
+% direct dependencies
+\draw[builds] (p5) -- node[lbl] {implemented in} (p6);
+\draw[builds] (p5.south west) -- node[lbl] {extended by} (p4.north east);
+\draw[builds] (p4) -- node[lbl, above=1pt, fill=none] {realized} node[lbl, below=1pt, fill=none] {in} (p6);
+% conceptual links within a stage
+\draw[concept] (p1) -- node[lbl] {problem and\\mechanism} (p2);
+\draw[concept] (p3) -- node[lbl] {meaning of data\\and of models} (p4);
+% conceptual links across stages
+\draw[concept] (p2.north east) -- node[lbl] {choice of\\target standard} (p3.south west);
+\draw[concept] (p3) -- node[lbl, above=1pt, fill=none] {knowledge} node[lbl, below=1pt, fill=none] {graphs} (p5);
+\draw[concept] (p2.south) -- ++(0,-0.75) -| node[lbl, pos=0.25] {shared standard (FHIR)} (p6.south);
+% legend
+\draw[flow] (-1.5,-10.1) -- ++(1.0,0) node[right, font=\footnotesize, black] {progression of stages};
+\draw[builds] (3.8,-10.1) -- ++(1.0,0) node[right, font=\footnotesize] {builds directly on};
+\draw[concept] (8.5,-10.1) -- ++(1.0,0) node[right, font=\footnotesize, black] {conceptual link};
+\end{tikzpicture}
+\caption{Relationships among the six contributions. The gray arrows show the progression that links the three stages: each stage produces the kind of representation on which the next one operates. Solid arrows indicate that a contribution builds directly on another. Dashed lines indicate conceptual links, within and across stages, that do not involve an exchange of data: the stages were investigated as complementary studies and not as a single pipeline.}
+\label{fig:paper_relationships}
+\end{figure}
 
 
 \section{Harmonization and Structuring}
@@ -78,6 +131,27 @@ The value of interoperability extends beyond technical efficiency. OECD estimate
 As reported by a recent OECD study~\cite{oecd_interoperability_2026}, many countries are pursuing the harmonization of health data and processes through the adoption of data standards, with 41\% relying exclusively on international standards. The health data standards landscape is extensive and covers different functions, broadly including vocabulary, content, communication, privacy and security, and identifiers~\cite{oecd_interoperability_2026}. Consequently, the selection and implementation of standards should consider the entire data lifecycle.
 
 Several standards address different aspects of the health information ecosystem. As illustrated in Figure~\ref{fig:health_data_standards}, terminologies such as SNOMED CT and ICD-10 support the representation of clinical concepts and classifications, while HL7 FHIR enables the exchange of healthcare information. Other standards address longitudinal record management, such as openEHR, or the organization of observational data for secondary use, such as OMOP-CDM~\cite{oecd_interoperability_2026}. Their complementary roles highlight that interoperability depends not only on adopting standards, but also on selecting and applying them according to the intended use and position of data within the health information lifecycle.
+
+Table~\ref{tab:data_standards} compares the data standards that recur in this thesis. In addition to the three established standards, it includes the Medical Event Data Standard (MEDS)~\cite{bert_arnrich_medical_2024,mcdermott_meds_2024}, a more recent representation designed for machine-learning workflows, which is the starting point of the third contribution.
+
+\begin{table}[!htb]
+\caption{Data standards that recur in this thesis, with their primary purpose, organizing principle, and role in the contributions. P1--P6 refer to Papers~1--6.}
+\label{tab:data_standards}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.2cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Standard} & \textbf{Primary purpose} & \textbf{Organizing principle} & \textbf{Role in this thesis} \\
+\midrule
+HL7 FHIR & Exchange of healthcare information between systems & Modular resources exposed through a web interface & Analyzed in the review (P1); target of the transformation pipeline (P2); data model of the Digital Twin (P5--P6) \\
+\addlinespace
+\mbox{OMOP-CDM} & Organization of observational data for secondary use and research & Relational common data model with standardized vocabularies & Analyzed in the review (P1) \\
+\addlinespace
+openEHR & Longitudinal management of the health record & Clinical models (archetypes and templates) kept separate from data storage & Analyzed in the review (P1) \\
+\addlinespace
+MEDS & Reproducible machine learning on longitudinal clinical data & Minimal event records: subject, time, code, and value & Starting point of MEDS-OWL (P3) \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 \begin{figure}[t]
     \centering
@@ -163,7 +237,7 @@ Knowledge graphs have accordingly been investigated as a means of building knowl
 
 Explicit semantic representations can further support the derivation of knowledge that is not directly encoded in the original data. Ontologies provide the conceptual structures and logical constraints for representing domain knowledge, while rule-based formalisms such as the Semantic Web Rule Language (SWRL) enable additional facts to be inferred from explicitly represented information.
 
-This capability has been explored to combine machine learning with explicit domain reasoning in healthcare-oriented AI systems~\cite{sharma_ontoxai_2024}. More broadly, neuro-symbolic approaches combine the representation and reasoning capabilities of symbolic systems with the predictive capabilities of neural networks~\cite{garcez_neurosymbolic_2023,bhuyan_neuro-symbolic_2024,yang_give_2024}. Recent approaches have also investigated the transformation of learned neural behavior into symbolic rules or knowledge representations, making aspects of model behavior more explicit and amenable to reasoning~\cite{terziyan_semantic_2026}. For example, OntoXAI uses SWRL-based representations to generate explanations from classification rules, while other neural-symbolic approaches integrate deep learning with ontologies and knowledge graphs to align learned representations with structured knowledge and support reasoning across heterogeneous information sources~\cite{cheng_neural-symbolic_2024}.
+This capability has been explored to combine machine learning with explicit domain reasoning in healthcare-oriented AI systems~\cite{sharma_ontoxai_2024}. More broadly, neuro-symbolic approaches combine the representation and reasoning capabilities of symbolic systems with the predictive capabilities of neural networks~\cite{garcez_neurosymbolic_2023,bhuyan_neuro-symbolic_2024,yang_give_2024}. Recent approaches have also investigated the transformation of learned neural behavior into symbolic rules or knowledge representations, making aspects of model behavior more explicit and amenable to reasoning~\cite{terziyan_semantic_2026}. For example, OntoXAI uses SWRL-based representations to generate explanations from classification rules~\cite{sharma_ontoxai_2024}, while other neural-symbolic approaches integrate deep learning with ontologies and knowledge graphs to align learned representations with structured knowledge and support reasoning across heterogeneous information sources~\cite{cheng_neural-symbolic_2024}.
 
 Overall, semantic representations provide the formal basis for making domain knowledge explicit and computationally accessible. The resulting knowledge can then be queried, integrated, and subjected to logical or computational inference. Within the data-centric perspective of this thesis, these mechanisms therefore provide the means through which structured information can be transformed into a machine-interpretable knowledge layer. Their subsequent exploitation for prediction, simulation, and decision support is considered in the \emph{Inference and Reasoning} stage.
 
